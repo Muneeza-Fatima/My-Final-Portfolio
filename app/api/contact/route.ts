@@ -7,7 +7,6 @@ const resend = new Resend(
 );
 
 
-
 export async function POST(
   request: Request
 ) {
