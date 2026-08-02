@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
 
 const particles = [
   { size: "h-1.5 w-1.5", left: "15%", top: "25%" },
@@ -10,8 +12,51 @@ const particles = [
   { size: "h-1.5 w-1.5", left: "90%", top: "60%" },
 ];
 
+
 export function HeroBackground() {
+
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" &&
+    window.innerWidth < 768
+  );
+
+
+
+  useEffect(() => {
+
+    const handleResize = () => {
+
+      setIsMobile(
+        window.innerWidth < 768
+      );
+
+    };
+
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+
+
+    return () => {
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+
+    };
+
+
+  }, []);
+
+
+
+
   return (
+
     <div
       className="
         pointer-events-none
@@ -22,18 +67,30 @@ export function HeroBackground() {
         bg-[#050505]
       "
     >
+
+
+
       {/* Blue Glow */}
 
       <motion.div
-        animate={{
-          x: [0, 60, 0],
-          y: [0, -30, 0],
-        }}
+
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x:[0,60,0],
+                y:[0,-30,0],
+              }
+        }
+
+
         transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: "easeInOut",
+          duration:14,
+          repeat:Infinity,
+          ease:"easeInOut",
         }}
+
+
         className="
           absolute
           left-1/2
@@ -47,20 +104,34 @@ export function HeroBackground() {
           transform-gpu
           will-change-transform
         "
+
       />
+
+
+
 
       {/* Purple Glow */}
 
       <motion.div
-        animate={{
-          x: [0, -50, 0],
-          y: [0, 40, 0],
-        }}
+
+
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x:[0,-50,0],
+                y:[0,40,0],
+              }
+        }
+
+
         transition={{
-          duration: 16,
-          repeat: Infinity,
-          ease: "easeInOut",
+          duration:16,
+          repeat:Infinity,
+          ease:"easeInOut",
         }}
+
+
         className="
           absolute
           bottom-20
@@ -74,37 +145,78 @@ export function HeroBackground() {
           transform-gpu
           will-change-transform
         "
+
       />
 
-      {/* Particles */}
 
-      {particles.map((particle, index) => (
-        <motion.span
-          key={index}
-          animate={{
-            y: [0, -35, 0],
-            opacity: [0.15, 0.7, 0.15],
-          }}
-          transition={{
-            duration: 5 + index,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: index,
-          }}
-          className={`
-            absolute
-            ${particle.size}
-            rounded-full
-            bg-white
-            transform-gpu
-            will-change-transform
-          `}
-          style={{
-            left: particle.left,
-            top: particle.top,
-          }}
-        />
-      ))}
+
+
+
+      {/* Particles Desktop Only */}
+
+
+      {!isMobile && (
+
+        <>
+          {particles.map((particle,index)=>(
+
+
+            <motion.span
+
+              key={index}
+
+
+              animate={{
+                y:[
+                  0,
+                  -35,
+                  0,
+                ],
+
+                opacity:[
+                  0.15,
+                  0.7,
+                  0.15,
+                ],
+              }}
+
+
+              transition={{
+                duration:5 + index,
+                repeat:Infinity,
+                ease:"easeInOut",
+                delay:index,
+              }}
+
+
+
+              className={`
+                absolute
+                ${particle.size}
+                rounded-full
+                bg-white
+                transform-gpu
+                will-change-transform
+              `}
+
+
+              style={{
+                left:particle.left,
+                top:particle.top,
+              }}
+
+            />
+
+
+          ))}
+        </>
+
+      )}
+
+
+
     </div>
+
   );
+
 }
