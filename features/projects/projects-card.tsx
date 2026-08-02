@@ -9,6 +9,7 @@ import {
 
 
 interface Project {
+
   number:string;
   title:string;
   category:string;
@@ -19,19 +20,26 @@ interface Project {
   image:string;
   liveUrl:string;
   githubUrl:string;
+
 }
+
 
 
 interface Props {
+
   project:Project;
   index:number;
+
 }
+
 
 
 
 export function ProjectCard({
+
   project,
   index,
+
 }:Props){
 
 
@@ -40,24 +48,28 @@ return (
 <motion.div
 
 initial={{
-opacity:0,
-y:25,
+  opacity:0,
+  y:25,
 }}
 
 whileInView={{
-opacity:1,
-y:0,
+  opacity:1,
+  y:0,
 }}
 
 viewport={{
-once:true,
-amount:0.15,
+
+  once:true,
+  amount:0.15,
+
 }}
 
 transition={{
-duration:0.55,
-delay:index * 0.08,
-ease:"easeOut",
+
+  duration:0.55,
+  delay:index * 0.08,
+  ease:"easeOut",
+
 }}
 
 
@@ -78,19 +90,22 @@ shadow-[0_20px_50px_rgba(0,0,0,0.25)]
 
 
 <div
+
 className="
 grid
 gap-10
 lg:grid-cols-2
 lg:items-center
 "
+
 >
 
 
-{/* Image */}
+{/* IMAGE */}
 
 
 <div
+
 className="
 overflow-hidden
 rounded-3xl
@@ -98,10 +113,12 @@ border
 border-white/10
 bg-black/30
 "
+
 >
 
 
 <div
+
 className="
 flex
 items-center
@@ -112,6 +129,7 @@ bg-white/[0.04]
 px-5
 py-3
 "
+
 >
 
 <span className="h-2.5 w-2.5 rounded-full bg-red-400/70"/>
@@ -122,13 +140,19 @@ py-3
 
 
 
+
 <div
+
 className="
 relative
 aspect-[16/10]
+w-full
 overflow-hidden
+bg-black/20
 "
+
 >
+
 
 <Image
 
@@ -140,29 +164,36 @@ fill
 
 sizes="
 (max-width:768px) 100vw,
-50vw
+(max-width:1280px) 50vw,
+600px
 "
 
 className="
-object-cover
-transition
+object-contain
+p-2
+transition-transform
 duration-500
-lg:group-hover:scale-105
+ease-out
+lg:group-hover:scale-[1.03]
 "
 
 />
 
 
+
 <div
+
 className="
 absolute
 inset-0
 bg-gradient-to-t
-from-black/40
+from-black/30
 via-transparent
 to-transparent
+pointer-events-none
 "
-/>
+
+ />
 
 
 </div>
@@ -174,43 +205,56 @@ to-transparent
 
 
 
-{/* Content */}
+{/* CONTENT */}
 
 
 <div
+
 className="
 flex
 flex-col
 "
+
 >
 
 
 <span
+
 className="
 text-xs
 uppercase
 tracking-[0.35em]
 text-blue-300
 "
+
 >
+
 {project.number}
+
 </span>
 
 
 
+
 <p
+
 className="
 mt-4
 text-sm
 text-white/50
 "
+
 >
+
 {project.category}
+
 </p>
 
 
 
+
 <h3
+
 className="
 mt-3
 text-3xl
@@ -219,27 +263,38 @@ tracking-tight
 text-white
 md:text-4xl
 "
+
 >
+
 {project.title}
+
 </h3>
 
 
 
+
 <p
+
 className="
 mt-5
 leading-relaxed
 text-white/60
 "
+
 >
+
 {project.description}
+
 </p>
 
 
 
 
 
+
+
 <div
+
 className="
 mt-8
 space-y-5
@@ -249,70 +304,95 @@ border-white/10
 bg-black/20
 p-5
 "
+
 >
 
 
-{[
+{
+
+[
+
 {
 title:"Role",
 value:project.role,
 },
+
 {
 title:"Built With",
 value:project.tech.join(" • "),
 },
+
 {
 title:"Focus",
 value:project.focus,
 },
-].map((item)=>(
+
+]
+
+.map((item)=>(
 
 
 <div key={item.title}>
 
 
 <p
+
 className="
 text-xs
 uppercase
 tracking-[0.25em]
 text-white/40
 "
+
 >
+
 {item.title}
+
 </p>
 
 
+
 <p
+
 className="
 mt-2
 text-sm
 text-white/80
 "
+
 >
+
 {item.value}
+
 </p>
 
 
 </div>
 
 
-))}
+))
+
+
+}
 
 
 </div>
+
+
 
 
 
 
 
 <div
+
 className="
 mt-8
 flex
 flex-wrap
 gap-4
 "
+
 >
 
 
@@ -348,6 +428,8 @@ Live Demo
 <ExternalLink size={16}/>
 
 </a>
+
+
 
 
 
@@ -398,6 +480,7 @@ GitHub
 
 
 </motion.div>
+
 
 );
 

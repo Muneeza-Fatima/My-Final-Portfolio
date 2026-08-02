@@ -1,27 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 
 export function ContactForm() {
 
+  const [loading, setLoading] = useState(false);
 
-  const [loading,setLoading] = useState(false);
-
-  const [status,setStatus] = useState("");
-
+  const [status, setStatus] = useState("");
 
 
-  const [formData,setFormData] = useState({
+  const [formData, setFormData] = useState({
 
-    name:"",
-    email:"",
-    country:"",
-    projectType:"",
-    message:"",
+    name: "",
+    email: "",
+    country: "",
+    projectType: "",
+    message: "",
 
   });
 
@@ -33,26 +29,24 @@ export function ContactForm() {
       HTMLTextAreaElement |
       HTMLSelectElement
     >
-  ){
+  ) {
 
-    setFormData({
+    setFormData((prev) => ({
 
-      ...formData,
+      ...prev,
 
-      [e.target.name]:
-      e.target.value,
+      [e.target.name]: e.target.value,
 
-    });
+    }));
 
   }
 
 
 
 
-
   async function handleSubmit(
     e: React.FormEvent
-  ){
+  ) {
 
     e.preventDefault();
 
@@ -66,31 +60,38 @@ export function ContactForm() {
     try {
 
 
-      const response =
-      await fetch(
-        "/api/contact",
-        {
-          method:"POST",
+      const response = await fetch(
 
-          headers:{
-            "Content-Type":
-            "application/json",
+        "/api/contact",
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type": "application/json",
+
           },
 
-          body:
-          JSON.stringify(formData),
+
+          body: JSON.stringify(formData),
+
+
+          signal: AbortSignal.timeout(15000),
 
         }
+
       );
 
 
 
-      const data =
-      await response.json();
+      const data = await response.json();
 
 
 
-      if(data.success){
+      if (data.success) {
+
 
         setStatus(
           "✓ Message sent successfully. I'll get back to you soon."
@@ -99,22 +100,24 @@ export function ContactForm() {
 
         setFormData({
 
-          name:"",
-          email:"",
-          country:"",
-          projectType:"",
-          message:"",
+          name: "",
+          email: "",
+          country: "",
+          projectType: "",
+          message: "",
 
         });
 
 
       }
 
-      else{
+      else {
+
 
         setStatus(
-          data.message
+          data.message || "Failed to send message."
         );
+
 
       }
 
@@ -122,23 +125,30 @@ export function ContactForm() {
 
     }
 
-    catch(error){
+    catch(error) {
+
+
+      console.error(error);
+
 
       setStatus(
-        "Something went wrong. Please try again."
+        "Network error. Please try again."
       );
+
 
     }
 
 
-    finally{
+    finally {
+
 
       setLoading(false);
 
+
     }
 
-  }
 
+  }
 
 
 
@@ -161,7 +171,6 @@ export function ContactForm() {
     >
 
 
-
       <div
         className="
           grid
@@ -171,6 +180,8 @@ export function ContactForm() {
       >
 
         <input
+
+          required
 
           name="name"
 
@@ -199,13 +210,15 @@ export function ContactForm() {
 
         <input
 
+          required
+
           name="email"
+
+          type="email"
 
           value={formData.email}
 
           onChange={handleChange}
-
-          type="email"
 
           placeholder="Email Address"
 
@@ -242,81 +255,70 @@ export function ContactForm() {
 
 
         <select
-  name="country"
-  value={formData.country}
-  onChange={handleChange}
-  className="
-    rounded-xl
-    border
-    border-white/10
-    bg-black/40
-    px-5
-    py-4
-    text-white
-    outline-none
-    focus:border-blue-400/50
-  "
->
 
-  <option 
-    value=""
-    className="bg-black text-white"
-  >
-    Select Country
-  </option>
+          required
 
-  <option 
-    value="United Kingdom"
-    className="bg-black text-white"
-  >
-    United Kingdom
-  </option>
+          name="country"
 
-  <option 
-    value="United States"
-    className="bg-black text-white"
-  >
-    United States
-  </option>
+          value={formData.country}
 
-  <option 
-    value="Canada"
-    className="bg-black text-white"
-  >
-    Canada
-  </option>
+          onChange={handleChange}
 
-  <option 
-    value="Australia"
-    className="bg-black text-white"
-  >
-    Australia
-  </option>
+          className="
+            rounded-xl
+            border
+            border-white/10
+            bg-black/40
+            px-5
+            py-4
+            text-white
+            outline-none
+            focus:border-blue-400/50
+          "
 
-  <option 
-    value="Pakistan"
-    className="bg-black text-white"
-  >
-    Pakistan
-  </option>
+        >
 
-  <option 
-    value="Other"
-    className="bg-black text-white"
-  >
-    Other
-  </option>
+          <option value="">
+            Select Country
+          </option>
 
-</select>
+          <option>
+            United Kingdom
+          </option>
+
+          <option>
+            United States
+          </option>
+
+          <option>
+            Canada
+          </option>
+
+          <option>
+            Australia
+          </option>
+
+          <option>
+            Pakistan
+          </option>
+
+          <option>
+            Other
+          </option>
+
+
+        </select>
+
+
 
 
         <input
 
+          required
+
           name="projectType"
 
-          value={
-            formData.projectType
-          }
+          value={formData.projectType}
 
           onChange={handleChange}
 
@@ -346,11 +348,11 @@ export function ContactForm() {
 
       <textarea
 
+        required
+
         name="message"
 
-        value={
-          formData.message
-        }
+        value={formData.message}
 
         onChange={handleChange}
 
@@ -381,12 +383,16 @@ export function ContactForm() {
 
       <button
 
+        type="submit"
+
         disabled={loading}
 
         className="
           mt-8
           flex
+          w-full
           items-center
+          justify-center
           gap-3
           rounded-xl
           bg-white
@@ -397,6 +403,7 @@ export function ContactForm() {
           text-black
           transition
           hover:-translate-y-1
+          active:scale-95
           disabled:opacity-50
         "
 
@@ -409,11 +416,13 @@ export function ContactForm() {
 
 
         {!loading && (
+
           <ArrowRight size={18}/>
+
         )}
 
-      </button>
 
+      </button>
 
 
 
