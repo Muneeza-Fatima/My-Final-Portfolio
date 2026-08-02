@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-
 import { ReactLenis } from "lenis/react";
 
 interface SmoothScrollProps {
@@ -11,18 +10,27 @@ interface SmoothScrollProps {
 export function SmoothScroll({
   children,
 }: SmoothScrollProps) {
+
   return (
     <ReactLenis
       root
+
       options={{
-        duration: 0.8,
-        lerp: 0.08,
+        duration: 1,
+        lerp: 0.1,
+
         smoothWheel: true,
-        syncTouch: true,
+
+        // Mobile optimization
+        syncTouch: false,
+
         touchMultiplier: 1,
-        wheelMultiplier: 1.2,
+
+        wheelMultiplier: 1,
+
         autoRaf: true,
       }}
+
     >
       {children}
     </ReactLenis>
