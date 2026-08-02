@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 
 const particles = [
@@ -38,7 +39,40 @@ const particles = [
 
 
 export function AboutBackground() {
+
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" &&
+    window.innerWidth < 768
+  );
+
+
+  useEffect(() => {
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+
+
+    return () => {
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+    };
+
+  }, []);
+
+
+
   return (
+
     <div
       className="
         pointer-events-none
@@ -50,21 +84,28 @@ export function AboutBackground() {
     >
 
 
-      {/* Main Cyan Glow */}
+
+      {/* Cyan Glow */}
 
       <motion.div
 
-        animate={{
-          x:[0,70,0],
-          y:[0,-50,0],
-          scale:[1,1.15,1],
-        }}
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x:[0,70,0],
+                y:[0,-50,0],
+                scale:[1,1.15,1],
+              }
+        }
+
 
         transition={{
           duration:20,
           repeat:Infinity,
           ease:"easeInOut",
         }}
+
 
         className="
           absolute
@@ -74,28 +115,35 @@ export function AboutBackground() {
           w-[520px]
           rounded-full
           bg-cyan-400/10
-          blur-[150px]
+          blur-[120px]
         "
 
       />
 
 
 
-      {/* Blue Depth Glow */}
+
+      {/* Blue Glow */}
 
       <motion.div
 
-        animate={{
-          x:[0,-80,0],
-          y:[0,60,0],
-          scale:[1,1.2,1],
-        }}
+        animate={
+          isMobile
+            ? undefined
+            : {
+                x:[0,-80,0],
+                y:[0,60,0],
+                scale:[1,1.2,1],
+              }
+        }
+
 
         transition={{
           duration:24,
           repeat:Infinity,
           ease:"easeInOut",
         }}
+
 
         className="
           absolute
@@ -105,7 +153,7 @@ export function AboutBackground() {
           w-[600px]
           rounded-full
           bg-blue-500/20
-          blur-[170px]
+          blur-[140px]
         "
 
       />
@@ -113,20 +161,34 @@ export function AboutBackground() {
 
 
 
-      {/* Subtle Violet Accent */}
+      {/* Violet Accent */}
 
       <motion.div
 
-        animate={{
-          opacity:[0.3,0.6,0.3],
-          scale:[1,1.1,1],
-        }}
+        animate={
+          isMobile
+            ? undefined
+            : {
+                opacity:[
+                  0.3,
+                  0.6,
+                  0.3,
+                ],
+                scale:[
+                  1,
+                  1.1,
+                  1,
+                ],
+              }
+        }
+
 
         transition={{
           duration:12,
           repeat:Infinity,
           ease:"easeInOut",
         }}
+
 
         className="
           absolute
@@ -138,7 +200,7 @@ export function AboutBackground() {
           -translate-y-1/2
           rounded-full
           bg-violet-500/10
-          blur-[130px]
+          blur-[120px]
         "
 
       />
@@ -147,49 +209,59 @@ export function AboutBackground() {
 
 
 
-      {/* Floating Particles */}
+      {/* Particles Desktop Only */}
 
-      {particles.map((particle,index)=>(
+      {!isMobile && (
 
-        <motion.span
+        <>
+          {particles.map((particle,index)=>(
 
-          key={index}
+            <motion.span
 
-          animate={{
-            y:[0,-25,0],
-            opacity:[
-              0.15,
-              0.7,
-              0.15,
-            ],
-          }}
+              key={index}
 
-          transition={{
-            duration:5 + index,
-            repeat:Infinity,
-            delay:particle.delay,
-            ease:"easeInOut",
-          }}
+              animate={{
+                y:[
+                  0,
+                  -25,
+                  0,
+                ],
+                opacity:[
+                  0.15,
+                  0.7,
+                  0.15,
+                ],
+              }}
 
-          className={`
-            absolute
-            ${particle.size}
-            rounded-full
-            bg-white/40
-          `}
+              transition={{
+                duration:5 + index,
+                repeat:Infinity,
+                delay:particle.delay,
+                ease:"easeInOut",
+              }}
 
-          style={{
-            left:particle.left,
-            top:particle.top,
-          }}
+              className={`
+                absolute
+                ${particle.size}
+                rounded-full
+                bg-white/40
+              `}
 
-        />
+              style={{
+                left:particle.left,
+                top:particle.top,
+              }}
 
-      ))}
+            />
+
+          ))}
+        </>
+
+      )}
 
 
 
-      {/* Soft Grid Texture */}
+
 
       <div
         className="
@@ -203,5 +275,6 @@ export function AboutBackground() {
 
 
     </div>
+
   );
 }
