@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
-  output: "export",
 
   reactStrictMode: true,
+
   devIndicators: false,
 
+
   images: {
+
     unoptimized: true,
 
     formats: [
@@ -15,19 +18,28 @@ const nextConfig: NextConfig = {
     ],
 
     remotePatterns: [],
+
   },
 
+
   experimental: {
+
     optimizePackageImports: [
       "lucide-react",
       "framer-motion",
     ],
+
   },
 
+
   compiler: {
+
     removeConsole:
       process.env.NODE_ENV === "production",
+
   },
+
 };
+
 
 export default nextConfig;
