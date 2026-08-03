@@ -1,88 +1,119 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-
-export function HeroButtons() {
-  return (
-    <div
-      className="
-        flex
-        flex-col
-        items-center
-        gap-4
-        sm:flex-row
-        sm:gap-5
-      "
-    >
-
-      {/* Primary Button */}
-      <motion.div
-        whileHover={{
-          y: -4,
-          scale: 1.04,
-        }}
-        whileTap={{
-          scale: 0.96,
-        }}
-      >
-        <Link
-          href="#projects"
-          className="
-            group
-            relative
-            flex
-            h-11
-            items-center
-            justify-center
-            rounded-full
-            bg-white
-            px-7
-            text-sm
-            font-medium
-            text-black
-            shadow-lg
-            transition
-          "
-        >
-          View My Work
-        </Link>
-      </motion.div>
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 
-      {/* Secondary Button */}
-      <motion.div
-        whileHover={{
-          y: -4,
-        }}
-        whileTap={{
-          scale: 0.96,
-        }}
-      >
-        <Link
-          href="#contact"
-          className="
-            flex
-            h-11
-            items-center
-            justify-center
-            rounded-full
-            border
-            border-white/20
-            bg-white/5
-            px-7
-            text-sm
-            font-medium
-            text-white
-            backdrop-blur-md
-            transition
-            hover:bg-white/10
-          "
-        >
-          Contact Me
-        </Link>
-      </motion.div>
+export function HeroButtons(){
 
-    </div>
-  );
+return(
+
+<div
+className="
+flex
+w-full
+flex-col
+gap-4
+
+sm:w-auto
+sm:flex-row
+"
+>
+
+
+<motion.div
+whileHover={{y:-3}}
+whileTap={{scale:.97}}
+>
+
+<Link
+
+href="#projects"
+
+className="
+flex
+h-12
+w-full
+
+items-center
+justify-center
+gap-2
+
+rounded-xl
+
+bg-white
+
+px-8
+
+text-sm
+font-semibold
+
+text-black
+
+sm:w-auto
+"
+
+>
+
+View My Work
+
+<ArrowRight size={16}/>
+
+</Link>
+
+</motion.div>
+
+
+
+
+<motion.div
+whileHover={{y:-3}}
+whileTap={{scale:.97}}
+>
+
+<Link
+
+href="#contact"
+
+className="
+flex
+h-12
+w-full
+
+items-center
+justify-center
+
+rounded-xl
+
+border
+
+border-white/15
+
+bg-white/5
+
+px-8
+
+text-sm
+
+font-semibold
+
+text-white
+
+sm:w-auto
+"
+
+>
+
+Let&apos;s Talk
+
+</Link>
+
+</motion.div>
+
+
+</div>
+
+);
+
 }

@@ -1,222 +1,61 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+export function HeroBackground(){
 
+return(
 
-const particles = [
-  { size: "h-1.5 w-1.5", left: "15%", top: "25%" },
-  { size: "h-2 w-2", left: "80%", top: "30%" },
-  { size: "h-1 w-1", left: "65%", top: "70%" },
-  { size: "h-2 w-2", left: "25%", top: "75%" },
-  { size: "h-1.5 w-1.5", left: "90%", top: "60%" },
-];
+<div
+className="
+absolute
+inset-0
+overflow-hidden
+bg-[#050816]
+pointer-events-none
+"
+>
 
+<div
+className="
+absolute
+left-1/2
+top-1/3
 
-export function HeroBackground() {
+h-[400px]
+w-[400px]
 
+-translate-x-1/2
 
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" &&
-    window.innerWidth < 768
-  );
+rounded-full
 
+bg-blue-500/20
 
+blur-[140px]
+"
+/>
 
-  useEffect(() => {
 
-    const handleResize = () => {
+<div
+className="
+absolute
+bottom-0
+left-1/2
 
-      setIsMobile(
-        window.innerWidth < 768
-      );
+h-[300px]
+w-[300px]
 
-    };
+-translate-x-1/2
 
+rounded-full
 
-    window.addEventListener(
-      "resize",
-      handleResize
-    );
+bg-purple-500/10
 
+blur-[120px]
+"
+/>
 
-    return () => {
 
-      window.removeEventListener(
-        "resize",
-        handleResize
-      );
+</div>
 
-    };
-
-
-  }, []);
-
-
-
-
-  return (
-
-    <div
-      className="
-        pointer-events-none
-        absolute
-        inset-0
-        z-0
-        overflow-hidden
-        bg-[#050505]
-      "
-    >
-
-
-
-      {/* Blue Glow */}
-
-      <motion.div
-
-        animate={
-          isMobile
-            ? undefined
-            : {
-                x:[0,60,0],
-                y:[0,-30,0],
-              }
-        }
-
-
-        transition={{
-          duration:14,
-          repeat:Infinity,
-          ease:"easeInOut",
-        }}
-
-
-        className="
-          absolute
-          left-1/2
-          top-32
-          h-[500px]
-          w-[500px]
-          -translate-x-1/2
-          rounded-full
-          bg-blue-600/30
-          blur-[110px]
-          transform-gpu
-          will-change-transform
-        "
-
-      />
-
-
-
-
-      {/* Purple Glow */}
-
-      <motion.div
-
-
-        animate={
-          isMobile
-            ? undefined
-            : {
-                x:[0,-50,0],
-                y:[0,40,0],
-              }
-        }
-
-
-        transition={{
-          duration:16,
-          repeat:Infinity,
-          ease:"easeInOut",
-        }}
-
-
-        className="
-          absolute
-          bottom-20
-          left-1/2
-          h-[420px]
-          w-[420px]
-          -translate-x-1/2
-          rounded-full
-          bg-purple-600/20
-          blur-[100px]
-          transform-gpu
-          will-change-transform
-        "
-
-      />
-
-
-
-
-
-      {/* Particles Desktop Only */}
-
-
-      {!isMobile && (
-
-        <>
-          {particles.map((particle,index)=>(
-
-
-            <motion.span
-
-              key={index}
-
-
-              animate={{
-                y:[
-                  0,
-                  -35,
-                  0,
-                ],
-
-                opacity:[
-                  0.15,
-                  0.7,
-                  0.15,
-                ],
-              }}
-
-
-              transition={{
-                duration:5 + index,
-                repeat:Infinity,
-                ease:"easeInOut",
-                delay:index,
-              }}
-
-
-
-              className={`
-                absolute
-                ${particle.size}
-                rounded-full
-                bg-white
-                transform-gpu
-                will-change-transform
-              `}
-
-
-              style={{
-                left:particle.left,
-                top:particle.top,
-              }}
-
-            />
-
-
-          ))}
-        </>
-
-      )}
-
-
-
-    </div>
-
-  );
+);
 
 }

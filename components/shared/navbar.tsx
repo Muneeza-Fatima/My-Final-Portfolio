@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Container } from "@/components/ui/container";
 
@@ -32,215 +32,440 @@ const navItems = [
 ];
 
 
+
 export function Navbar() {
 
   const [open, setOpen] = useState(false);
 
 
+
   useEffect(() => {
 
-    const handleScroll = () => {
+    const closeMenu = () => {
       setOpen(false);
     };
 
 
     window.addEventListener(
       "scroll",
-      handleScroll
+      closeMenu
     );
 
 
     return () => {
       window.removeEventListener(
         "scroll",
-        handleScroll
+        closeMenu
       );
     };
 
   }, []);
 
 
+
   return (
 
-    <header
+    <motion.header
+
+      initial={{
+        opacity:0,
+        y:-20,
+      }}
+
+      animate={{
+        opacity:1,
+        y:0,
+      }}
+
+      transition={{
+        duration:0.6,
+      }}
+
       className="
         fixed
         inset-x-0
         top-0
         z-[999]
-        bg-[#050505]/80
-        backdrop-blur-xl
-        pt-4
+        pt-5
       "
+
     >
 
       <Container>
 
         <nav
           className="
-            relative
-            z-[1000]
-            rounded-full
+            flex
+            items-center
+            justify-between
+
+            rounded-2xl
+
             border
             border-white/10
-            bg-transparent
+
+            bg-[#050816]/70
+
             px-5
             py-3
+
+            shadow-2xl
+
+            backdrop-blur-xl
+
+
+            md:px-7
           "
         >
 
-          <div
+
+          {/* Logo */}
+
+          <Link
+            href="/"
             className="
+              group
               flex
-              items-center
-              justify-between
+              flex-col
             "
           >
 
-            <Link
-              href="/"
+            <span
               className="
-                flex
-                flex-col
-                leading-tight
+                text-base
+                font-semibold
+                tracking-tight
                 text-white
+
+                md:text-lg
               "
             >
+              Muneeza Fatima
+            </span>
 
-              <span
+
+            <span
+              className="
+                text-xs
+                text-neutral-400
+              "
+            >
+              Frontend Engineer
+            </span>
+
+
+          </Link>
+
+
+
+
+
+          {/* Desktop Menu */}
+
+          <div
+            className="
+              hidden
+
+              items-center
+
+              gap-8
+
+              md:flex
+            "
+          >
+
+            {navItems.map((item)=>(
+
+              <Link
+
+                key={item.title}
+
+                href={item.href}
+
                 className="
-                  text-lg
-                  font-semibold
-                "
-              >
-                Muneeza Fatima
-              </span>
+                  group
+                  relative
 
+                  text-sm
 
-              <span
-                className="
-                  text-xs
                   text-neutral-400
+
+                  transition
+
+                  hover:text-white
                 "
+
               >
-                Frontend Engineer
-              </span>
 
-            </Link>
+                {item.title}
 
 
-
-            <div
-              className="
-                hidden
-                items-center
-                gap-8
-                md:flex
-              "
-            >
-
-              {navItems.map((item) => (
-
-                <Link
-                  key={item.title}
-                  href={item.href}
+                <span
                   className="
-                    text-sm
-                    text-neutral-400
-                    transition
-                    hover:text-white
+                    absolute
+                    -bottom-1
+                    left-0
+                    h-px
+                    w-0
+                    bg-white
+                    transition-all
+                    duration-300
+                    group-hover:w-full
                   "
-                >
-                  {item.title}
-                </Link>
-
-              ))}
-
-            </div>
+                />
 
 
+              </Link>
 
-            <button
-              type="button"
-              onClick={() => setOpen(!open)}
-              className="
-                flex
-                h-10
-                w-10
-                items-center
-                justify-center
-                rounded-lg
-                border
-                border-white/10
-                bg-transparent
-                text-white
-                outline-none
-                overflow-hidden
-                md:hidden
-              "
-              style={{
-                WebkitTapHighlightColor: "transparent",
-              }}
-            >
-
-              {open ? (
-                <X size={22} />
-              ) : (
-                <Menu size={22} />
-              )}
-
-            </button>
+            ))}
 
 
           </div>
 
 
 
-          {open && (
 
-            <div
-              className="
-                mt-3
-                flex
-                flex-col
-                gap-3
-                rounded-2xl
-                border
-                border-white/10
-                bg-black/90
-                p-4
-                backdrop-blur-xl
-                md:hidden
-              "
-            >
 
-              {navItems.map((item) => (
+          {/* Desktop CTA */}
 
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="
-                    text-sm
-                    text-neutral-300
-                    transition
-                    hover:text-white
-                  "
-                >
-                  {item.title}
-                </Link>
+          <Link
 
-              ))}
+            href="#contact"
 
-            </div>
+            className="
+              hidden
 
-          )}
+              items-center
+
+              gap-2
+
+              rounded-xl
+
+              bg-white
+
+              px-5
+
+              py-2.5
+
+              text-sm
+
+              font-medium
+
+              text-black
+
+              transition
+
+              hover:bg-neutral-200
+
+
+              md:flex
+            "
+
+          >
+
+            Let&apos;s Talk
+
+            <ArrowRight size={15}/>
+
+
+          </Link>
+
+
+
+
+
+
+          {/* Mobile Button */}
+
+          <button
+
+            type="button"
+
+            onClick={()=>setOpen(!open)}
+
+            className="
+              flex
+
+              h-10
+
+              w-10
+
+              items-center
+
+              justify-center
+
+              rounded-xl
+
+              border
+
+              border-white/10
+
+              text-white
+
+              md:hidden
+            "
+
+            style={{
+              WebkitTapHighlightColor:"transparent",
+            }}
+
+          >
+
+            {open ? (
+              <X size={21}/>
+            ):(
+              <Menu size={21}/>
+            )}
+
+          </button>
+
+
 
         </nav>
 
+
+
+
+
+        {/* Mobile Menu */}
+
+
+        <AnimatePresence>
+
+        {open && (
+
+          <motion.div
+
+            initial={{
+              opacity:0,
+              height:0,
+              y:-10,
+            }}
+
+            animate={{
+              opacity:1,
+              height:"auto",
+              y:0,
+            }}
+
+            exit={{
+              opacity:0,
+              height:0,
+              y:-10,
+            }}
+
+            className="
+              mt-3
+
+              overflow-hidden
+
+              rounded-2xl
+
+              border
+
+              border-white/10
+
+              bg-[#050816]/90
+
+              p-5
+
+              backdrop-blur-xl
+
+              md:hidden
+            "
+
+          >
+
+            <div
+              className="
+                flex
+                flex-col
+                gap-4
+              "
+            >
+
+            {navItems.map((item)=>(
+
+              <Link
+
+                key={item.title}
+
+                href={item.href}
+
+                onClick={()=>setOpen(false)}
+
+                className="
+                  text-sm
+                  text-neutral-300
+                  transition
+                  hover:text-white
+                "
+
+              >
+
+                {item.title}
+
+              </Link>
+
+            ))}
+
+
+
+            <Link
+
+              href="#contact"
+
+              onClick={()=>setOpen(false)}
+
+              className="
+                mt-2
+
+                flex
+
+                items-center
+
+                justify-center
+
+                gap-2
+
+                rounded-xl
+
+                bg-white
+
+                py-3
+
+                text-sm
+
+                font-medium
+
+                text-black
+              "
+
+            >
+
+              Let&apos;s Talk
+
+              <ArrowRight size={15}/>
+
+            </Link>
+
+
+            </div>
+
+
+          </motion.div>
+
+        )}
+
+        </AnimatePresence>
+
+
+
       </Container>
 
-    </header>
+
+    </motion.header>
 
   );
+
 }

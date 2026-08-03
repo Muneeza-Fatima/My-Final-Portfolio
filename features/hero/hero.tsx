@@ -1,12 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
 
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -19,384 +13,316 @@ import { HeroTrust } from "./hero-trust";
 
 export function Hero() {
 
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  const [isMobile, setIsMobile] = useState(false);
-
-
-  useEffect(() => {
-
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-
-    window.addEventListener(
-      "resize",
-      checkMobile
-    );
-
-    return () => {
-      window.removeEventListener(
-        "resize",
-        checkMobile
-      );
-    };
-
-  }, []);
-
-
-
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset:[
-      "start start",
-      "end start",
-    ],
-  });
-
-
-
-  const textY = useTransform(
-    scrollYProgress,
-    [0,0.7],
-    [0,0]
-  );
-
-
-  const textOpacity = useTransform(
-    scrollYProgress,
-    [0,0.7],
-    [1,1]
-  );
-
-
-
-  const imageY = useTransform(
-    scrollYProgress,
-    [0,0.8],
-    isMobile
-      ? [0,0]
-      : [80,-80]
-  );
-
-
-
-  const imageScale = useTransform(
-    scrollYProgress,
-    [0,0.7],
-    isMobile
-      ? [1,1]
-      : [0.92,1]
-  );
-
-
-
   return (
 
     <Section
       id="home"
       className="
         relative
-        bg-[#050505]
-        py-0
-        min-h-[105vh]
-        md:min-h-[120vh]
-        lg:min-h-[125vh]
-        xl:min-h-[130vh]
+        min-h-screen
+        overflow-hidden
+        bg-[#050816]
+
+        pt-28
+        pb-16
+
+        md:pt-32
       "
     >
-
 
       <HeroBackground />
 
 
+      <Container>
 
-      {!isMobile && (
-
-        <motion.div
-
-          animate={{
-            scale:[
-              1,
-              1.15,
-              1,
-            ],
-
-            opacity:[
-              0.18,
-              0.35,
-              0.18,
-            ],
-          }}
-
-          transition={{
-            duration:8,
-            repeat:Infinity,
-            ease:"easeInOut",
-          }}
-
+        <div
           className="
-            absolute
-            left-1/2
-            top-1/3
-            -translate-x-1/2
-            h-96
-            w-96
-            rounded-full
-            bg-purple-500/20
-            blur-3xl
+            relative
+            z-10
+
+            flex
+            flex-col
+            items-center
+
+            text-center
           "
-
-        />
-
-      )}
+        >
 
 
+          {/* Badge */}
 
+          <motion.div
 
+            initial={{
+              opacity:0,
+              y:15,
+            }}
 
-      <div
-        ref={heroRef}
-        className="
-          relative
-          z-20
-        "
-      >
+            animate={{
+              opacity:1,
+              y:0,
+            }}
 
+            transition={{
+              duration:0.6,
+            }}
 
-        <Container>
-
-
-          <div
             className="
               flex
-              min-h-screen
-              items-start
+              max-w-full
+              items-center
               justify-center
-              pt-40
-              pb-12
-              md:pt-32
-              md:pb-0
-              lg:items-center
-              lg:justify-between
+
+              rounded-full
+
+              border
+              border-white/10
+
+              bg-white/5
+
+              px-4
+              py-2
+
+              text-center
+
+              text-[10px]
+
+              uppercase
+
+              tracking-[0.18em]
+
+              text-neutral-300
+
+              backdrop-blur-xl
+
+              whitespace-normal
+
+              sm:px-5
+              sm:text-[11px]
+              sm:tracking-[0.25em]
             "
+
           >
 
+            <span>
+              ✦ Available for freelance projects
+            </span>
+
+          </motion.div>
 
 
-            <div
+
+
+
+          {/* Heading */}
+
+          <motion.h1
+
+            initial={{
+              opacity:0,
+              y:25,
+            }}
+
+            animate={{
+              opacity:1,
+              y:0,
+            }}
+
+            transition={{
+              duration:0.8,
+              delay:0.1,
+            }}
+
+            className="
+              mt-8
+
+              max-w-4xl
+
+              text-[42px]
+
+              font-bold
+
+              leading-[1.05]
+
+              tracking-tight
+
+              text-white
+
+              sm:text-6xl
+
+              md:text-7xl
+            "
+
+          >
+
+            Turning ideas 
+
+            <br />
+
+
+            <span
               className="
-                flex
-                w-full
-                flex-col
-                items-center
-                text-center
+                bg-gradient-to-r
+
+                from-blue-400
+
+                via-purple-400
+
+                to-white
+
+                bg-clip-text
+
+                text-transparent
               "
             >
 
+              into immersive
 
+            </span>
 
-              <motion.div
 
-                style={{
-                  y:textY,
-                  opacity:textOpacity,
-                }}
+            <br />
 
-                className="
-                  relative
-                  z-30
-                  w-full
-                "
 
-              >
+            digital experiences.
 
 
+          </motion.h1>
 
-                <motion.p
 
-                  initial={false}
 
-                  animate={{
-                    opacity:1,
-                    y:0,
-                  }}
 
-                  className="
-                    mb-4
-                    text-sm
-                    uppercase
-                    tracking-[0.35em]
-                    text-blue-400
-                  "
 
-                >
-                  Hello, I&apos;m
-                </motion.p>
+          {/* Description */}
 
+          <motion.p
 
+            initial={{
+              opacity:0,
+              y:20,
+            }}
 
+            animate={{
+              opacity:1,
+              y:0,
+            }}
 
-                <motion.h1
+            transition={{
+              delay:0.25,
+            }}
 
-                  initial={{
-                    opacity:0,
-                    y:30,
-                  }}
+            className="
+              mt-6
 
-                  animate={{
-                    opacity:1,
-                    y:0,
-                  }}
+              max-w-xl
 
-                  transition={{
-                    duration:0.9,
-                  }}
+              text-sm
 
-                  className="
-                    text-4xl
-                    font-bold
-                    text-white
-                    sm:text-6xl
-                    md:text-7xl
-                    lg:text-8xl
-                  "
+              leading-relaxed
 
-                >
-                  Muneeza Fatima
-                </motion.h1>
+              text-neutral-400
 
+              sm:text-base
 
+              md:text-lg
+            "
 
+          >
 
+            I create elegant, responsive websites where thoughtful design meets powerful frontend engineering.
 
-                <motion.p
+          </motion.p>
 
-                  initial={{
-                    opacity:0,
-                    y:20,
-                  }}
 
-                  animate={{
-                    opacity:1,
-                    y:0,
-                  }}
 
-                  transition={{
-                    delay:0.25,
-                  }}
 
-                  className="
-                    mx-auto
-                    mt-5
-                    max-w-2xl
-                    text-base
-                    text-neutral-400
-                    sm:text-lg
-                    lg:max-w-3xl
-                    lg:text-xl
-                  "
 
-                >
+          {/* Buttons */}
 
-                  Frontend Developer crafting modern
-                  responsive websites, interactive digital
-                  experiences that help businesses grow online.
+          <motion.div
 
-                </motion.p>
+            initial={{
+              opacity:0,
+              y:20,
+            }}
 
+            animate={{
+              opacity:1,
+              y:0,
+            }}
 
+            transition={{
+              delay:0.4,
+            }}
 
-              </motion.div>
+            className="
+              mt-8
 
+              w-full
 
+              flex
 
+              justify-center
+            "
 
+          >
 
+            <HeroButtons />
 
-              <motion.div
+          </motion.div>
 
-                style={{
-                  y:imageY,
-                  scale:imageScale,
-                }}
 
 
-                initial={{
-                  opacity:0,
-                  scale:0.92,
-                  y:50,
-                }}
 
 
-                animate={{
-                  opacity:1,
-                  scale:1,
-                  y:0,
-                }}
+          {/* Image */}
 
+          <motion.div
 
-                transition={{
+            initial={{
+              opacity:0,
+              scale:0.95,
+              y:30,
+            }}
 
-                  duration:
-                    isMobile ? 0.5 : 1.3,
+            animate={{
+              opacity:1,
+              scale:1,
+              y:0,
+            }}
 
-                  delay:
-                    isMobile ? 0 : 0.9,
+            transition={{
+              duration:0.8,
+              delay:0.5,
+            }}
 
-                  ease:"easeOut",
+            className="
+              mt-12
 
-                }}
+              flex
 
+              justify-center
+            "
 
-                className="
-                  mt-10
-                  flex
-                  flex-col
-                  items-center
-                  md:mt-12
-                  lg:mt-8
-                  xl:mt-10
-                "
+          >
 
-              >
+            <HeroImage />
 
+          </motion.div>
 
 
-                <HeroImage />
 
 
 
-                <div className="mt-12 lg:mt-14">
-                  <HeroButtons />
-                </div>
+          {/* Stats */}
 
+          <HeroTrust />
 
 
-                <div className="mt-10 lg:mt-12">
-                  <HeroTrust />
-                </div>
+        </div>
 
 
-
-              </motion.div>
-
-
-
-
-            </div>
-
-
-
-          </div>
-
-
-        </Container>
-
-
-      </div>
+      </Container>
 
 
     </Section>

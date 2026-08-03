@@ -5,107 +5,103 @@ import { motion } from "framer-motion";
 
 const stats = [
   {
-    value: "2+",
-    title: "Years",
-    description: "Learning & Building",
-  },
-  {
     value: "10+",
-    title: "Projects",
-    description: "Completed",
+    label: "Projects",
   },
   {
-    value: "Frontend",
-    title: "Focused",
-    description: "Development",
+    value: "2+",
+    label: "Years Building",
+  },
+  {
+    value: "React",
+    label: "Frontend",
   },
 ];
 
 
 export function HeroTrust() {
+
   return (
+
     <motion.div
+
       initial={{
-        opacity: 0,
-        y: 20,
+        opacity:0,
+        y:20,
       }}
+
       animate={{
-        opacity: 1,
-        y: 0,
+        opacity:1,
+        y:0,
       }}
+
       transition={{
-        duration: 0.8,
-        delay: 0.3,
+        delay:.5,
       }}
+
       className="
         mt-10
+
         grid
         grid-cols-3
-        gap-3
-        rounded-2xl
-        border
+
+        gap-4
+
+        border-t
         border-white/10
-        bg-white/5
-        px-4
-        py-5
-        backdrop-blur-xl
-        text-center
+
+        pt-8
+
+        w-full
+
       "
+
     >
 
-      {stats.map((stat) => (
+      {stats.map((item)=>(
 
-        <motion.div
-          key={stat.title}
-          whileHover={{
-            y: -4,
-          }}
-          transition={{
-            duration: 0.2,
-          }}
+        <div
+          key={item.label}
           className="
-            flex
-            flex-col
-            items-center
+            text-center
+            min-w-0
           "
         >
 
           <h3
             className="
-              text-xl
-              font-semibold
+              text-lg
+              sm:text-xl
+              font-bold
               text-white
-              md:text-2xl
+              truncate
             "
           >
-            {stat.value}
+            {item.value}
           </h3>
 
 
           <p
             className="
               mt-1
-              text-sm
-              text-neutral-300
-            "
-          >
-            {stat.title}
-          </p>
-
-
-          <p
-            className="
-              text-xs
+              text-[10px]
+              sm:text-xs
+              uppercase
+              tracking-wider
               text-neutral-500
+              whitespace-nowrap
             "
           >
-            {stat.description}
+            {item.label}
           </p>
 
-        </motion.div>
+
+        </div>
 
       ))}
 
+
     </motion.div>
+
   );
 }
