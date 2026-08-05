@@ -12,20 +12,17 @@ export function HeroImage() {
 
       initial={{
         opacity: 0,
-        y: 30,
-        scale: 0.94,
+        scale: 0.96,
       }}
 
       animate={{
         opacity: 1,
-        y: 0,
         scale: 1,
       }}
 
       transition={{
-        duration: 0.9,
+        duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
-        delay: 0.3,
       }}
 
       className="
@@ -33,27 +30,28 @@ export function HeroImage() {
       flex
       items-center
       justify-center
-      pt-4
-      sm:pt-6
+      pt-6
+      sm:pt-8
+      md:pt-4
       lg:pt-0
       "
 
     >
 
 
-      {/* Animated Glow */}
+      {/* Glow */}
 
       <motion.div
 
         animate={{
-          scale: [1, 1.05, 1],
-          opacity: [0.4, 0.65, 0.4],
+          opacity:[0.45,0.7,0.45],
+          scale:[1,1.04,1],
         }}
 
         transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
+          duration:5,
+          repeat:Infinity,
+          ease:"easeInOut",
         }}
 
         className="
@@ -71,26 +69,16 @@ export function HeroImage() {
 
 
 
-      {/* Floating Image */}
+      {/* Image */}
 
-      <motion.div
-
-        animate={{
-          y: [0, -4, 0],
-        }}
-
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+      <div
 
         className="
         relative
         z-10
-        w-[280px]
-        sm:w-[320px]
-        md:w-[360px]
+        w-[330px]
+        sm:w-[360px]
+        md:w-[370px]
         lg:w-[390px]
         xl:w-[420px]
         "
@@ -118,36 +106,8 @@ export function HeroImage() {
 
         />
 
-      </motion.div>
+      </div>
 
-
-
-      {/* Shine Glow Ring */}
-
-      <motion.div
-
-        animate={{
-          rotate: 360,
-        }}
-
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-
-        className="
-        absolute
-        -inset-8
-        rounded-full
-        bg-gradient-to-r
-        from-blue-400/20
-        via-purple-400/20
-        to-pink-400/20
-        blur-xl
-        "
-
-      />
 
 
     </motion.div>
