@@ -11,18 +11,18 @@ export function HeroImage() {
     <motion.div
 
       initial={{
-        opacity: 0,
-        scale: 0.96,
+        opacity:0,
+        scale:0.96,
       }}
 
       animate={{
-        opacity: 1,
-        scale: 1,
+        opacity:1,
+        scale:1,
       }}
 
       transition={{
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
+        duration:0.7,
+        ease:[0.22,1,0.36,1],
       }}
 
       className="
@@ -32,7 +32,6 @@ export function HeroImage() {
       justify-center
       pt-6
       sm:pt-8
-      md:pt-4
       lg:pt-0
       "
 
@@ -41,27 +40,16 @@ export function HeroImage() {
 
       {/* Glow */}
 
-      <motion.div
-
-        animate={{
-          opacity:[0.45,0.7,0.45],
-          scale:[1,1.04,1],
-        }}
-
-        transition={{
-          duration:5,
-          repeat:Infinity,
-          ease:"easeInOut",
-        }}
+      <div
 
         className="
         absolute
         -inset-10
         rounded-full
         bg-gradient-to-r
-        from-blue-500/40
-        via-purple-500/35
-        to-pink-500/30
+        from-blue-500/30
+        via-purple-500/25
+        to-pink-500/20
         blur-3xl
         "
 
@@ -92,7 +80,6 @@ export function HeroImage() {
           alt="Muneeza Fatima Frontend Engineer"
 
           width={700}
-
           height={700}
 
           priority
@@ -101,13 +88,13 @@ export function HeroImage() {
           h-auto
           w-full
           object-cover
-          drop-shadow-[0_0_55px_rgba(139,92,246,0.55)]
+          drop-shadow-[0_0_50px_rgba(139,92,246,0.45)]
           "
 
         />
 
-      </div>
 
+      </div>
 
 
     </motion.div>

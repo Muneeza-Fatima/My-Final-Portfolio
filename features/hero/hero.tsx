@@ -18,15 +18,15 @@ export function Hero() {
       relative
       min-h-screen
       overflow-hidden
-      pt-[120px]
-      sm:pt-[125px]
-      md:pt-[130px]
-      lg:pt-[115px]
+      transform-gpu
+      pt-[130px]
+      sm:pt-[135px]
+      md:pt-[140px]
+      lg:pt-[120px]
       pb-16
       "
     >
 
-      {/* Background */}
       <HeroBackground />
 
 
@@ -38,14 +38,14 @@ export function Hero() {
           grid-cols-1
           items-center
           gap-10
-          lg:grid-cols-[1fr_0.95fr]
+          lg:grid-cols-[1fr_0.9fr]
           lg:gap-8
-          xl:gap-12
+          xl:gap-10
           "
         >
 
 
-          {/* LEFT CONTENT */}
+          {/* Content */}
 
           <div
             className="
@@ -60,11 +60,7 @@ export function Hero() {
             <HeroContent />
 
 
-            <div
-              className="
-              mt-7
-              "
-            >
+            <div className="mt-7">
 
               <HeroButtons />
 
@@ -75,13 +71,11 @@ export function Hero() {
 
 
 
-
-          {/* RIGHT IMAGE */}
+          {/* Image */}
 
           <div
             className="
             order-1
-            relative
             flex
             justify-center
             lg:order-2
@@ -92,7 +86,6 @@ export function Hero() {
             <HeroImage />
 
           </div>
-
 
 
         </div>
