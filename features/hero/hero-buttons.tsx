@@ -5,115 +5,111 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 
-export function HeroButtons(){
+export function HeroButtons() {
 
-return(
+  return (
 
-<div
-className="
-flex
-w-full
-flex-col
-gap-4
+    <motion.div
 
-sm:w-auto
-sm:flex-row
-"
->
+      initial={{
+        opacity:0,
+        y:20,
+      }}
 
+      animate={{
+        opacity:1,
+        y:0,
+      }}
 
-<motion.div
-whileHover={{y:-3}}
-whileTap={{scale:.97}}
->
+      transition={{
+        delay:1.7,
+        duration:0.6,
+      }}
 
-<Link
-
-href="#projects"
-
-className="
-flex
-h-12
-w-full
-
-items-center
-justify-center
-gap-2
-
-rounded-xl
-
-bg-white
-
-px-8
-
-text-sm
-font-semibold
-
-text-black
-
-sm:w-auto
-"
-
->
-
-View My Work
-
-<ArrowRight size={16}/>
-
-</Link>
-
-</motion.div>
+      className="
+      flex
+      flex-col
+      xs:flex-row
+      sm:flex-row
+      gap-3
+      "
+    >
 
 
+      {/* Primary */}
+
+      <Link
+
+        href="/projects"
+
+        className="
+        group
+        flex
+        items-center
+        justify-center
+        gap-2
+        rounded-full
+        bg-white
+        px-6
+        py-3
+        text-sm
+        font-semibold
+        text-black
+        transition
+        hover:scale-105
+        "
+      >
+
+        View My Work
 
 
-<motion.div
-whileHover={{y:-3}}
-whileTap={{scale:.97}}
->
+        <ArrowRight
 
-<Link
+          size={16}
 
-href="#contact"
-
-className="
-flex
-h-12
-w-full
-
-items-center
-justify-center
-
-rounded-xl
-
-border
-
-border-white/15
-
-bg-white/5
-
-px-8
-
-text-sm
-
-font-semibold
-
-text-white
-
-sm:w-auto
-"
-
->
-
-Let&apos;s Talk
-
-</Link>
-
-</motion.div>
+          className="
+          transition-transform
+          group-hover:translate-x-1
+          "
+        />
 
 
-</div>
+      </Link>
 
-);
 
+
+
+      {/* Secondary */}
+
+      <Link
+
+        href="/contact"
+
+        className="
+        flex
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-white/20
+        bg-white/5
+        px-6
+        py-3
+        text-sm
+        font-semibold
+        text-white
+        transition
+        hover:bg-white/10
+        "
+      >
+
+        Let&apos;s Talk
+
+      </Link>
+
+
+
+    </motion.div>
+
+  );
 }

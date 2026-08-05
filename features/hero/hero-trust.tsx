@@ -4,22 +4,27 @@ import { motion } from "framer-motion";
 
 
 const stats = [
+
   {
-    value: "10+",
-    label: "Projects",
+    value:"10+",
+    label:"Projects",
   },
+
   {
-    value: "2+",
-    label: "Years Building",
+    value:"2+",
+    label:"Years Building",
   },
+
   {
-    value: "React",
-    label: "Frontend",
+    value:"React",
+    label:"Frontend",
   },
+
 ];
 
 
-export function HeroTrust() {
+
+export function HeroTrust(){
 
   return (
 
@@ -36,72 +41,117 @@ export function HeroTrust() {
       }}
 
       transition={{
-        delay:.5,
+        delay:1.2,
+        duration:.6,
       }}
 
       className="
         mt-10
 
         grid
-        grid-cols-3
-
-        gap-4
-
-        border-t
-        border-white/10
-
-        pt-8
 
         w-full
+
+        max-w-xl
+
+        grid-cols-3
+
+        gap-3
+
+        border-t
+
+        border-white/10
+
+        pt-7
 
       "
 
     >
 
-      {stats.map((item)=>(
 
-        <div
+
+      {stats.map((item,index)=>(
+
+
+        <motion.div
+
           key={item.label}
+
+          initial={{
+            opacity:0,
+            y:15,
+          }}
+
+          animate={{
+            opacity:1,
+            y:0,
+          }}
+
+          transition={{
+            delay:
+              1.3 +
+              index * .15,
+          }}
+
           className="
             text-center
-            min-w-0
           "
+
         >
 
+
           <h3
+
             className="
-              text-lg
-              sm:text-xl
+              text-base
+
               font-bold
+
               text-white
-              truncate
+
+              sm:text-xl
             "
+
           >
+
             {item.value}
+
           </h3>
 
 
+
           <p
+
             className="
               mt-1
-              text-[10px]
-              sm:text-xs
+
+              text-[9px]
+
               uppercase
-              tracking-wider
+
+              tracking-widest
+
               text-neutral-500
-              whitespace-nowrap
+
+              sm:text-xs
             "
+
           >
+
             {item.label}
+
           </p>
 
 
-        </div>
+        </motion.div>
+
 
       ))}
+
 
 
     </motion.div>
 
   );
+
 }

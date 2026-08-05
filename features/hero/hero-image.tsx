@@ -12,133 +12,137 @@ export function HeroImage() {
 
       initial={{
         opacity:0,
-        scale:0.95,
+        scale:0.9,
+        y:30,
       }}
 
       animate={{
         opacity:1,
         scale:1,
+        y:0,
       }}
 
       transition={{
-        duration:0.8,
+        duration:0.9,
+        ease:[0.22,1,0.36,1],
       }}
 
       className="
-        relative
-        flex
-        justify-center
+      relative
+      w-full
+      max-w-[300px]
+      sm:max-w-[360px]
+      lg:max-w-[430px]
       "
-
     >
 
 
-      {/* Soft Glow */}
+      {/* Outer Glow */}
 
       <div
         className="
-          absolute
-
-          -inset-10
-
-          rounded-full
-
-          bg-gradient-to-r
-
-          from-blue-500/20
-
-          via-purple-500/20
-
-          to-transparent
-
-          blur-3xl
+        absolute
+        -inset-6
+        rounded-full
+        bg-gradient-to-r
+        from-blue-500/30
+        via-purple-500/30
+        to-pink-500/20
+        blur-3xl
         "
       />
 
 
 
-      {/* Image */}
+      {/* Shining Card */}
 
       <motion.div
 
         animate={{
-          y:[
-            0,
-            -8,
-            0,
-          ],
+          rotate: [0,1,0,-1,0],
         }}
 
         transition={{
-          duration:6,
+          duration:8,
           repeat:Infinity,
           ease:"easeInOut",
         }}
 
         className="
-          relative
-          z-10
-
-          h-[390px]
-          w-[300px]
-
-          overflow-hidden
-
-          rounded-[45px]
-
-          border
-
-          border-white/10
-
-          shadow-2xl
-
-
-          sm:h-[460px]
-
-          sm:w-[350px]
-
-
-          lg:h-[520px]
-
-          lg:w-[400px]
+        relative
+        rounded-[2.5rem]
+        p-[2px]
+        bg-gradient-to-r
+        from-blue-400/60
+        via-purple-400/60
+        to-pink-400/60
         "
-
       >
-
-        <Image
-
-          src="/images/profile.png"
-
-          alt="Muneeza Fatima"
-
-          fill
-
-          priority
-
-          sizes="
-          (max-width:768px) 300px,
-          400px
-          "
-
-          className="
-            object-cover
-          "
-
-        />
-
 
 
         <div
           className="
-            absolute
-            inset-x-0
-            bottom-0
-            h-32
-            bg-gradient-to-t
-            from-black/50
-            to-transparent
+          relative
+          aspect-square
+          overflow-hidden
+          rounded-[2.4rem]
+          border
+          border-white/10
+          bg-black/40
+          backdrop-blur-xl
           "
-        />
+        >
+
+          <Image
+
+            src="/images/profile.png"
+
+            alt="Frontend Engineer"
+
+            fill
+
+            priority
+
+            sizes="
+            (max-width:640px) 300px,
+            (max-width:1024px) 360px,
+            430px
+            "
+
+            className="
+            object-cover
+            object-center
+            scale-105
+            "
+          />
+
+
+          {/* Image Shine */}
+
+          <motion.div
+
+            animate={{
+              x:["-120%","120%"],
+            }}
+
+            transition={{
+              duration:4,
+              repeat:Infinity,
+              repeatDelay:3,
+            }}
+
+            className="
+            absolute
+            inset-0
+            bg-gradient-to-r
+            from-transparent
+            via-white/20
+            to-transparent
+            skew-x-12
+            "
+          />
+
+        </div>
 
 
       </motion.div>
