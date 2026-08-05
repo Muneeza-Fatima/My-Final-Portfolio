@@ -17,14 +17,14 @@ export function Hero() {
       className="
       relative
       overflow-hidden
-      pt-32
+      pt-[145px]
       pb-8
-      md:pt-36
-      lg:pt-28
+      sm:pt-[130px]
+      md:pt-[140px]
+      lg:pt-[130px]
       "
 
     >
-
 
       {/* Background */}
 
@@ -101,7 +101,6 @@ export function Hero() {
 
 
           </div>
-
 
 
 
