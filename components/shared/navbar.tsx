@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -32,34 +31,50 @@ const navItems = [
 ];
 
 
-
 export function Navbar() {
 
   const [open, setOpen] = useState(false);
 
 
 
-  useEffect(() => {
+  const handleScroll = (href:string) => {
 
-    const closeMenu = () => {
+
+    if(href === "/"){
+
+      window.scrollTo({
+        top:0,
+        behavior:"smooth",
+      });
+
       setOpen(false);
-    };
+
+      return;
+
+    }
 
 
-    window.addEventListener(
-      "scroll",
-      closeMenu
-    );
+
+    const section = document.querySelector(href);
 
 
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        closeMenu
-      );
-    };
 
-  }, []);
+    if(section){
+
+      section.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"start",
+
+      });
+
+    }
+
+
+    setOpen(false);
+
+  };
 
 
 
@@ -83,78 +98,94 @@ export function Navbar() {
 
       className="
         fixed
-        inset-x-0
         top-0
-        z-[999]
-        pt-5
+        left-0
+        right-0
+        z-[9999]
+        pt-4
+        sm:pt-5
       "
 
     >
 
+
       <Container>
 
+
         <nav
+
           className="
-            flex
-            items-center
-            justify-between
+          flex
+          items-center
+          justify-between
 
-            rounded-2xl
+          rounded-2xl
 
-            border
-            border-white/10
+          border
+          border-white/10
 
-            bg-[#050816]/70
+          bg-[#050816]/95
 
-            px-5
-            py-3
+          px-5
+          py-3
 
-            shadow-2xl
+          shadow-2xl
 
-            backdrop-blur-xl
+          backdrop-blur-xl
 
-
-            md:px-7
+          md:px-7
           "
+
         >
+
 
 
           {/* Logo */}
 
-          <Link
-            href="/"
+          <button
+
+            onClick={()=>handleScroll("/")}
+
             className="
-              group
-              flex
-              flex-col
+            flex
+            flex-col
+            text-left
             "
+
           >
 
             <span
-              className="
-                text-base
-                font-semibold
-                tracking-tight
-                text-white
 
-                md:text-lg
+              className="
+              text-base
+              font-semibold
+              tracking-tight
+              text-white
+              md:text-lg
               "
+
             >
+
               Muneeza Fatima
+
             </span>
 
 
             <span
+
               className="
-                text-xs
-                text-neutral-400
+              text-xs
+              text-neutral-400
               "
+
             >
+
               Frontend Engineer
+
             </span>
 
 
-          </Link>
+          </button>
 
 
 
@@ -162,37 +193,34 @@ export function Navbar() {
 
           {/* Desktop Menu */}
 
+
           <div
+
             className="
-              hidden
-
-              items-center
-
-              gap-8
-
-              md:flex
+            hidden
+            items-center
+            gap-8
+            md:flex
             "
+
           >
 
             {navItems.map((item)=>(
 
-              <Link
+
+              <button
 
                 key={item.title}
 
-                href={item.href}
+                onClick={()=>handleScroll(item.href)}
 
                 className="
-                  group
-                  relative
-
-                  text-sm
-
-                  text-neutral-400
-
-                  transition
-
-                  hover:text-white
+                group
+                relative
+                text-sm
+                text-neutral-400
+                transition
+                hover:text-white
                 "
 
               >
@@ -201,21 +229,24 @@ export function Navbar() {
 
 
                 <span
+
                   className="
-                    absolute
-                    -bottom-1
-                    left-0
-                    h-px
-                    w-0
-                    bg-white
-                    transition-all
-                    duration-300
-                    group-hover:w-full
+                  absolute
+                  -bottom-1
+                  left-0
+                  h-px
+                  w-0
+                  bg-white
+                  transition-all
+                  duration-300
+                  group-hover:w-full
                   "
+
                 />
 
 
-              </Link>
+              </button>
+
 
             ))}
 
@@ -226,39 +257,27 @@ export function Navbar() {
 
 
 
-          {/* Desktop CTA */}
+          {/* CTA */}
 
-          <Link
 
-            href="#contact"
+          <button
+
+            onClick={()=>handleScroll("#contact")}
 
             className="
-              hidden
-
-              items-center
-
-              gap-2
-
-              rounded-xl
-
-              bg-white
-
-              px-5
-
-              py-2.5
-
-              text-sm
-
-              font-medium
-
-              text-black
-
-              transition
-
-              hover:bg-neutral-200
-
-
-              md:flex
+            hidden
+            items-center
+            gap-2
+            rounded-xl
+            bg-white
+            px-5
+            py-2.5
+            text-sm
+            font-medium
+            text-black
+            transition
+            hover:bg-neutral-200
+            md:flex
             "
 
           >
@@ -268,14 +287,14 @@ export function Navbar() {
             <ArrowRight size={15}/>
 
 
-          </Link>
-
+          </button>
 
 
 
 
 
           {/* Mobile Button */}
+
 
           <button
 
@@ -284,37 +303,28 @@ export function Navbar() {
             onClick={()=>setOpen(!open)}
 
             className="
-              flex
-
-              h-10
-
-              w-10
-
-              items-center
-
-              justify-center
-
-              rounded-xl
-
-              border
-
-              border-white/10
-
-              text-white
-
-              md:hidden
+            flex
+            h-10
+            w-10
+            items-center
+            justify-center
+            rounded-xl
+            border
+            border-white/10
+            text-white
+            md:hidden
             "
-
-            style={{
-              WebkitTapHighlightColor:"transparent",
-            }}
 
           >
 
             {open ? (
+
               <X size={21}/>
+
             ):(
+
               <Menu size={21}/>
+
             )}
 
           </button>
@@ -327,14 +337,18 @@ export function Navbar() {
 
 
 
+
         {/* Mobile Menu */}
 
 
         <AnimatePresence>
 
+
         {open && (
 
+
           <motion.div
+
 
             initial={{
               opacity:0,
@@ -342,11 +356,13 @@ export function Navbar() {
               y:-10,
             }}
 
+
             animate={{
               opacity:1,
               height:"auto",
               y:0,
             }}
+
 
             exit={{
               opacity:0,
@@ -354,108 +370,101 @@ export function Navbar() {
               y:-10,
             }}
 
+
             className="
-              mt-3
-
-              overflow-hidden
-
-              rounded-2xl
-
-              border
-
-              border-white/10
-
-              bg-[#050816]/90
-
-              p-5
-
-              backdrop-blur-xl
-
-              md:hidden
+            mt-3
+            overflow-hidden
+            rounded-2xl
+            border
+            border-white/10
+            bg-[#050816]/95
+            p-5
+            backdrop-blur-xl
+            md:hidden
             "
+
 
           >
 
+
             <div
+
               className="
-                flex
-                flex-col
-                gap-4
+              flex
+              flex-col
+              gap-4
               "
+
             >
 
-            {navItems.map((item)=>(
 
-              <Link
+              {navItems.map((item)=>(
 
-                key={item.title}
 
-                href={item.href}
+                <button
 
-                onClick={()=>setOpen(false)}
+                  key={item.title}
 
-                className="
+                  onClick={()=>handleScroll(item.href)}
+
+                  className="
+                  text-left
                   text-sm
                   text-neutral-300
                   transition
                   hover:text-white
+                  "
+
+                >
+
+                  {item.title}
+
+
+                </button>
+
+
+              ))}
+
+
+
+              <button
+
+                onClick={()=>handleScroll("#contact")}
+
+                className="
+                mt-2
+                flex
+                items-center
+                justify-center
+                gap-2
+                rounded-xl
+                bg-white
+                py-3
+                text-sm
+                font-medium
+                text-black
                 "
 
               >
 
-                {item.title}
+                Let&apos;s Talk
 
-              </Link>
-
-            ))}
+                <ArrowRight size={15}/>
 
 
+              </button>
 
-            <Link
-
-              href="#contact"
-
-              onClick={()=>setOpen(false)}
-
-              className="
-                mt-2
-
-                flex
-
-                items-center
-
-                justify-center
-
-                gap-2
-
-                rounded-xl
-
-                bg-white
-
-                py-3
-
-                text-sm
-
-                font-medium
-
-                text-black
-              "
-
-            >
-
-              Let&apos;s Talk
-
-              <ArrowRight size={15}/>
-
-            </Link>
 
 
             </div>
 
 
+
           </motion.div>
 
+
         )}
+
 
         </AnimatePresence>
 
@@ -464,7 +473,9 @@ export function Navbar() {
       </Container>
 
 
+
     </motion.header>
+
 
   );
 

@@ -41,33 +41,40 @@ const particles = [
 export function AboutBackground() {
 
 
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" &&
-    window.innerWidth < 768
-  );
+  const [isMobile, setIsMobile] = useState(false);
+
 
 
   useEffect(() => {
 
-    const handleResize = () => {
+    const checkMobile = () => {
+
       setIsMobile(window.innerWidth < 768);
+
     };
+
+
+    checkMobile();
 
 
     window.addEventListener(
       "resize",
-      handleResize
+      checkMobile
     );
 
 
     return () => {
+
       window.removeEventListener(
         "resize",
-        handleResize
+        checkMobile
       );
+
     };
 
+
   }, []);
+
 
 
 
@@ -91,21 +98,19 @@ export function AboutBackground() {
 
         animate={
           isMobile
-            ? undefined
-            : {
-                x:[0,70,0],
-                y:[0,-50,0],
-                scale:[1,1.15,1],
-              }
+          ? undefined
+          : {
+              x:[0,70,0],
+              y:[0,-50,0],
+              scale:[1,1.15,1],
+            }
         }
-
 
         transition={{
           duration:20,
           repeat:Infinity,
           ease:"easeInOut",
         }}
-
 
         className="
           absolute
@@ -129,21 +134,19 @@ export function AboutBackground() {
 
         animate={
           isMobile
-            ? undefined
-            : {
-                x:[0,-80,0],
-                y:[0,60,0],
-                scale:[1,1.2,1],
-              }
+          ? undefined
+          : {
+              x:[0,-80,0],
+              y:[0,60,0],
+              scale:[1,1.2,1],
+            }
         }
-
 
         transition={{
           duration:24,
           repeat:Infinity,
           ease:"easeInOut",
         }}
-
 
         className="
           absolute
@@ -161,34 +164,24 @@ export function AboutBackground() {
 
 
 
-      {/* Violet Accent */}
+      {/* Violet Glow */}
 
       <motion.div
 
         animate={
           isMobile
-            ? undefined
-            : {
-                opacity:[
-                  0.3,
-                  0.6,
-                  0.3,
-                ],
-                scale:[
-                  1,
-                  1.1,
-                  1,
-                ],
-              }
+          ? undefined
+          : {
+              opacity:[0.3,0.6,0.3],
+              scale:[1,1.1,1],
+            }
         }
-
 
         transition={{
           duration:12,
           repeat:Infinity,
           ease:"easeInOut",
         }}
-
 
         className="
           absolute
@@ -209,52 +202,46 @@ export function AboutBackground() {
 
 
 
-      {/* Particles Desktop Only */}
+      {/* Desktop Particles */}
 
       {!isMobile && (
 
         <>
-          {particles.map((particle,index)=>(
+        {particles.map((particle,index)=>(
 
-            <motion.span
 
-              key={index}
+          <motion.span
 
-              animate={{
-                y:[
-                  0,
-                  -25,
-                  0,
-                ],
-                opacity:[
-                  0.15,
-                  0.7,
-                  0.15,
-                ],
-              }}
+            key={index}
 
-              transition={{
-                duration:5 + index,
-                repeat:Infinity,
-                delay:particle.delay,
-                ease:"easeInOut",
-              }}
+            animate={{
+              y:[0,-25,0],
+              opacity:[0.15,0.7,0.15],
+            }}
 
-              className={`
-                absolute
-                ${particle.size}
-                rounded-full
-                bg-white/40
-              `}
+            transition={{
+              duration:5 + index,
+              repeat:Infinity,
+              delay:particle.delay,
+              ease:"easeInOut",
+            }}
 
-              style={{
-                left:particle.left,
-                top:particle.top,
-              }}
+            className={`
+              absolute
+              ${particle.size}
+              rounded-full
+              bg-white/40
+            `}
 
-            />
+            style={{
+              left:particle.left,
+              top:particle.top,
+            }}
 
-          ))}
+          />
+
+
+        ))}
         </>
 
       )}
@@ -263,7 +250,10 @@ export function AboutBackground() {
 
 
 
+      {/* Grid */}
+
       <div
+
         className="
           absolute
           inset-0
@@ -271,10 +261,12 @@ export function AboutBackground() {
           bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
           bg-[size:80px_80px]
         "
+
       />
 
 
     </div>
 
   );
+
 }
