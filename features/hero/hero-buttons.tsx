@@ -1,115 +1,115 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 
 export function HeroButtons() {
 
+
+  const scrollToSection = (id:string) => {
+
+    const section = document.querySelector(id);
+
+
+    if(section){
+
+      section.scrollIntoView({
+        behavior:"smooth",
+        block:"start",
+      });
+
+    }
+
+  };
+
+
+
   return (
 
-    <motion.div
-
-      initial={{
-        opacity:0,
-        y:20,
-      }}
-
-      animate={{
-        opacity:1,
-        y:0,
-      }}
-
-      transition={{
-        delay:1.7,
-        duration:0.6,
-      }}
-
+    <div
       className="
-      flex
-      flex-col
-      xs:flex-row
-      sm:flex-row
-      gap-3
+        flex
+        flex-col
+        gap-4
+        sm:flex-row
       "
     >
 
 
-      {/* Primary */}
+      <button
 
-      <Link
-
-        href="/projects"
+        onClick={()=>scrollToSection("#projects")}
 
         className="
-        group
-        flex
-        items-center
-        justify-center
-        gap-2
-        rounded-full
-        bg-white
-        px-6
-        py-3
-        text-sm
-        font-semibold
-        text-black
-        transition
-        hover:scale-105
+          group
+          flex
+          items-center
+          justify-center
+          gap-2
+          rounded-xl
+          bg-white
+          px-6
+          py-3
+          text-sm
+          font-semibold
+          text-black
+          transition
+          hover:-translate-y-1
+          hover:bg-neutral-200
         "
+
       >
 
         View My Work
 
-
         <ArrowRight
-
           size={16}
-
           className="
-          transition-transform
-          group-hover:translate-x-1
+            transition
+            group-hover:translate-x-1
           "
         />
 
-
-      </Link>
-
+      </button>
 
 
 
-      {/* Secondary */}
 
-      <Link
+      <button
 
-        href="/contact"
+        onClick={()=>scrollToSection("#contact")}
 
         className="
-        flex
-        items-center
-        justify-center
-        rounded-full
-        border
-        border-white/20
-        bg-white/5
-        px-6
-        py-3
-        text-sm
-        font-semibold
-        text-white
-        transition
-        hover:bg-white/10
+          flex
+          items-center
+          justify-center
+          gap-2
+          rounded-xl
+          border
+          border-white/20
+          bg-white/5
+          px-6
+          py-3
+          text-sm
+          font-semibold
+          text-white
+          backdrop-blur-xl
+          transition
+          hover:-translate-y-1
+          hover:bg-white/10
         "
+
       >
 
         Let&apos;s Talk
 
-      </Link>
+
+      </button>
 
 
 
-    </motion.div>
+    </div>
 
   );
+
 }

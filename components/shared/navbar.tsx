@@ -10,7 +10,7 @@ import { Container } from "@/components/ui/container";
 const navItems = [
   {
     title: "Home",
-    href: "/",
+    href: "#home",
   },
   {
     title: "About",
@@ -31,28 +31,14 @@ const navItems = [
 ];
 
 
+
 export function Navbar() {
 
   const [open, setOpen] = useState(false);
 
 
 
-  const handleScroll = (href:string) => {
-
-
-    if(href === "/"){
-
-      window.scrollTo({
-        top:0,
-        behavior:"smooth",
-      });
-
-      setOpen(false);
-
-      return;
-
-    }
-
+  const handleScroll = (href: string) => {
 
 
     const section = document.querySelector(href);
@@ -115,25 +101,25 @@ export function Navbar() {
         <nav
 
           className="
-          flex
-          items-center
-          justify-between
+            flex
+            items-center
+            justify-between
 
-          rounded-2xl
+            rounded-2xl
 
-          border
-          border-white/10
+            border
+            border-white/10
 
-          bg-[#050816]/95
+            bg-[#050816]/95
 
-          px-5
-          py-3
+            px-5
+            py-3
 
-          shadow-2xl
+            shadow-2xl
 
-          backdrop-blur-xl
+            backdrop-blur-xl
 
-          md:px-7
+            md:px-7
           "
 
         >
@@ -142,14 +128,15 @@ export function Navbar() {
 
           {/* Logo */}
 
+
           <button
 
-            onClick={()=>handleScroll("/")}
+            onClick={()=>handleScroll("#home")}
 
             className="
-            flex
-            flex-col
-            text-left
+              flex
+              flex-col
+              text-left
             "
 
           >
@@ -157,11 +144,11 @@ export function Navbar() {
             <span
 
               className="
-              text-base
-              font-semibold
-              tracking-tight
-              text-white
-              md:text-lg
+                text-base
+                font-semibold
+                tracking-tight
+                text-white
+                md:text-lg
               "
 
             >
@@ -174,8 +161,8 @@ export function Navbar() {
             <span
 
               className="
-              text-xs
-              text-neutral-400
+                text-xs
+                text-neutral-400
               "
 
             >
@@ -197,10 +184,10 @@ export function Navbar() {
           <div
 
             className="
-            hidden
-            items-center
-            gap-8
-            md:flex
+              hidden
+              items-center
+              gap-8
+              md:flex
             "
 
           >
@@ -215,12 +202,12 @@ export function Navbar() {
                 onClick={()=>handleScroll(item.href)}
 
                 className="
-                group
-                relative
-                text-sm
-                text-neutral-400
-                transition
-                hover:text-white
+                  group
+                  relative
+                  text-sm
+                  text-neutral-400
+                  transition
+                  hover:text-white
                 "
 
               >
@@ -231,15 +218,15 @@ export function Navbar() {
                 <span
 
                   className="
-                  absolute
-                  -bottom-1
-                  left-0
-                  h-px
-                  w-0
-                  bg-white
-                  transition-all
-                  duration-300
-                  group-hover:w-full
+                    absolute
+                    -bottom-1
+                    left-0
+                    h-px
+                    w-0
+                    bg-white
+                    transition-all
+                    duration-300
+                    group-hover:w-full
                   "
 
                 />
@@ -265,19 +252,19 @@ export function Navbar() {
             onClick={()=>handleScroll("#contact")}
 
             className="
-            hidden
-            items-center
-            gap-2
-            rounded-xl
-            bg-white
-            px-5
-            py-2.5
-            text-sm
-            font-medium
-            text-black
-            transition
-            hover:bg-neutral-200
-            md:flex
+              hidden
+              items-center
+              gap-2
+              rounded-xl
+              bg-white
+              px-5
+              py-2.5
+              text-sm
+              font-medium
+              text-black
+              transition
+              hover:bg-neutral-200
+              md:flex
             "
 
           >
@@ -293,6 +280,7 @@ export function Navbar() {
 
 
 
+
           {/* Mobile Button */}
 
 
@@ -303,16 +291,16 @@ export function Navbar() {
             onClick={()=>setOpen(!open)}
 
             className="
-            flex
-            h-10
-            w-10
-            items-center
-            justify-center
-            rounded-xl
-            border
-            border-white/10
-            text-white
-            md:hidden
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-xl
+              border
+              border-white/10
+              text-white
+              md:hidden
             "
 
           >
@@ -346,9 +334,7 @@ export function Navbar() {
 
         {open && (
 
-
           <motion.div
-
 
             initial={{
               opacity:0,
@@ -356,13 +342,11 @@ export function Navbar() {
               y:-10,
             }}
 
-
             animate={{
               opacity:1,
               height:"auto",
               y:0,
             }}
-
 
             exit={{
               opacity:0,
@@ -370,36 +354,31 @@ export function Navbar() {
               y:-10,
             }}
 
-
             className="
-            mt-3
-            overflow-hidden
-            rounded-2xl
-            border
-            border-white/10
-            bg-[#050816]/95
-            p-5
-            backdrop-blur-xl
-            md:hidden
+              mt-3
+              overflow-hidden
+              rounded-2xl
+              border
+              border-white/10
+              bg-[#050816]/95
+              p-5
+              backdrop-blur-xl
+              md:hidden
             "
 
-
           >
-
 
             <div
 
               className="
-              flex
-              flex-col
-              gap-4
+                flex
+                flex-col
+                gap-4
               "
 
             >
 
-
               {navItems.map((item)=>(
-
 
                 <button
 
@@ -408,17 +387,16 @@ export function Navbar() {
                   onClick={()=>handleScroll(item.href)}
 
                   className="
-                  text-left
-                  text-sm
-                  text-neutral-300
-                  transition
-                  hover:text-white
+                    text-left
+                    text-sm
+                    text-neutral-300
+                    transition
+                    hover:text-white
                   "
 
                 >
 
                   {item.title}
-
 
                 </button>
 
@@ -432,17 +410,17 @@ export function Navbar() {
                 onClick={()=>handleScroll("#contact")}
 
                 className="
-                mt-2
-                flex
-                items-center
-                justify-center
-                gap-2
-                rounded-xl
-                bg-white
-                py-3
-                text-sm
-                font-medium
-                text-black
+                  mt-2
+                  flex
+                  items-center
+                  justify-center
+                  gap-2
+                  rounded-xl
+                  bg-white
+                  py-3
+                  text-sm
+                  font-medium
+                  text-black
                 "
 
               >
@@ -451,17 +429,13 @@ export function Navbar() {
 
                 <ArrowRight size={15}/>
 
-
               </button>
-
 
 
             </div>
 
 
-
           </motion.div>
-
 
         )}
 
@@ -473,9 +447,7 @@ export function Navbar() {
       </Container>
 
 
-
     </motion.header>
-
 
   );
 
