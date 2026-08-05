@@ -12,43 +12,58 @@ export function HeroImage() {
 
       initial={{
         opacity: 0,
-        scale: 0.95,
         y: 30,
+        scale: 0.94,
       }}
 
       animate={{
         opacity: 1,
-        scale: 1,
         y: 0,
+        scale: 1,
       }}
 
       transition={{
-        duration: 0.8,
+        duration: 0.9,
         ease: [0.22, 1, 0.36, 1],
+        delay: 0.3,
       }}
 
       className="
       relative
-      w-full
-      max-w-[360px]
-      sm:max-w-[400px]
-      lg:max-w-[410px]
+      flex
+      items-center
+      justify-center
+      pt-4
+      sm:pt-6
+      lg:pt-0
       "
+
     >
 
 
-      {/* Glow */}
+      {/* Animated Glow */}
 
-      <div
+      <motion.div
+
+        animate={{
+          scale: [1, 1.05, 1],
+          opacity: [0.4, 0.65, 0.4],
+        }}
+
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
 
         className="
         absolute
-        -inset-8
+        -inset-10
         rounded-full
         bg-gradient-to-r
-        from-blue-500/30
-        via-purple-500/30
-        to-pink-500/20
+        from-blue-500/40
+        via-purple-500/35
+        to-pink-500/30
         blur-3xl
         "
 
@@ -56,19 +71,28 @@ export function HeroImage() {
 
 
 
-      {/* Image Card */}
+      {/* Floating Image */}
 
-      <div
+      <motion.div
+
+        animate={{
+          y: [0, -4, 0],
+        }}
+
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
 
         className="
         relative
-        aspect-square
-        overflow-hidden
-        rounded-[2.5rem]
-        border
-        border-white/10
-        bg-white/5
-        backdrop-blur-xl
+        z-10
+        w-[280px]
+        sm:w-[320px]
+        md:w-[360px]
+        lg:w-[390px]
+        xl:w-[420px]
         "
 
       >
@@ -77,27 +101,53 @@ export function HeroImage() {
 
           src="/images/profile.png"
 
-          alt="Frontend Engineer"
+          alt="Muneeza Fatima Frontend Engineer"
 
-          fill
+          width={700}
+
+          height={700}
 
           priority
 
-          sizes="
-          (max-width:640px) 360px,
-          (max-width:1024px) 400px,
-          410px
-          "
-
           className="
+          h-auto
+          w-full
           object-cover
-          object-center
+          drop-shadow-[0_0_55px_rgba(139,92,246,0.55)]
           "
 
         />
 
+      </motion.div>
 
-      </div>
+
+
+      {/* Shine Glow Ring */}
+
+      <motion.div
+
+        animate={{
+          rotate: 360,
+        }}
+
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+
+        className="
+        absolute
+        -inset-8
+        rounded-full
+        bg-gradient-to-r
+        from-blue-400/20
+        via-purple-400/20
+        to-pink-400/20
+        blur-xl
+        "
+
+      />
 
 
     </motion.div>

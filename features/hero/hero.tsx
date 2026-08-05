@@ -13,68 +13,41 @@ export function Hero() {
   return (
 
     <section
-
+      id="home"
       className="
       relative
+      min-h-screen
       overflow-hidden
-      pt-[125px]
-      pb-10
-      sm:pt-[135px]
-      md:pt-[140px]
-      lg:pt-[130px]
+      pt-[120px]
+      sm:pt-[125px]
+      md:pt-[130px]
+      lg:pt-[115px]
+      pb-16
       "
-
     >
 
+      {/* Background */}
       <HeroBackground />
 
 
       <Container>
 
-
         <div
-
           className="
           grid
           grid-cols-1
           items-center
-          gap-8
-          lg:grid-cols-[1.1fr_0.9fr]
-          lg:gap-3
+          gap-10
+          lg:grid-cols-[1fr_0.95fr]
+          lg:gap-8
+          xl:gap-12
           "
-
         >
 
 
-
-          {/* IMAGE */}
-
-          <div
-
-            className="
-            order-1
-            flex
-            justify-center
-            lg:order-2
-            lg:justify-end
-            lg:-translate-x-8
-            lg:-translate-y-6
-            "
-
-          >
-
-            <HeroImage />
-
-          </div>
-
-
-
-
-
-          {/* CONTENT */}
+          {/* LEFT CONTENT */}
 
           <div
-
             className="
             order-2
             relative
@@ -82,18 +55,41 @@ export function Hero() {
             max-w-xl
             lg:order-1
             "
-
           >
 
             <HeroContent />
 
 
-            <div className="mt-6">
+            <div
+              className="
+              mt-7
+              "
+            >
 
               <HeroButtons />
 
             </div>
 
+
+          </div>
+
+
+
+
+          {/* RIGHT IMAGE */}
+
+          <div
+            className="
+            order-1
+            relative
+            flex
+            justify-center
+            lg:order-2
+            lg:justify-end
+            "
+          >
+
+            <HeroImage />
 
           </div>
 
