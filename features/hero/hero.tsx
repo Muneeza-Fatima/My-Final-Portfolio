@@ -17,19 +17,16 @@ export function Hero() {
       className="
       relative
       overflow-hidden
-      pt-[145px]
-      pb-8
-      sm:pt-[130px]
+      pt-[125px]
+      pb-10
+      sm:pt-[135px]
       md:pt-[140px]
       lg:pt-[130px]
       "
 
     >
 
-      {/* Background */}
-
       <HeroBackground />
-
 
 
       <Container>
@@ -40,9 +37,9 @@ export function Hero() {
           className="
           grid
           grid-cols-1
-          lg:grid-cols-[1.1fr_0.9fr]
           items-center
           gap-8
+          lg:grid-cols-[1.1fr_0.9fr]
           lg:gap-3
           "
 
@@ -56,10 +53,9 @@ export function Hero() {
 
             className="
             order-1
-            lg:order-2
-            relative
             flex
             justify-center
+            lg:order-2
             lg:justify-end
             lg:-translate-x-8
             lg:-translate-y-6
@@ -81,10 +77,10 @@ export function Hero() {
 
             className="
             order-2
-            lg:order-1
             relative
             z-10
             max-w-xl
+            lg:order-1
             "
 
           >
@@ -92,8 +88,7 @@ export function Hero() {
             <HeroContent />
 
 
-
-            <div className="mt-5">
+            <div className="mt-6">
 
               <HeroButtons />
 

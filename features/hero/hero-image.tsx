@@ -11,38 +11,39 @@ export function HeroImage() {
     <motion.div
 
       initial={{
-        opacity:0,
-        scale:0.9,
-        y:30,
+        opacity: 0,
+        scale: 0.95,
+        y: 30,
       }}
 
       animate={{
-        opacity:1,
-        scale:1,
-        y:0,
+        opacity: 1,
+        scale: 1,
+        y: 0,
       }}
 
       transition={{
-        duration:0.9,
-        ease:[0.22,1,0.36,1],
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
       }}
 
       className="
       relative
       w-full
-      max-w-[300px]
-      sm:max-w-[360px]
-      lg:max-w-[430px]
+      max-w-[360px]
+      sm:max-w-[400px]
+      lg:max-w-[410px]
       "
     >
 
 
-      {/* Outer Glow */}
+      {/* Glow */}
 
       <div
+
         className="
         absolute
-        -inset-6
+        -inset-8
         rounded-full
         bg-gradient-to-r
         from-blue-500/30
@@ -50,102 +51,53 @@ export function HeroImage() {
         to-pink-500/20
         blur-3xl
         "
+
       />
 
 
 
-      {/* Shining Card */}
+      {/* Image Card */}
 
-      <motion.div
-
-        animate={{
-          rotate: [0,1,0,-1,0],
-        }}
-
-        transition={{
-          duration:8,
-          repeat:Infinity,
-          ease:"easeInOut",
-        }}
+      <div
 
         className="
         relative
+        aspect-square
+        overflow-hidden
         rounded-[2.5rem]
-        p-[2px]
-        bg-gradient-to-r
-        from-blue-400/60
-        via-purple-400/60
-        to-pink-400/60
+        border
+        border-white/10
+        bg-white/5
+        backdrop-blur-xl
         "
+
       >
 
+        <Image
 
-        <div
-          className="
-          relative
-          aspect-square
-          overflow-hidden
-          rounded-[2.4rem]
-          border
-          border-white/10
-          bg-black/40
-          backdrop-blur-xl
+          src="/images/profile.png"
+
+          alt="Frontend Engineer"
+
+          fill
+
+          priority
+
+          sizes="
+          (max-width:640px) 360px,
+          (max-width:1024px) 400px,
+          410px
           "
-        >
 
-          <Image
+          className="
+          object-cover
+          object-center
+          "
 
-            src="/images/profile.png"
-
-            alt="Frontend Engineer"
-
-            fill
-
-            priority
-
-            sizes="
-            (max-width:640px) 300px,
-            (max-width:1024px) 360px,
-            430px
-            "
-
-            className="
-            object-cover
-            object-center
-            scale-105
-            "
-          />
+        />
 
 
-          {/* Image Shine */}
-
-          <motion.div
-
-            animate={{
-              x:["-120%","120%"],
-            }}
-
-            transition={{
-              duration:4,
-              repeat:Infinity,
-              repeatDelay:3,
-            }}
-
-            className="
-            absolute
-            inset-0
-            bg-gradient-to-r
-            from-transparent
-            via-white/20
-            to-transparent
-            skew-x-12
-            "
-          />
-
-        </div>
-
-
-      </motion.div>
+      </div>
 
 
     </motion.div>
