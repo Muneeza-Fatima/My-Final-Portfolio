@@ -1,10 +1,7 @@
-"use client";
-
-import { HeroContent } from "./hero-content";
-import { HeroImage } from "./hero-image";
-import { HeroButtons } from "./hero-buttons";
-import { HeroBackground } from "./hero-background";
-
+import { HeroContent } from "@/features/hero/hero-content";
+import { HeroImage } from "@/features/hero/hero-image";
+import { HeroButtons } from "@/features/hero/hero-buttons";
+import { HeroBackground } from "@/features/hero/hero-background";
 import { Container } from "@/components/ui/container";
 
 
