@@ -3,38 +3,22 @@
 import { motion } from "framer-motion";
 
 
+const titleLines = [
+  "Building Digital",
+  "Experiences With",
+  "Code & Creativity",
+];
+
+
 export function HeroContent() {
-
-  const lines = [
-    "Building Digital",
-    "Experiences",
-    "With Code &",
-    "Creativity",
-  ];
-
-
-  const stats = [
-    {
-      number: "10+",
-      title: "Projects Completed",
-    },
-    {
-      number: "2+",
-      title: "Years Learning",
-    },
-    {
-      number: "React",
-      title: "Frontend Development",
-    },
-  ];
-
 
 
   return (
-    <div className="max-w-lg">
+
+    <div className="space-y-6">
 
 
-      {/* Label */}
+      {/* Small Label */}
 
       <motion.p
 
@@ -49,45 +33,60 @@ export function HeroContent() {
         }}
 
         transition={{
-          duration:0.5,
+          duration:0.6,
         }}
 
         className="
-        mb-4
-        text-xs
-        uppercase
-        tracking-[0.35em]
-        text-blue-400
+          text-sm
+          uppercase
+          tracking-[0.3em]
+          text-violet-400
         "
+
       >
+
         Frontend Engineer
+
       </motion.p>
+
+
 
 
 
       {/* Heading */}
 
       <h1
+
         className="
-        text-3xl
-        sm:text-4xl
-        md:text-5xl
-        lg:text-5xl
-        font-bold
-        leading-[1.05]
-        tracking-tight
+          text-4xl
+
+          font-bold
+
+          leading-[1.05]
+
+          tracking-tight
+
+          text-white
+
+
+          sm:text-5xl
+
+
+          lg:text-6xl
+
         "
+
       >
 
-        {lines.map((line,index)=>(
+        {titleLines.map((line,index)=>(
 
-          <motion.div
+          <motion.span
 
             key={line}
 
             initial={{
               opacity:0,
-              y:45,
+              y:30,
               filter:"blur(8px)",
             }}
 
@@ -99,31 +98,27 @@ export function HeroContent() {
 
             transition={{
               duration:0.7,
-              delay:index * 0.2,
+
+              delay:index * 0.15,
+
               ease:[0.22,1,0.36,1],
             }}
 
-            className={`
-            block
+            className="
+              block
+            "
 
-            ${
-              index >= 2
-              ?
-              "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-              :
-              "text-white"
-            }
-
-            `}
           >
 
             {line}
 
-          </motion.div>
+          </motion.span>
 
         ))}
 
+
       </h1>
+
 
 
 
@@ -134,7 +129,7 @@ export function HeroContent() {
 
         initial={{
           opacity:0,
-          y:20,
+          y:25,
         }}
 
         animate={{
@@ -143,36 +138,42 @@ export function HeroContent() {
         }}
 
         transition={{
-          delay:1,
-          duration:0.6,
+          duration:0.7,
+          delay:0.5,
         }}
 
         className="
-        mt-5
-        max-w-md
-        text-base
-        leading-relaxed
-        text-white/60
+          max-w-lg
+
+          text-base
+
+          leading-relaxed
+
+          text-neutral-400
+
+
+          sm:text-lg
+
         "
+
       >
 
-        I create responsive and interactive websites that combine
-        modern UI design, clean code, and smooth user experiences.
-        My focus is building fast, scalable, and visually engaging
-        digital products.
+        I create modern, responsive and interactive websites
+        using React, Next.js and modern frontend technologies.
+        Turning ideas into fast, beautiful digital experiences.
 
       </motion.p>
 
 
 
 
-      {/* Stats Cards */}
+      {/* Stats */}
 
       <motion.div
 
         initial={{
           opacity:0,
-          y:30,
+          y:25,
         }}
 
         animate={{
@@ -181,102 +182,91 @@ export function HeroContent() {
         }}
 
         transition={{
-          delay:1.3,
-          duration:0.6,
+          duration:0.7,
+          delay:0.7,
         }}
 
         className="
-        mt-6
-        grid
-        grid-cols-3
-        gap-3
+          grid
+
+          grid-cols-3
+
+          gap-4
+
+          pt-4
+
         "
+
       >
 
-        {stats.map((item)=>(
 
+        <div>
 
-          <div
+          <h3 className="
+            text-xl
+            font-bold
+            text-white
+          ">
+            10+
+          </h3>
 
-            key={item.title}
+          <p className="
+            text-xs
+            text-neutral-500
+          ">
+            Projects
+          </p>
 
-            className="
-            group
-            relative
-            overflow-hidden
-            rounded-2xl
-            border
-            border-white/10
-            bg-white/[0.05]
-            p-4
-            backdrop-blur-xl
-            "
-          >
-
-
-            {/* Glow */}
-
-            <div
-
-              className="
-              absolute
-              inset-0
-              -z-10
-              bg-gradient-to-br
-              from-blue-500/30
-              via-purple-500/20
-              to-pink-500/20
-              blur-xl
-              opacity-70
-              transition
-              duration-500
-              group-hover:opacity-100
-              "
-
-            />
+        </div>
 
 
 
-            <h3
+        <div>
 
-              className="
-              text-xl
-              font-bold
-              text-white
-              "
-            >
+          <h3 className="
+            text-xl
+            font-bold
+            text-white
+          ">
+            2+
+          </h3>
 
-              {item.number}
+          <p className="
+            text-xs
+            text-neutral-500
+          ">
+            Years Learning
+          </p>
 
-            </h3>
-
-
-
-            <p
-
-              className="
-              mt-1
-              text-xs
-              leading-relaxed
-              text-white/60
-              "
-            >
-
-              {item.title}
-
-            </p>
+        </div>
 
 
 
-          </div>
+        <div>
 
+          <h3 className="
+            text-xl
+            font-bold
+            text-white
+          ">
+            React
+          </h3>
 
-        ))}
+          <p className="
+            text-xs
+            text-neutral-500
+          ">
+            Development
+          </p>
+
+        </div>
 
 
       </motion.div>
 
 
     </div>
+
   );
+
 }

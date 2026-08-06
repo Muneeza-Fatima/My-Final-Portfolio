@@ -1,13 +1,55 @@
 "use client";
 
-import { useLenis } from "@/hooks/use-lenis";
+import type { ReactNode } from "react";
+import { ReactLenis } from "lenis/react";
+
+
+interface SmoothScrollProps {
+  children: ReactNode;
+}
+
 
 export function SmoothScroll({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  useLenis();
+}: SmoothScrollProps) {
 
-  return children;
+
+  return (
+
+    <ReactLenis
+
+      root
+
+      options={{
+
+        duration: 1.2,
+
+        lerp: 0.08,
+
+
+        smoothWheel: true,
+
+
+        // Mobile stability
+        syncTouch: false,
+
+
+        touchMultiplier: 1,
+
+
+        wheelMultiplier: 1,
+
+
+        autoRaf: true,
+
+      }}
+
+    >
+
+      {children}
+
+    </ReactLenis>
+
+  );
+
 }

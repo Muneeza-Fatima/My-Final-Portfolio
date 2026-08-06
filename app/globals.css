@@ -1,82 +1,171 @@
 @import "tailwindcss";
 
 
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+  --background:#050505;
+
+  --foreground:#f5f5f5;
+
 }
-
-
-.dark {
-  --background: #050505;
-  --foreground: #ededed;
-}
-
-
 
 
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+
+  scroll-behavior:auto;
+
+  scroll-padding-top:110px;
+
+  height:100%;
+
 }
-
-
 
 
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
-  letter-spacing: -0.01em;
+
+  min-height:100%;
+
+  background:var(--background);
+
+  color:var(--foreground);
+
+
+  font-family:var(--font-inter), sans-serif;
+
+
+  letter-spacing:-0.01em;
+
+
+  overflow-x:hidden;
+
+
+  text-rendering:optimizeLegibility;
+
+
+  -webkit-font-smoothing:antialiased;
+
+  -moz-osx-font-smoothing:grayscale;
+
+
+}
+
+
+
+/* Better Lenis performance */
+
+html.lenis,
+html.lenis body {
+
+  height:auto;
+
+}
+
+
+
+.lenis.lenis-smooth {
+
+  scroll-behavior:auto;
+
+}
+
+
+
+.lenis.lenis-stopped {
+
+  overflow:hidden;
+
+}
+
+
+
+
+
+*,
+*::before,
+*::after {
+
+  box-sizing:border-box;
+
 }
 
 
 
 * {
-  box-sizing: border-box;
+
+  -webkit-tap-highlight-color:transparent;
+
 }
 
 
+
+img,
+picture,
+video,
+canvas,
+svg {
+
+  display:block;
+
+  max-width:100%;
+
+}
+
+
+
+button,
+a {
+
+  touch-action:manipulation;
+
+}
 
 
 
 ::selection {
-  background: #ffffff;
-  color: #000000;
+
+  background:#ffffff;
+
+  color:#000000;
+
 }
 
 
 
+
+
+/* Scrollbar */
 
 
 ::-webkit-scrollbar {
-  width: 8px;
+
+  width:8px;
+
 }
-
-
 
 
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+
+  background:transparent;
+
 }
-
-
 
 
 
 ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 999px;
+
+  background:#555;
+
+  border-radius:999px;
+
 }
 
 
 
+::-webkit-scrollbar-thumb:hover {
 
+  background:#777;
 
-* {
-  -webkit-tap-highlight-color: transparent;
 }

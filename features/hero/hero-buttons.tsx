@@ -6,19 +6,34 @@ import { ArrowRight } from "lucide-react";
 export function HeroButtons() {
 
 
-  const scrollToSection = (id:string) => {
+  const handleScroll = (href:string) => {
 
-    const section = document.querySelector(id);
+
+    const section = document.querySelector(href);
+
 
 
     if(section){
 
-      section.scrollIntoView({
+
+      const top =
+        section.getBoundingClientRect().top +
+        window.scrollY -
+        100;
+
+
+
+      window.scrollTo({
+
+        top,
+
         behavior:"smooth",
-        block:"start",
+
       });
 
+
     }
+
 
   };
 
@@ -27,75 +42,140 @@ export function HeroButtons() {
   return (
 
     <div
+
       className="
         flex
         flex-col
         gap-4
+
         sm:flex-row
+        sm:items-center
       "
+
     >
+
+
+
+      {/* View Work */}
 
 
       <button
 
-        onClick={()=>scrollToSection("#projects")}
+        onClick={()=>handleScroll("#projects")}
+
 
         className="
           group
+
           flex
           items-center
           justify-center
           gap-2
+
           rounded-xl
-          bg-white
+
+          bg-gradient-to-r
+
+          from-violet-500
+          via-purple-500
+          to-blue-500
+
+
           px-6
           py-3
+
+
           text-sm
+
           font-semibold
-          text-black
-          transition
+
+          text-white
+
+
+          shadow-[0_0_35px_rgba(139,92,246,0.35)]
+
+
+          transition-all
+
+          duration-300
+
+
           hover:-translate-y-1
-          hover:bg-neutral-200
+
+
+          hover:shadow-[0_0_55px_rgba(139,92,246,0.55)]
         "
 
       >
 
         View My Work
 
+
         <ArrowRight
+
           size={16}
+
           className="
-            transition
+            transition-transform
+            duration-300
             group-hover:translate-x-1
           "
+
         />
+
 
       </button>
 
 
 
 
+      {/* Contact */}
+
+
       <button
 
-        onClick={()=>scrollToSection("#contact")}
+        onClick={()=>handleScroll("#contact")}
+
 
         className="
           flex
+
           items-center
+
           justify-center
-          gap-2
+
+
           rounded-xl
+
+
           border
-          border-white/20
+
+          border-white/15
+
+
           bg-white/5
+
+
           px-6
+
           py-3
+
+
           text-sm
+
           font-semibold
+
           text-white
+
+
           backdrop-blur-xl
-          transition
-          hover:-translate-y-1
+
+
+          transition-all
+
+          duration-300
+
+
           hover:bg-white/10
         "
 

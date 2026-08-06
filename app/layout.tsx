@@ -16,6 +16,7 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
+
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
@@ -53,6 +54,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
   },
+
 };
 
 
@@ -63,6 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+
   return (
 
     <html
@@ -71,7 +74,10 @@ export default function RootLayout({
     >
 
       <body
-        className={`${inter.variable} overflow-x-hidden`}
+        className={`
+          ${inter.variable}
+          overflow-x-hidden
+        `}
       >
 
         <Providers>
@@ -85,7 +91,9 @@ export default function RootLayout({
 
       </body>
 
+
     </html>
 
   );
+
 }

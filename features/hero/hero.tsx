@@ -13,54 +13,119 @@ export function Hero() {
   return (
 
     <section
+
       id="home"
+
       className="
-      relative
-      min-h-screen
-      overflow-hidden
-      transform-gpu
-      pt-[130px]
-      sm:pt-[135px]
-      md:pt-[140px]
-      lg:pt-[120px]
-      pb-16
+        relative
+        min-h-[100svh]
+        overflow-hidden
+
+        pt-[140px]
+
+        sm:pt-[150px]
+
+        md:pt-[130px]
+
+        lg:pt-[120px]
+
+        pb-12
       "
+
     >
+
 
       <HeroBackground />
 
 
+
       <Container>
 
+
         <div
+
           className="
-          grid
-          grid-cols-1
-          items-center
-          gap-10
-          lg:grid-cols-[1fr_0.9fr]
-          lg:gap-8
-          xl:gap-10
+            grid
+
+            grid-cols-1
+
+            items-center
+
+            gap-10
+
+
+            lg:grid-cols-[1fr_0.95fr]
+
+
+            lg:gap-8
+
           "
+
         >
+
+
+
+          {/* Mobile First Image */}
+
+          <div
+
+            className="
+              order-1
+
+              flex
+
+              justify-center
+
+
+              lg:order-2
+
+
+              lg:justify-end
+
+            "
+
+          >
+
+            <HeroImage />
+
+          </div>
+
+
+
 
 
           {/* Content */}
 
           <div
+
             className="
-            order-2
-            relative
-            z-10
-            max-w-xl
-            lg:order-1
+              order-2
+
+              relative
+
+              z-10
+
+
+              max-w-xl
+
+
+              lg:order-1
+
             "
+
           >
 
             <HeroContent />
 
 
-            <div className="mt-7">
+
+            <div
+
+              className="
+                mt-7
+              "
+
+            >
 
               <HeroButtons />
 
@@ -69,23 +134,6 @@ export function Hero() {
 
           </div>
 
-
-
-          {/* Image */}
-
-          <div
-            className="
-            order-1
-            flex
-            justify-center
-            lg:order-2
-            lg:justify-end
-            "
-          >
-
-            <HeroImage />
-
-          </div>
 
 
         </div>
@@ -97,4 +145,5 @@ export function Hero() {
     </section>
 
   );
+
 }

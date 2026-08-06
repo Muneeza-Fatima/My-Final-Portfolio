@@ -18,18 +18,28 @@ export function Providers({
   return (
 
     <ThemeProvider
+
       attribute="class"
+
       defaultTheme="dark"
+
       enableSystem={false}
+
       disableTransitionOnChange
+
       storageKey="muneeza-portfolio-theme"
+
     >
 
       <SmoothScroll>
+
         {children}
+
       </SmoothScroll>
+
 
     </ThemeProvider>
 
   );
+
 }
