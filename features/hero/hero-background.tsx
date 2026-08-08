@@ -8,7 +8,9 @@ export function HeroBackground() {
       className="
         absolute
         inset-0
-        -z-10
+
+        z-0
+
         overflow-hidden
         pointer-events-none
       "
@@ -38,6 +40,7 @@ export function HeroBackground() {
           rounded-full
 
           bg-purple-600/40
+
           blur-[120px]
         "
       />
@@ -102,11 +105,12 @@ export function HeroBackground() {
       />
 
 
-      {/* Subtle Noise Overlay */}
+      {/* Noise Overlay */}
       <div
         className="
           absolute
           inset-0
+
           bg-gradient-to-b
           from-transparent
           via-black/10
