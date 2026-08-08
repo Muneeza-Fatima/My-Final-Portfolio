@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -8,15 +9,12 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/layout/navbar";
 
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-
 export const metadata: Metadata = {
-
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.name}`,
@@ -38,7 +36,6 @@ export const metadata: Metadata = {
 
   creator: siteConfig.author.name,
 
-
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -48,52 +45,28 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
   },
 
-
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
   },
-
 };
-
-
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} overflow-x-hidden`}>
+        {/* Navbar stays outside Lenis */}
+        <Navbar />
 
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-
-      <body
-        className={`
-          ${inter.variable}
-          overflow-x-hidden
-        `}
-      >
-
-        <Providers>
-
-          <Navbar />
-
-          {children}
-
-        </Providers>
-
-
+        {/* Only page content uses Lenis */}
+        <Providers>{children}</Providers>
       </body>
-
-
     </html>
-
   );
-
 }
+

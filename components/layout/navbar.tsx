@@ -2,208 +2,134 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { Container } from "@/components/ui/container";
-
 const navItems = [
-  {
-    title: "Home",
-    href: "#home",
-  },
-  {
-    title: "About",
-    href: "#about",
-  },
-  {
-    title: "Projects",
-    href: "#projects",
-  },
-  {
-    title: "Services",
-    href: "#services",
-  },
-  {
-    title: "Contact",
-    href: "#contact",
-  },
+  { title: "Home", href: "#home" },
+  { title: "About", href: "#about" },
+  { title: "Projects", href: "#projects" },
+  { title: "Services", href: "#services" },
+  { title: "Contact", href: "#contact" },
 ];
 
 export function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  const handleScroll = (href: string) => {
-    const section = document.querySelector(href);
-
-    if (section) {
-      const top =
-        section.getBoundingClientRect().top +
-        window.scrollY -
-        100;
-
-      window.scrollTo({
-        top,
-        behavior: "smooth",
-      });
-    }
-
-    setOpen(false);
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.header
-      initial={{
-        opacity: 0,
-        y: -20,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
+    <header
       className="
         fixed
+        inset-x-0
         top-0
-        left-0
-        right-0
         z-[99999]
-        pt-4
-        sm:pt-5
+        w-full
+        isolate
       "
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 99999,
+      }}
     >
-      <Container>
-        <nav
-          className="
-            relative
-            z-10
-            flex
-            items-center
-            justify-between
-            rounded-2xl
-            border
-            border-white/10
-            bg-[#050816]/95
-            px-5
-            py-3
-            backdrop-blur-2xl
-            shadow-[0_20px_70px_rgba(0,0,0,0.45)]
-            md:px-7
-          "
+      <nav
+        className="
+          mx-auto
+          flex
+          h-[70px]
+          w-full
+          items-center
+          justify-between
+          border-b
+          border-white/10
+          bg-[#050711]/98
+          px-4
+          shadow-[0_10px_40px_rgba(0,0,0,0.5)]
+          backdrop-blur-xl
+          sm:px-6
+          lg:max-w-[1400px]
+          lg:px-7
+        "
+      >
+        {/* Logo */}
+        <a
+          href="#home"
+          onClick={() => setIsOpen(false)}
+          className="flex flex-col leading-none"
         >
-          {/* Logo */}
-          <button
-            type="button"
-            onClick={() => handleScroll("#home")}
+          <span className="text-[17px] font-semibold tracking-tight text-white sm:text-[18px]">
+            Muneeza Fatima
+          </span>
+
+          <span className="mt-1 text-[11px] text-white/50 sm:text-[12px]">
+            Frontend Engineer
+          </span>
+        </a>
+
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-8 md:flex">
+          {navItems.map((item) => (
+            <a
+              key={item.title}
+              href={item.href}
+              className="
+                text-sm
+                font-medium
+                text-white/60
+                transition-colors
+                duration-300
+                hover:text-white
+              "
+            >
+              {item.title}
+            </a>
+          ))}
+        </div>
+
+        {/* Right Side */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Let's Talk */}
+          <a
+            href="#contact"
+            onClick={() => setIsOpen(false)}
             className="
               flex
-              flex-col
-              text-left
-            "
-          >
-            <span
-              className="
-                text-base
-                font-semibold
-                tracking-tight
-                text-white
-                md:text-lg
-              "
-            >
-              Muneeza Fatima
-            </span>
-
-            <span
-              className="
-                text-xs
-                text-neutral-400
-              "
-            >
-              Frontend Engineer
-            </span>
-          </button>
-
-          {/* Desktop Links */}
-          <div
-            className="
-              hidden
               items-center
-              gap-8
-              md:flex
-            "
-          >
-            {navItems.map((item) => (
-              <button
-                key={item.title}
-                type="button"
-                onClick={() => handleScroll(item.href)}
-                className="
-                  group
-                  relative
-                  text-sm
-                  font-medium
-                  text-neutral-400
-                  transition
-                  hover:text-white
-                "
-              >
-                {item.title}
-
-                <span
-                  className="
-                    absolute
-                    -bottom-1
-                    left-0
-                    h-px
-                    w-0
-                    bg-white
-                    transition-all
-                    duration-300
-                    group-hover:w-full
-                  "
-                />
-              </button>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <button
-            type="button"
-            onClick={() => handleScroll("#contact")}
-            className="
-              hidden
-              items-center
-              gap-2
+              justify-center
               rounded-xl
               bg-gradient-to-r
               from-violet-500
-              via-purple-500
               to-blue-500
-              px-5
+              px-3.5
               py-2.5
-              text-sm
+              text-xs
               font-semibold
               text-white
-              shadow-[0_0_35px_rgba(139,92,246,0.35)]
-              transition
-              hover:-translate-y-1
-              md:flex
+              shadow-[0_8px_25px_rgba(99,102,241,0.3)]
+              transition-all
+              duration-300
+              hover:scale-[1.03]
+              sm:px-5
+              sm:py-3
+              sm:text-sm
             "
           >
             Let&apos;s Talk
-            <ArrowRight size={16} />
-          </button>
+          </a>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Toggle */}
           <button
             type="button"
-            onClick={() => setOpen(!open)}
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
             className="
               flex
               h-10
               w-10
+              shrink-0
               items-center
               justify-center
               rounded-xl
@@ -211,96 +137,67 @@ export function Navbar() {
               border-white/10
               bg-white/5
               text-white
+              transition-all
+              duration-300
+              hover:bg-white/10
               md:hidden
             "
           >
-            {open ? <X size={21} /> : <Menu size={21} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-        </nav>
+        </div>
+      </nav>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: -10,
-                height: 0,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                height: "auto",
-              }}
-              exit={{
-                opacity: 0,
-                y: -10,
-                height: 0,
-              }}
-              transition={{
-                duration: 0.25,
-              }}
-              className="
-                mt-3
-                overflow-hidden
-                rounded-2xl
-                border
-                border-white/10
-                bg-[#050816]/95
-                p-5
-                backdrop-blur-2xl
-                shadow-[0_20px_70px_rgba(0,0,0,0.45)]
-                md:hidden
-              "
-            >
-              <div className="flex flex-col gap-4">
-                {navItems.map((item) => (
-                  <button
-                    key={item.title}
-                    type="button"
-                    onClick={() => handleScroll(item.href)}
-                    className="
-                      text-left
-                      text-sm
-                      text-neutral-300
-                      transition
-                      hover:text-white
-                    "
-                  >
-                    {item.title}
-                  </button>
-                ))}
-
-                <button
-                  type="button"
-                  onClick={() => handleScroll("#contact")}
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="
+              mx-3
+              mt-2
+              overflow-hidden
+              rounded-2xl
+              border
+              border-white/10
+              bg-[#050711]/98
+              p-3
+              shadow-2xl
+              backdrop-blur-xl
+              sm:mx-4
+              sm:p-4
+              md:hidden
+            "
+          >
+            <div className="flex flex-col gap-1">
+              {navItems.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
                   className="
-                    mt-2
-                    flex
-                    items-center
-                    justify-center
-                    gap-2
                     rounded-xl
-                    bg-gradient-to-r
-                    from-violet-500
-                    via-purple-500
-                    to-blue-500
+                    px-4
                     py-3
                     text-sm
-                    font-semibold
-                    text-white
-                    shadow-[0_0_30px_rgba(139,92,246,0.25)]
+                    font-medium
+                    text-white/70
+                    transition-colors
+                    hover:bg-white/5
+                    hover:text-white
                   "
                 >
-                  Let&apos;s Talk
-                  <ArrowRight size={15} />
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Container>
-    </motion.header>
+                  {item.title}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
 
