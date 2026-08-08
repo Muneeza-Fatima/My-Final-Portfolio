@@ -1,8 +1,9 @@
+
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const navItems = [
   {
@@ -49,18 +50,7 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
-      initial={{
-        opacity: 0,
-        y: -20,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.5,
-      }}
+    <header
       className="
         fixed
         top-0
@@ -71,15 +61,8 @@ export function Navbar() {
         w-full
       "
     >
-      <div
-        className="
-          mx-auto
-          w-full
-          max-w-7xl
-          px-3
-          sm:px-5
-        "
-      >
+      <div className="w-full px-4 pt-4 sm:px-5 md:px-7">
+        {/* Navbar */}
         <nav
           className="
             relative
@@ -111,6 +94,7 @@ export function Navbar() {
         >
           {/* Logo */}
           <button
+            type="button"
             onClick={() => handleScroll("#home")}
             className="
               flex
@@ -158,6 +142,7 @@ export function Navbar() {
           >
             {navItems.map((item) => (
               <button
+                type="button"
                 key={item.title}
                 onClick={() => handleScroll(item.href)}
                 className="
@@ -197,14 +182,15 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Let's Talk */}
+          {/* Desktop CTA */}
           <button
+            type="button"
             onClick={() => handleScroll("#contact")}
             className="
               hidden
 
               items-center
-              justify-center
+              gap-2
 
               rounded-xl
 
@@ -231,6 +217,8 @@ export function Navbar() {
             "
           >
             Let&apos;s Talk
+
+            <ArrowRight size={16} />
           </button>
 
           {/* Mobile Right Side */}
@@ -245,11 +233,12 @@ export function Navbar() {
           >
             {/* Mobile Let's Talk */}
             <button
+              type="button"
               onClick={() => handleScroll("#contact")}
               className="
                 flex
                 items-center
-                justify-center
+                gap-1.5
 
                 rounded-lg
 
@@ -274,6 +263,8 @@ export function Navbar() {
               "
             >
               Let&apos;s Talk
+
+              <ArrowRight size={13} />
             </button>
 
             {/* Mobile Menu Button */}
@@ -302,6 +293,8 @@ export function Navbar() {
                 transition
 
                 hover:bg-white/10
+
+                md:hidden
               "
               aria-label={open ? "Close menu" : "Open menu"}
             >
@@ -360,6 +353,7 @@ export function Navbar() {
               <div className="flex flex-col gap-3">
                 {navItems.map((item) => (
                   <button
+                    type="button"
                     key={item.title}
                     onClick={() => handleScroll(item.href)}
                     className="
@@ -387,6 +381,7 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </div>
-    </motion.header>
+    </header>
   );
+
 }
