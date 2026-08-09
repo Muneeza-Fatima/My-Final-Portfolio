@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import {
+  Menu,
+  X,
+  ArrowRight,
+} from "lucide-react";
+
+import {
+  motion,
+  AnimatePresence,
+} from "framer-motion";
 
 import { Container } from "@/components/ui/container";
 
@@ -31,37 +40,27 @@ const navItems = [
 ];
 
 
-
 export function Navbar() {
 
   const [open, setOpen] = useState(false);
 
 
-
-  const handleScroll = (href: string) => {
-
+  const handleScroll = (href:string) => {
 
     const section = document.querySelector(href);
-
-
 
     if(section){
 
       section.scrollIntoView({
-
         behavior:"smooth",
-
         block:"start",
-
       });
 
     }
 
-
     setOpen(false);
 
   };
-
 
 
   return (
@@ -83,13 +82,15 @@ export function Navbar() {
       }}
 
       className="
-        fixed
-        top-0
-        left-0
-        right-0
-        z-[9999]
-        pt-4
-        sm:pt-5
+      fixed
+      top-0
+      left-0
+      right-0
+
+      z-[9999]
+
+      pt-3
+      sm:pt-5
       "
 
     >
@@ -101,29 +102,31 @@ export function Navbar() {
         <nav
 
           className="
-            flex
-            items-center
-            justify-between
+          flex
+          w-full
 
-            rounded-2xl
+          items-center
 
-            border
-            border-white/10
+          rounded-2xl
 
-            bg-[#050816]/95
+          border
+          border-white/10
 
-            px-5
-            py-3
+          bg-[#050816]/95
 
-            shadow-2xl
+          px-3
+          py-3
 
-            backdrop-blur-xl
+          shadow-2xl
 
-            md:px-7
+          backdrop-blur-xl
+
+          sm:px-5
+
+          md:px-7
           "
 
         >
-
 
 
           {/* Logo */}
@@ -134,9 +137,14 @@ export function Navbar() {
             onClick={()=>handleScroll("#home")}
 
             className="
-              flex
-              flex-col
-              text-left
+            flex
+            shrink-0
+
+            mr-auto
+
+            flex-col
+
+            text-left
             "
 
           >
@@ -144,11 +152,13 @@ export function Navbar() {
             <span
 
               className="
-                text-base
-                font-semibold
-                tracking-tight
-                text-white
-                md:text-lg
+              text-sm
+              font-semibold
+              tracking-tight
+              text-white
+
+              sm:text-base
+              md:text-lg
               "
 
             >
@@ -161,8 +171,9 @@ export function Navbar() {
             <span
 
               className="
-                text-xs
-                text-neutral-400
+              text-[10px]
+
+              text-neutral-400
               "
 
             >
@@ -184,58 +195,44 @@ export function Navbar() {
           <div
 
             className="
-              hidden
-              items-center
-              gap-8
-              md:flex
+            hidden
+
+            items-center
+
+            gap-8
+
+            md:flex
             "
 
           >
 
-            {navItems.map((item)=>(
+            {
+              navItems.map((item)=>(
 
+                <button
 
-              <button
+                  key={item.title}
 
-                key={item.title}
-
-                onClick={()=>handleScroll(item.href)}
-
-                className="
-                  group
-                  relative
-                  text-sm
-                  text-neutral-400
-                  transition
-                  hover:text-white
-                "
-
-              >
-
-                {item.title}
-
-
-                <span
+                  onClick={()=>handleScroll(item.href)}
 
                   className="
-                    absolute
-                    -bottom-1
-                    left-0
-                    h-px
-                    w-0
-                    bg-white
-                    transition-all
-                    duration-300
-                    group-hover:w-full
+                  text-sm
+
+                  text-neutral-400
+
+                  transition
+
+                  hover:text-white
                   "
 
-                />
+                >
 
+                  {item.title}
 
-              </button>
+                </button>
 
-
-            ))}
+              ))
+            }
 
 
           </div>
@@ -244,83 +241,164 @@ export function Navbar() {
 
 
 
-          {/* CTA */}
+          {/* Actions */}
 
 
-          <button
-
-            onClick={()=>handleScroll("#contact")}
+          <div
 
             className="
+            flex
+
+            shrink-0
+
+            items-center
+
+            gap-2
+
+            ml-auto
+            "
+
+          >
+
+
+            {/* Desktop Let's Talk */}
+
+
+            <button
+
+              onClick={()=>handleScroll("#contact")}
+
+              className="
               hidden
+
               items-center
+
               gap-2
+
               rounded-xl
+
               bg-white
+
               px-5
               py-2.5
+
               text-sm
+
               font-medium
+
               text-black
-              transition
-              hover:bg-neutral-200
+
               md:flex
-            "
+              "
 
-          >
+            >
 
-            Let&apos;s Talk
+              Let&apos;s Talk
 
-            <ArrowRight size={15}/>
+              <ArrowRight size={15}/>
 
-
-          </button>
-
+            </button>
 
 
 
 
 
-          {/* Mobile Button */}
+            {/* Mobile Talk */}
 
 
-          <button
+            <button
 
-            type="button"
+              onClick={()=>handleScroll("#contact")}
 
-            onClick={()=>setOpen(!open)}
-
-            className="
+              className="
               flex
-              h-10
-              w-10
+
               items-center
-              justify-center
-              rounded-xl
-              border
-              border-white/10
-              text-white
+
+              gap-1
+
+              rounded-lg
+
+              bg-white
+
+              px-2.5
+
+              py-2
+
+              text-xs
+
+              font-medium
+
+              text-black
+
               md:hidden
-            "
+              "
 
-          >
+            >
 
-            {open ? (
+              Talk
 
-              <X size={21}/>
+              <ArrowRight size={12}/>
 
-            ):(
+            </button>
 
-              <Menu size={21}/>
 
-            )}
 
-          </button>
 
+
+            {/* Mobile Toggle */}
+
+
+            <button
+
+              type="button"
+
+              onClick={()=>setOpen(!open)}
+
+              className="
+              flex
+
+              h-10
+
+              w-10
+
+              shrink-0
+
+              items-center
+
+              justify-center
+
+              rounded-xl
+
+              border
+
+              border-white/10
+
+              text-white
+
+              md:hidden
+              "
+
+            >
+
+              {
+
+                open ?
+
+                <X size={21}/> :
+
+                <Menu size={21}/>
+
+              }
+
+
+            </button>
+
+
+          </div>
 
 
         </nav>
-
 
 
 
@@ -331,117 +409,93 @@ export function Navbar() {
 
         <AnimatePresence>
 
+        {
 
-        {open && (
+          open && (
 
-          <motion.div
+            <motion.div
 
-            initial={{
-              opacity:0,
-              height:0,
-              y:-10,
-            }}
+              initial={{
+                opacity:0,
+                height:0,
+              }}
 
-            animate={{
-              opacity:1,
-              height:"auto",
-              y:0,
-            }}
+              animate={{
+                opacity:1,
+                height:"auto",
+              }}
 
-            exit={{
-              opacity:0,
-              height:0,
-              y:-10,
-            }}
-
-            className="
-              mt-3
-              overflow-hidden
-              rounded-2xl
-              border
-              border-white/10
-              bg-[#050816]/95
-              p-5
-              backdrop-blur-xl
-              md:hidden
-            "
-
-          >
-
-            <div
+              exit={{
+                opacity:0,
+                height:0,
+              }}
 
               className="
-                flex
-                flex-col
-                gap-4
+              mt-3
+
+              rounded-2xl
+
+              border
+              border-white/10
+
+              bg-[#050816]/95
+
+              p-5
+
+              backdrop-blur-xl
+
+              md:hidden
               "
 
             >
 
-              {navItems.map((item)=>(
-
-                <button
-
-                  key={item.title}
-
-                  onClick={()=>handleScroll(item.href)}
-
-                  className="
-                    text-left
-                    text-sm
-                    text-neutral-300
-                    transition
-                    hover:text-white
-                  "
-
-                >
-
-                  {item.title}
-
-                </button>
-
-
-              ))}
-
-
-
-              <button
-
-                onClick={()=>handleScroll("#contact")}
+              <div
 
                 className="
-                  mt-2
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-xl
-                  bg-white
-                  py-3
-                  text-sm
-                  font-medium
-                  text-black
+                flex
+                flex-col
+                gap-4
                 "
 
               >
 
-                Let&apos;s Talk
+                {
+                  navItems.map((item)=>(
 
-                <ArrowRight size={15}/>
+                    <button
 
-              </button>
+                      key={item.title}
+
+                      onClick={()=>handleScroll(item.href)}
+
+                      className="
+                      text-left
+
+                      text-sm
+
+                      text-neutral-300
+                      "
+
+                    >
+
+                      {item.title}
+
+                    </button>
+
+                  ))
+                }
 
 
-            </div>
+              </div>
 
 
-          </motion.div>
+            </motion.div>
 
-        )}
+          )
 
+        }
 
         </AnimatePresence>
-
 
 
       </Container>

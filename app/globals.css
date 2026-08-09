@@ -169,3 +169,7 @@ a {
   background:#777;
 
 }
+html,
+body {
+  overflow-x: hidden;
+}
