@@ -8,17 +8,17 @@ export function HeroImage() {
     <motion.div
       initial={{
         opacity: 0,
-        scale: 0.96,
-        x: 40,
+        scale: 0.98,
+        y: 20,
       }}
       animate={{
         opacity: 1,
         scale: 1,
-        x: 0,
+        y: 0,
       }}
       transition={{
-        duration: 0.8,
-        ease: "easeOut",
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
       }}
       className="
         relative
@@ -33,7 +33,6 @@ export function HeroImage() {
         className="
           absolute
           -inset-[2px]
-
           rounded-[32px]
 
           bg-gradient-to-r
@@ -56,14 +55,13 @@ export function HeroImage() {
 
           bg-black
 
-          w-[300px]
+          w-[280px]
           sm:w-[330px]
           md:w-[370px]
           lg:w-[350px]
           xl:w-[380px]
         "
       >
-
         <Image
           src="/images/profile.png"
           alt="Muneeza Fatima Frontend Engineer"
@@ -77,7 +75,6 @@ export function HeroImage() {
             object-cover
           "
         />
-
       </div>
 
     </motion.div>

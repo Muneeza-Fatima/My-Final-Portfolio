@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import {
   Code2,
   Layers3,
@@ -8,48 +9,43 @@ import {
 } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
 
 import { AboutBackground } from "./about-background";
 
 
 const focusAreas = [
   {
-    label: "Frontend Engineering",
-    value: "90%",
+    label:"Frontend Engineering",
+    value:"90%",
   },
   {
-    label: "UI Implementation",
-    value: "85%",
+    label:"UI Implementation",
+    value:"85%",
   },
   {
-    label: "Interactive Motion",
-    value: "75%",
+    label:"Interactive Motion",
+    value:"75%",
   },
 ];
 
 
 const highlights = [
   {
-    icon: Code2,
-    title: "Clean Development",
-    text:
-      "Writing scalable and maintainable frontend solutions.",
+    icon:Code2,
+    title:"Clean Development",
+    text:"Writing scalable and maintainable frontend solutions.",
   },
   {
-    icon: Layers3,
-    title: "Thoughtful Interfaces",
-    text:
-      "Creating designs that feel simple and intuitive.",
+    icon:Layers3,
+    title:"Thoughtful Interfaces",
+    text:"Creating designs that feel simple and intuitive.",
   },
   {
-    icon: Sparkles,
-    title: "Digital Experiences",
-    text:
-      "Adding motion and interaction that improves usability.",
+    icon:Sparkles,
+    title:"Digital Experiences",
+    text:"Adding motion and interaction that improves usability.",
   },
 ];
-
 
 
 const reveal = {
@@ -68,17 +64,20 @@ const reveal = {
 
 export function About(){
 
-return(
+return (
 
-<Section
+<section
 id="about"
 className="
 relative
+pt-8
+pb-10
+lg:pt-10
+lg:pb-12
 overflow-hidden
-py-24
-md:py-36
 "
 >
+
 
 <AboutBackground />
 
@@ -86,19 +85,7 @@ md:py-36
 <Container>
 
 
-<div
-className="
-grid
-gap-16
-lg:grid-cols-2
-lg:gap-20
-lg:items-center
-"
->
-
-
-
-{/* Content */}
+{/* Heading */}
 
 <motion.div
 
@@ -125,7 +112,7 @@ className="
 text-sm
 uppercase
 tracking-[0.35em]
-text-blue-300/80
+text-blue-300
 "
 >
 About Me
@@ -134,21 +121,24 @@ About Me
 
 
 <h2
+
 className="
 mt-5
-max-w-xl
+max-w-3xl
 text-4xl
 font-semibold
-leading-[1.05]
+leading-[1.1]
 tracking-tight
 text-white
 md:text-6xl
 "
+
 >
 
 Building digital experiences where{" "}
 
 <span
+
 className="
 bg-gradient-to-r
 from-white
@@ -157,8 +147,11 @@ to-blue-300
 bg-clip-text
 text-transparent
 "
+
 >
+
 design meets engineering.
+
 </span>
 
 </h2>
@@ -166,21 +159,23 @@ design meets engineering.
 
 
 <p
+
 className="
-mt-7
-max-w-lg
+mt-5
+max-w-2xl
 text-lg
 leading-relaxed
 text-white/60
 "
+
 >
 
 I’m Muneeza Fatima, a Frontend Engineer
 focused on creating responsive,
-interactive and high-quality web
-experiences. I enjoy transforming ideas
-into clean interfaces with attention to
-performance, usability and detail.
+interactive and high-quality web experiences.
+I enjoy transforming ideas into clean
+interfaces with attention to performance,
+usability and detail.
 
 </p>
 
@@ -191,8 +186,7 @@ performance, usability and detail.
 
 
 
-{/* Profile Card */}
-
+{/* Stats Card */}
 
 <motion.div
 
@@ -211,134 +205,33 @@ transition={{
 duration:0.7,
 }}
 
-
 className="
+mt-8
 rounded-[32px]
 border
 border-white/10
 bg-white/[0.04]
 p-7
 shadow-[0_25px_80px_rgba(0,0,0,0.35)]
-lg:backdrop-blur-xl
+backdrop-blur-xl
 "
 
 >
-
-
-<p
-className="
-text-sm
-uppercase
-tracking-[0.3em]
-text-white/40
-"
->
-Engineering Journey
-</p>
-
-
-
-<div
-className="
-mt-7
-grid
-grid-cols-2
-gap-4
-"
->
-
-
-{[
-{
-number:"10+",
-label:"Projects Built",
-},
-{
-number:"2+",
-label:"Years Learning",
-},
-].map((item)=>(
-
-<div
-key={item.label}
-className="
-rounded-2xl
-border
-border-white/10
-bg-black/20
-p-5
-"
->
-
-<h3
-className="
-text-4xl
-font-semibold
-text-white
-"
->
-{item.number}
-</h3>
-
-
-<p
-className="
-mt-2
-text-sm
-text-white/50
-"
->
-{item.label}
-</p>
-
-
-</div>
-
-))}
-
-
-</div>
-
-
-
-
-
-{/* Focus Bars */}
-
-
-<div className="mt-10">
-
-
-<p
-className="
-mb-6
-text-sm
-uppercase
-tracking-[0.25em]
-text-white/40
-"
->
-Current Focus
-</p>
-
-
-
-<div className="space-y-6">
 
 
 {focusAreas.map((item)=>(
 
-
 <div
 key={item.label}
+className="mb-5 last:mb-0"
 >
 
 
 <div
 className="
-mb-2
 flex
 justify-between
+mb-2
 text-sm
 text-white/70
 "
@@ -358,7 +251,7 @@ text-white/70
 
 <div
 className="
-h-1.5
+h-2
 overflow-hidden
 rounded-full
 bg-white/10
@@ -383,7 +276,6 @@ transition={{
 duration:1,
 }}
 
-
 className="
 h-full
 rounded-full
@@ -391,8 +283,8 @@ bg-gradient-to-r
 from-blue-300
 to-indigo-400
 "
-/>
 
+/>
 
 </div>
 
@@ -402,32 +294,23 @@ to-indigo-400
 ))}
 
 
-</div>
-
-
-</div>
-
-
 </motion.div>
 
 
 
-</div>
 
 
-
-
-
-{/* Values */}
-
+{/* Highlights */}
 
 <div
+
 className="
-mt-24
+mt-8
 grid
 gap-5
 md:grid-cols-3
 "
+
 >
 
 
@@ -436,7 +319,7 @@ md:grid-cols-3
 const Icon=item.icon;
 
 
-return(
+return (
 
 <motion.div
 
@@ -464,45 +347,52 @@ border
 border-white/10
 bg-white/[0.035]
 p-7
-lg:backdrop-blur-xl
+backdrop-blur-xl
 "
 
 >
 
 
 <Icon
-size={26}
+size={28}
 className="text-blue-300"
 />
 
 
 <h3
+
 className="
-mt-6
+mt-5
 text-xl
-font-medium
+font-semibold
 text-white
 "
+
 >
+
 {item.title}
+
 </h3>
 
 
 <p
+
 className="
 mt-3
 leading-relaxed
 text-white/60
 "
+
 >
+
 {item.text}
+
 </p>
 
 
 </motion.div>
 
-
-);
+)
 
 })}
 
@@ -510,11 +400,10 @@ text-white/60
 </div>
 
 
-
 </Container>
 
 
-</Section>
+</section>
 
 );
 

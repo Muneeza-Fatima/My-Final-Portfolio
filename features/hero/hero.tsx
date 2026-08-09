@@ -1,4 +1,3 @@
-
 "use client";
 
 import { HeroContent } from "./hero-content";
@@ -9,75 +8,149 @@ import { HeroTrust } from "./hero-trust";
 
 import { Container } from "@/components/ui/container";
 
-export function Hero() {
-  return (
-    <section
-      id="home"
-      className="
-        relative
-        isolate
-        min-h-[100svh]
-        overflow-hidden
-        flex
-        items-center
-      "
-    >
-      {/* Background */}
-      <HeroBackground />
 
-      <Container>
-        <div
-          className="
-            relative
-            z-10
-            grid
-            grid-cols-1
-            items-center
-            gap-8
-            py-24
-            lg:grid-cols-[1fr_0.95fr]
-            lg:gap-10
-            lg:py-20
-          "
-        >
-          {/* Image */}
-          <div
-            className="
-              order-1
-              relative
-              z-0
-              flex
-              justify-center
-              lg:order-2
-              lg:justify-end
-            "
-          >
-            <HeroImage />
-          </div>
+export function Hero(){
 
-          {/* Content */}
-          <div
-            className="
-              order-2
-              relative
-              z-10
-              max-w-xl
-              lg:order-1
-            "
-          >
-            <HeroContent />
+return(
 
-            {/* CTA Buttons */}
-            <div className="relative z-20 mt-7">
-              <HeroButtons />
-            </div>
+<section
+id="home"
+className="
+relative
+isolate
 
-            {/* Trust / Stats Card */}
-            <HeroTrust />
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
+min-h-screen
+
+overflow-hidden
+
+pt-28
+pb-10
+
+lg:pt-32
+lg:pb-16
+"
+>
+
+
+{/* Background */}
+<HeroBackground />
+
+
+
+<Container>
+
+<div
+className="
+relative
+z-20
+
+grid
+grid-cols-1
+
+items-center
+
+gap-12
+
+lg:grid-cols-[1fr_0.9fr]
+
+lg:gap-8
+"
+
+>
+
+
+{/* Content */}
+
+<div
+className="
+order-2
+
+relative
+z-30
+
+max-w-xl
+
+lg:order-1
+"
+
+>
+
+<HeroContent />
+
+
+<div
+className="
+relative
+z-40
+
+mt-8
+"
+
+>
+
+<HeroButtons />
+
+</div>
+
+
+
+<HeroTrust />
+
+</div>
+
+
+
+
+
+{/* Image */}
+
+<div
+className="
+order-1
+
+relative
+z-10
+
+flex
+
+justify-center
+
+lg:order-2
+
+lg:justify-end
+"
+
+>
+
+
+<div
+className="
+relative
+
+mt-4
+
+lg:mt-0
+"
+
+>
+
+<HeroImage />
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</Container>
+
+
+</section>
+
+);
+
 }
-

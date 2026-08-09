@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+
 import {
   Code2,
   LayoutTemplate,
@@ -9,7 +10,6 @@ import {
 } from "lucide-react";
 
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
 
 import { ServicesBackground } from "./services-background";
 
@@ -22,7 +22,7 @@ const services = [
       "Building modern, responsive interfaces using React, Next.js and scalable frontend architecture.",
     stack:
       "React • Next.js • TypeScript",
-    icon:Code2,
+    icon: Code2,
   },
 
   {
@@ -32,7 +32,7 @@ const services = [
       "Transforming designs into polished interfaces with attention to detail, usability and consistency.",
     stack:
       "Responsive Design • UI Systems",
-    icon:LayoutTemplate,
+    icon: LayoutTemplate,
   },
 
   {
@@ -42,7 +42,7 @@ const services = [
       "Creating engaging digital experiences through smooth animations, transitions and micro-interactions.",
     stack:
       "Framer Motion • Interactive UI",
-    icon:Sparkles,
+    icon: Sparkles,
   },
 
   {
@@ -52,7 +52,7 @@ const services = [
       "Improving speed, accessibility and overall website performance for better user experiences.",
     stack:
       "Performance • Clean Code",
-    icon:Zap,
+    icon: Zap,
   },
 ];
 
@@ -73,61 +73,48 @@ const reveal = {
 
 export function Services(){
 
-return(
+return (
 
-<Section
+<section
 id="services"
 className="
 relative
+pt-6
+pb-10
+lg:pt-8
+lg:pb-12
 overflow-hidden
-py-24
-md:py-36
 "
 >
 
-
 <ServicesBackground />
-
 
 
 <Container>
 
 
-<div
-className="
-grid
-gap-14
-lg:grid-cols-2
-lg:gap-20
-"
->
-
-
-
-{/* Intro */}
+{/* Heading */}
 
 <motion.div
 
-variants={reveal}
+initial={{
+opacity:0,
+y:30,
+}}
 
-initial="hidden"
-
-whileInView="show"
+whileInView={{
+opacity:1,
+y:0,
+}}
 
 viewport={{
 once:true,
-amount:0.25,
+amount:0.3,
 }}
 
 transition={{
-duration:0.6,
+duration:0.7,
 }}
-
-className="
-lg:sticky
-lg:top-32
-h-fit
-"
 
 >
 
@@ -144,10 +131,11 @@ My Expertise
 </p>
 
 
-
 <h2
+
 className="
 mt-5
+max-w-3xl
 text-4xl
 font-semibold
 leading-[1.1]
@@ -155,11 +143,13 @@ tracking-tight
 text-white
 md:text-6xl
 "
+
 >
 
-Turning ideas into{" "}
+Building modern{" "}
 
 <span
+
 className="
 bg-gradient-to-r
 from-blue-300
@@ -168,77 +158,56 @@ to-purple-300
 bg-clip-text
 text-transparent
 "
+
 >
-digital products.
+
+digital experiences.
+
 </span>
 
 </h2>
 
 
-
 <p
+
 className="
-mt-7
-max-w-lg
+mt-5
+max-w-2xl
 text-lg
 leading-relaxed
 text-white/60
 "
+
 >
 
-I help businesses and startups create
-responsive, high-quality websites by
-combining clean engineering with thoughtful
-user experiences.
+I create responsive, interactive and
+high-performance web experiences
+using modern frontend technologies.
 
 </p>
 
 
 </motion.div>
-
-
-
-
-
-{/* Timeline */}
+{/* Services Timeline */}
 
 <div
+
 className="
-relative
+mt-10
+grid
+gap-6
+lg:mt-12
 "
->
 
-
-<div
-className="
-absolute
-left-6
-top-0
-h-full
-w-px
-bg-gradient-to-b
-from-blue-400/30
-via-violet-400/20
-to-transparent
-"
-/>
-
-
-
-<div
-className="
-space-y-8
-"
 >
 
 
 {services.map((service,index)=>{
 
-
 const Icon = service.icon;
 
 
-return(
+return (
 
 <motion.div
 
@@ -268,7 +237,6 @@ pl-16
 >
 
 
-
 {/* Icon */}
 
 <div
@@ -290,16 +258,12 @@ bg-white/[0.04]
 
 >
 
-
 <Icon
 size={22}
 className="text-blue-300"
 />
 
-
 </div>
-
-
 
 
 
@@ -313,7 +277,10 @@ border
 border-white/10
 bg-white/[0.035]
 p-7
-lg:backdrop-blur-xl
+backdrop-blur-xl
+transition
+duration-500
+hover:border-blue-300/20
 "
 
 >
@@ -328,9 +295,10 @@ text-white/40
 "
 
 >
-{service.number}
-</span>
 
+{service.number}
+
+</span>
 
 
 
@@ -345,9 +313,10 @@ text-white
 "
 
 >
-{service.title}
-</h3>
 
+{service.title}
+
+</h3>
 
 
 
@@ -360,7 +329,9 @@ text-white/60
 "
 
 >
+
 {service.description}
+
 </p>
 
 
@@ -374,7 +345,9 @@ text-blue-300
 "
 
 >
+
 {service.stack}
+
 </p>
 
 
@@ -382,32 +355,22 @@ text-blue-300
 </div>
 
 
-
 </motion.div>
 
 
 );
 
-
 })}
 
 
-
 </div>
-
-
-</div>
-
-
-
-</div>
-
 
 
 </Container>
 
 
-</Section>
+</section>
+
 
 );
 

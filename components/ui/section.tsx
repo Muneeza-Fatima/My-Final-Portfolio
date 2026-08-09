@@ -1,14 +1,11 @@
 import type { ReactNode } from "react";
-
 import { cn } from "@/lib/utils";
-
 
 interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
 }
-
 
 export function Section({
   children,
@@ -19,7 +16,13 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative w-full",
+        `
+        relative
+        w-full
+        py-12
+        md:py-16
+        lg:py-20
+        `,
         className
       )}
     >
