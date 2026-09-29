@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Separate older copy of the portfolio (its own git repo).
+    "My-Final-Portfolio/**",
   ]),
 ]);
 

@@ -1,175 +1,297 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens — near-black base, white type, and a single muted lavender
+ * accent used sparingly.
+ * Components only use these semantic names, so the whole palette
+ * can be changed from this block.
+ */
+@theme {
+  --color-canvas: #f5f5f3;
+  --color-surface: #ffffff;
+  --color-tint: #ecebf3;
+  --color-tint-soft: #f4f3f8;
+  --color-line: #e3e2e8;
+  --color-ink: #111216;
+  --color-muted: #62636e;
+  --color-accent: #3b3b48;
+  --color-accent-soft: #b7abea;
+  --color-highlight: #f3f0ff;
+  --color-accent-deep: #26262f;
+  --color-sand: #ecebf3;
+  --color-noir: #0e0f12;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Inline so the utilities read the next/font variables set on <body>. */
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
 
 :root {
-
-  --background:#050505;
-
-  --foreground:#f5f5f5;
-
+  --background: #f5f5f3;
+  --foreground: #111216;
+  --foil: linear-gradient(100deg, #fbc2eb 0%, #e0c3fc 50%, #a6c1ee 100%);
+  --foil-reverse: linear-gradient(100deg, #a6c1ee 0%, #e0c3fc 50%, #fbc2eb 100%);
+  --grade: #1a1b22;
+  color-scheme: light;
 }
 
+/* Base resets live in the base layer so Tailwind utilities (e.g. `hidden`) can override them. */
+@layer base {
+  html {
+    scroll-behavior: auto;
+    scroll-padding-top: 110px;
+    height: 100%;
+  }
 
+  body {
+    min-height: 100%;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), sans-serif;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-html {
+  /* Lenis */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
 
-  scroll-behavior:auto;
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
 
-  scroll-padding-top:110px;
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
 
-  height:100%;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  ::selection {
+    background: #3b3b48;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #26262f;
+    outline-offset: 3px;
+  }
 }
-
-
-
-body {
-
-  min-height:100%;
-
-  background:var(--background);
-
-  color:var(--foreground);
-
-
-  font-family:var(--font-inter), sans-serif;
-
-
-  letter-spacing:-0.01em;
-
-
-  overflow-x:hidden;
-
-
-  text-rendering:optimizeLegibility;
-
-
-  -webkit-font-smoothing:antialiased;
-
-  -moz-osx-font-smoothing:grayscale;
-
-
-}
-
-
-
-/* Better Lenis performance */
-
-html.lenis,
-html.lenis body {
-
-  height:auto;
-
-}
-
-
-
-.lenis.lenis-smooth {
-
-  scroll-behavior:auto;
-
-}
-
-
-
-.lenis.lenis-stopped {
-
-  overflow:hidden;
-
-}
-
-
-
-
-
-*,
-*::before,
-*::after {
-
-  box-sizing:border-box;
-
-}
-
-
-
-* {
-
-  -webkit-tap-highlight-color:transparent;
-
-}
-
-
-
-img,
-picture,
-video,
-canvas,
-svg {
-
-  display:block;
-
-  max-width:100%;
-
-}
-
-
-
-button,
-a {
-
-  touch-action:manipulation;
-
-}
-
-
-
-::selection {
-
-  background:#ffffff;
-
-  color:#000000;
-
-}
-
-
-
-
 
 /* Scrollbar */
-
-
 ::-webkit-scrollbar {
-
-  width:8px;
-
+  width: 8px;
 }
-
-
 
 ::-webkit-scrollbar-track {
-
-  background:transparent;
-
+  background: transparent;
 }
-
-
 
 ::-webkit-scrollbar-thumb {
-
-  background:#555;
-
-  border-radius:999px;
-
+  background: #d3d2dc;
+  border-radius: 999px;
 }
-
-
 
 ::-webkit-scrollbar-thumb:hover {
-
-  background:#777;
-
+  background: #3b3b48;
 }
+
 html,
 body {
   overflow-x: hidden;
+}
+
+/* Hide the native cursor only when the custom cursor is active. */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.text-foil-reverse {
+  background: var(--foil-reverse);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Static chrome text: white with lavender reflections. */
+.text-chrome {
+  background: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    #ded8ff 30%,
+    #ffffff 52%,
+    #c3b8f2 78%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Rotating phrase in the hero: prominent purple. */
+.text-purple-glow {
+  background: linear-gradient(100deg, #d8ccff 0%, #b69cff 45%, #9b7bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Blinking editor caret */
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.caret {
+  display: inline-block;
+  animation: caret-blink 1.05s step-end infinite;
+}
+
+/* Display type defaults; font-weight / tracking utilities still override. */
+@layer components {
+  .font-display {
+    font-weight: 600;
+    letter-spacing: -0.035em;
+  }
+}
+
+/* Accent gradient text */
+.text-foil {
+  background: var(--foil);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Subtle paper grain over the whole site */
+.grain::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Premium glass button: transparent frosted fill, a static light-catching
+   gradient border, and a transparent diagonal sheen inside. */
+.btn-shine {
+  position: relative;
+  isolation: isolate;
+  box-shadow:
+    inset 0 1px 0 rgba(216, 204, 255, 0.4),
+    0 12px 28px -14px rgba(0, 0, 0, 0.7);
+}
+
+.btn-shine::before,
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(216, 204, 255, 0.95) 0%,
+    rgba(167, 139, 250, 0.8) 30%,
+    rgba(167, 139, 250, 0.08) 55%,
+    rgba(167, 139, 250, 0.6) 85%,
+    rgba(216, 204, 255, 0.8) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Same glass treatment for positioned decorative panels (no position override). */
+.glass-panel {
+  isolation: isolate;
+}
+
+/* Transparent inner sheen — sits above the button fill, below the label. */
+.btn-shine::after,
+.glass-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(196, 176, 255, 0.45) 0%,
+      rgba(167, 139, 250, 0.16) 38%,
+      rgba(167, 139, 250, 0) 58%
+    ),
+    linear-gradient(180deg, rgba(167, 139, 250, 0.18) 0%, rgba(167, 139, 250, 0) 55%);
+  pointer-events: none;
+}
+
+/* Touch devices: give every tappable element a small press response. */
+@media (hover: none) {
+  a:active,
+  button:active {
+    transform: scale(0.97);
+    transition: transform 0.12s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

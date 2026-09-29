@@ -1,22 +1,8 @@
+// Section ids on the home page, in scroll order.
 export const navigation = [
-  {
-    name: "Home",
-    href: "#home",
-  },
-  {
-    name: "About",
-    href: "#about",
-  },
-  {
-    name: "Services",
-    href: "#services",
-  },
-  {
-    name: "Projects",
-    href: "#projects",
-  },
-  {
-    name: "Contact",
-    href: "#contact",
-  },
+  { name: "About", id: "about" },
+  { name: "Work", id: "work" },
+  { name: "Projects", id: "projects" },
+  { name: "Services", id: "services" },
+  { name: "Contact", id: "contact" },
 ];

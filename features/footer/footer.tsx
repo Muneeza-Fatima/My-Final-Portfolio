@@ -1,287 +1,110 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  Mail,
-} from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { useLenis } from "lenis/react";
+import { useRef } from "react";
 
+import { Magnetic } from "@/components/interactive/Magnetic";
+import { navigation } from "@/data/navigation";
+import { contactEmail, socials } from "@/data/socials";
+import { useSectionNav } from "@/hooks/use-section-nav";
 
 export function Footer() {
+  const ref = useRef<HTMLElement>(null);
+  const lenis = useLenis();
+  const goTo = useSectionNav();
+  const reduceMotion = usePrefersReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const wordY = useTransform(scrollYProgress, [0, 1], ["45%", "0%"]);
+  const year = new Date().getFullYear();
+
+  const toTop = () => {
+    if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-
-    <footer
-      className="
-        relative
-        overflow-hidden
-        border-t
-        border-white/10
-        py-14
-        md:py-16
-      "
-    >
-
-      <div
-        className="
-          absolute
-          inset-0
-          -z-10
-          bg-gradient-to-b
-          from-transparent
-          via-white/[0.01]
-          to-blue-500/[0.03]
-        "
-      />
-
-
-
-      <motion.div
-
-        initial={{
-          opacity:0,
-          y:25,
-        }}
-
-        whileInView={{
-          opacity:1,
-          y:0,
-        }}
-
-        viewport={{
-          once:true,
-          amount:0.3,
-        }}
-
-        transition={{
-          duration:0.7,
-        }}
-
-        className="
-          mx-auto
-          max-w-7xl
-          px-6
-          md:px-10
-        "
-      >
-
-
-        <div
-          className="
-            flex
-            flex-col
-            justify-between
-            gap-10
-            md:flex-row
-          "
-        >
-
-
-
-          {/* Brand */}
-
-
+    <footer ref={ref} className="relative overflow-hidden rounded-t-[40px] bg-noir text-white">
+      <div className="mx-auto max-w-7xl px-5 pt-20 sm:px-8 sm:pt-28 lg:px-12">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_auto]">
           <div>
-
-            <h3
-              className="
-                text-2xl
-                font-semibold
-                tracking-tight
-                text-white
-              "
-            >
-              Muneeza Fatima
-            </h3>
-
-
-            <p
-              className="
-                mt-2
-                text-sm
-                text-blue-300
-              "
-            >
-              Frontend Engineer
+            <p className="font-display text-4xl leading-tight sm:text-5xl">
+              Have an idea?
+              <br />
+              <span className="text-accent-soft">Let&apos;s make it real.</span>
             </p>
-
-
-
-            <p
-              className="
-                mt-5
-                max-w-sm
-                leading-relaxed
-                text-white/60
-              "
+            <a
+              href={`mailto:${contactEmail}`}
+              className="mt-8 inline-flex items-center gap-2 text-sm text-white/80 underline decoration-white/25 underline-offset-8 transition-colors hover:text-white hover:decoration-accent-soft"
             >
-              Building modern digital experiences
-              with React, Next.js and thoughtful
-              user interfaces.
-            </p>
-
-
+              {contactEmail} <ArrowUpRight size={14} />
+            </a>
           </div>
 
-
-
-
-
-
-
-          {/* Connect */}
-
+          <nav aria-label="Footer">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-white/45">Explore</p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {navigation.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`/#${item.id}`}
+                    onClick={(e) => goTo(item.id, e)}
+                    className="text-white/75 transition-colors hover:text-accent-soft"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div>
-
-            <h4
-              className="
-                text-xs
-                uppercase
-                tracking-[0.3em]
-                text-white/40
-              "
-            >
-              Connect
-            </h4>
-
-
-
-            <div
-              className="
-                mt-6
-                flex
-                gap-3
-              "
-            >
-
-
-              <a
-                href="https://github.com/Muneeza-Fatima"
-                target="_blank"
-                rel="noopener noreferrer"
-
-                className="
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-white/[0.02]
-                  text-sm
-                  font-semibold
-                  text-white/70
-                  transition
-                  duration-300
-                  hover:-translate-y-1
-                  hover:border-white/20
-                  hover:bg-white/10
-                "
-              >
-                GH
-              </a>
-
-
-
-
-              <a
-                href="https://linkedin.com/in/muneeza-fatima-b3695536a"
-                target="_blank"
-                rel="noopener noreferrer"
-
-                className="
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-white/[0.02]
-                  text-sm
-                  font-semibold
-                  text-white/70
-                  transition
-                  duration-300
-                  hover:-translate-y-1
-                  hover:border-white/20
-                  hover:bg-white/10
-                "
-              >
-                in
-              </a>
-
-
-
-
-
-              <a
-                href="mailto:muneezafatima567@gmail.com"
-
-                className="
-                  flex
-                  h-11
-                  w-11
-                  items-center
-                  justify-center
-                  rounded-xl
-                  border
-                  border-white/10
-                  bg-white/[0.02]
-                  text-white/70
-                  transition
-                  duration-300
-                  hover:-translate-y-1
-                  hover:border-white/20
-                  hover:bg-white/10
-                "
-              >
-
-                <Mail size={19}/>
-
-              </a>
-
-
-
-            </div>
-
-
+            <p className="text-[10px] uppercase tracking-[0.3em] text-white/45">Connect</p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {socials.map((social) => (
+                <li key={social.name}>
+                  <a
+                    href={social.href}
+                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="text-white/75 transition-colors hover:text-accent-soft"
+                  >
+                    {social.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-
+          <Magnetic>
+            <button
+              type="button"
+              onClick={toTop}
+              aria-label="Back to top"
+              className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 transition-colors hover:border-accent-soft hover:bg-accent-soft hover:text-noir"
+            >
+              <ArrowUp size={18} />
+            </button>
+          </Magnetic>
         </div>
 
+        <div className="mt-16 flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-white/45 sm:flex-row sm:justify-between">
+          <p>© {year} Muneeza Fatima. All rights reserved.</p>
+          <p>Designed &amp; built with care in Lahore, Pakistan.</p>
+        </div>
+      </div>
 
-
-
-
-
-
-
-        <div
-          className="
-            mt-12
-            border-t
-            border-white/10
-            pt-7
-            text-center
-            text-sm
-            text-white/40
-          "
+      {/* Giant wordmark rising into view */}
+      <div aria-hidden className="overflow-hidden">
+        <motion.p
+          style={reduceMotion ? undefined : { y: wordY }}
+          className="text-foil select-none whitespace-nowrap px-3 text-center font-display text-[23vw] leading-[0.8]"
         >
-
-          © 2026 Muneeza Fatima. All rights reserved.
-
-        </div>
-
-
-      </motion.div>
-
-
+          Muneeza
+        </motion.p>
+      </div>
     </footer>
-
   );
 }

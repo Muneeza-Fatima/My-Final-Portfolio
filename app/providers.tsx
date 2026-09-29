@@ -15,7 +15,8 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
+      defaultTheme="light"
+      forcedTheme="light"
       enableSystem={false}
       disableTransitionOnChange
       storageKey="muneeza-portfolio-theme"

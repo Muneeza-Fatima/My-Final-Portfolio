@@ -1,487 +1,101 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import {
-  ExternalLink,
-  Code2,
-} from "lucide-react";
-
-
-interface Project {
-
-  number:string;
-  title:string;
-  category:string;
-  description:string;
-  role:string;
-  focus:string;
-  tech:string[];
-  image:string;
-  liveUrl:string;
-  githubUrl:string;
-
-}
-
-
-
-interface Props {
-
-  project:Project;
-  index:number;
-
-}
-
-
-
-
-export function ProjectCard({
-
-  project,
-  index,
-
-}:Props){
-
-
-return (
-
-<motion.div
-
-initial={{
-  opacity:0,
-  y:25,
-}}
-
-whileInView={{
-  opacity:1,
-  y:0,
-}}
-
-viewport={{
-
-  once:true,
-  amount:0.15,
-
-}}
-
-transition={{
-
-  duration:0.55,
-  delay:index * 0.08,
-  ease:"easeOut",
-
-}}
-
-
-className="
-group
-overflow-hidden
-rounded-[36px]
-border
-border-white/10
-bg-white/[0.035]
-p-6
-md:p-8
-lg:backdrop-blur-xl
-shadow-[0_20px_50px_rgba(0,0,0,0.25)]
-"
-
->
-
-
-<div
-
-className="
-grid
-gap-10
-lg:grid-cols-2
-lg:items-center
-"
-
->
-
-
-{/* IMAGE */}
-
-
-<div
-
-className="
-overflow-hidden
-rounded-3xl
-border
-border-white/10
-bg-black/30
-"
-
->
-
-
-<div
-
-className="
-flex
-items-center
-gap-2
-border-b
-border-white/10
-bg-white/[0.04]
-px-5
-py-3
-"
-
->
-
-<span className="h-2.5 w-2.5 rounded-full bg-red-400/70"/>
-<span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70"/>
-<span className="h-2.5 w-2.5 rounded-full bg-green-400/70"/>
-
-</div>
-
-
-
-
-<div
-
-className="
-relative
-aspect-[16/10]
-w-full
-overflow-hidden
-bg-black/20
-"
-
->
-
-
-<Image
-
-src={project.image}
-
-alt={project.title}
-
-fill
-
-sizes="
-(max-width:768px) 100vw,
-(max-width:1280px) 50vw,
-600px
-"
-
-className="
-object-contain
-p-2
-transition-transform
-duration-500
-ease-out
-lg:group-hover:scale-[1.03]
-"
-
-/>
-
-
-
-<div
-
-className="
-absolute
-inset-0
-bg-gradient-to-t
-from-black/30
-via-transparent
-to-transparent
-pointer-events-none
-"
-
- />
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-{/* CONTENT */}
-
-
-<div
-
-className="
-flex
-flex-col
-"
-
->
-
-
-<span
-
-className="
-text-xs
-uppercase
-tracking-[0.35em]
-text-blue-300
-"
-
->
-
-{project.number}
-
-</span>
-
-
-
-
-<p
-
-className="
-mt-4
-text-sm
-text-white/50
-"
-
->
-
-{project.category}
-
-</p>
-
-
-
-
-<h3
-
-className="
-mt-3
-text-3xl
-font-semibold
-tracking-tight
-text-white
-md:text-4xl
-"
-
->
-
-{project.title}
-
-</h3>
-
-
-
-
-<p
-
-className="
-mt-5
-leading-relaxed
-text-white/60
-"
-
->
-
-{project.description}
-
-</p>
-
-
-
-
-
-
-
-<div
-
-className="
-mt-8
-space-y-5
-rounded-2xl
-border
-border-white/10
-bg-black/20
-p-5
-"
-
->
-
-
-{
-
-[
-
-{
-title:"Role",
-value:project.role,
-},
-
-{
-title:"Built With",
-value:project.tech.join(" • "),
-},
-
-{
-title:"Focus",
-value:project.focus,
-},
-
-]
-
-.map((item)=>(
-
-
-<div key={item.title}>
-
-
-<p
-
-className="
-text-xs
-uppercase
-tracking-[0.25em]
-text-white/40
-"
-
->
-
-{item.title}
-
-</p>
-
-
-
-<p
-
-className="
-mt-2
-text-sm
-text-white/80
-"
-
->
-
-{item.value}
-
-</p>
-
-
-</div>
-
-
-))
-
-
-}
-
-
-</div>
-
-
-
-
-
-
-
-<div
-
-className="
-mt-8
-flex
-flex-wrap
-gap-4
-"
-
->
-
-
-<a
-
-href={project.liveUrl}
-
-target="_blank"
-
-rel="noopener noreferrer"
-
-className="
-flex
-items-center
-gap-2
-rounded-xl
-bg-gradient-to-r
-from-violet-500
-to-blue-500
-px-6
-py-3
-text-sm
-font-semibold
-text-white
-transition
-lg:hover:-translate-y-1
-"
-
->
-
-Live Demo
-
-<ExternalLink size={16}/>
-
-</a>
-
-
-
-
-
-
-<a
-
-href={project.githubUrl}
-
-target="_blank"
-
-rel="noopener noreferrer"
-
-className="
-flex
-items-center
-gap-2
-rounded-xl
-border
-border-white/10
-bg-white/5
-px-6
-py-3
-text-sm
-text-white
-transition
-lg:hover:-translate-y-1
-lg:hover:bg-white/10
-"
-
->
-
-GitHub
-
-<Code2 size={16}/>
-
-</a>
-
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</motion.div>
-
-
-);
-
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { ArrowUpRight } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
+
+import type { Project } from "@/data/projects";
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+// Large case-style card used on /work/demo-projects. Alternates image side.
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const reduceMotion = usePrefersReducedMotion();
+  const flipped = index % 2 === 1;
+
+  return (
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.9, ease }}
+      className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
+    >
+      <a
+        href={project.liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cursor="View"
+        aria-label={`Open ${project.title} live demo`}
+        className={`group relative block overflow-hidden rounded-[28px] border border-line bg-tint p-3 sm:p-4 ${
+          flipped ? "lg:order-2" : ""
+        }`}
+      >
+        <div className="mb-3 flex items-center gap-1.5 px-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-accent/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-accent/35" />
+          <span className="h-2.5 w-2.5 rounded-full bg-accent/20" />
+          <span className="ml-3 truncate font-mono text-[10px] text-muted">
+            {project.liveUrl.replace(/^https?:\/\//, "")}
+          </span>
+        </div>
+        <div className="overflow-hidden rounded-[18px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.image}
+            alt={project.title}
+            loading="lazy"
+            className="aspect-[16/10] w-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-luxe)] group-hover:scale-[1.05]"
+          />
+        </div>
+      </a>
+
+      <div>
+        <div className="flex items-center gap-4">
+          <span className="font-mono text-xs text-accent-deep">{project.number}</span>
+          <span className="h-px w-10 bg-accent/40" />
+          <span className="text-[10px] uppercase tracking-[0.3em] text-muted">{project.category}</span>
+        </div>
+
+        <h2 className="mt-5 font-display text-5xl leading-[0.95] text-ink sm:text-6xl">{project.title}</h2>
+        <p className="mt-5 max-w-lg text-sm leading-7 text-muted sm:text-base">{project.description}</p>
+
+        <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+          {[
+            { label: "Role", value: project.role },
+            { label: "Built with", value: project.tech.join(" · ") },
+            { label: "Focus", value: project.focus },
+          ].map((item) => (
+            <div key={item.label} className="flex flex-col bg-surface p-4">
+              <dt className="text-[10px] uppercase tracking-[0.25em] text-muted">{item.label}</dt>
+              <dd className="mt-2 text-xs leading-5 text-ink">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/cta inline-flex items-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm text-canvas transition-colors hover:bg-accent-deep"
+          >
+            Live demo
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-canvas text-ink transition-transform duration-500 group-hover/cta:rotate-45">
+              <ArrowUpRight size={15} />
+            </span>
+          </a>
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm text-ink transition-colors hover:border-ink"
+          >
+            <FaGithub size={15} /> Source
+          </a>
+        </div>
+      </div>
+    </motion.article>
+  );
 }

@@ -1,0 +1,111 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "lenis/react";
+import { useEffect, useState } from "react";
+
+const SESSION_KEY = "mf-preloader-seen";
+
+// First-visit-per-session intro: the name is drawn, a counter runs to 100,
+// then a tint curtain lifts. Skipped for reduced motion and repeat views.
+// This component is client-only (loaded with ssr:false), so window is available.
+function shouldPlay() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  try {
+    return sessionStorage.getItem(SESSION_KEY) !== "1";
+  } catch {
+    return false;
+  }
+}
+
+export default function Preloader() {
+  const lenis = useLenis();
+  const [active, setActive] = useState(shouldPlay);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(SESSION_KEY, "1");
+    } catch {
+      // storage unavailable (private mode) — the intro simply plays again
+    }
+    if (!active) return;
+
+    const start = performance.now();
+    const duration = 1900;
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      // ease-out so the count slows near 100
+      setCount(Math.round((1 - Math.pow(1 - t, 3)) * 100));
+      if (t < 1) frame = requestAnimationFrame(tick);
+      else setTimeout(() => setActive(false), 350);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active]);
+
+  useEffect(() => {
+    if (!active) {
+      lenis?.start();
+      return;
+    }
+    lenis?.stop();
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [active, lenis]);
+
+  return (
+    <AnimatePresence>
+      {active && (
+        <motion.div
+          key="preloader"
+          aria-hidden
+          className="fixed inset-0 z-[100003] flex flex-col items-center justify-center bg-tint"
+          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          initial={{ clipPath: "inset(0 0 0% 0)" }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+        >
+          <svg viewBox="0 0 640 120" className="w-[82vw] max-w-[620px] text-ink">
+            <motion.text
+              x="50%"
+              y="82"
+              textAnchor="middle"
+              className="font-display"
+              fontSize="92"
+              fill="currentColor"
+              stroke="currentColor"
+              strokeWidth="0.8"
+              initial={{ strokeDasharray: 1400, strokeDashoffset: 1400, fillOpacity: 0 }}
+              animate={{ strokeDashoffset: 0, fillOpacity: 1 }}
+              transition={{
+                strokeDashoffset: { duration: 1.6, ease: "easeInOut" },
+                fillOpacity: { delay: 1.1, duration: 0.6 },
+              }}
+            >
+              Muneeza Fatima
+            </motion.text>
+          </svg>
+
+          <div className="mt-6 flex w-[min(320px,70vw)] items-center gap-4">
+            <div className="relative h-px flex-1 overflow-hidden bg-accent/20">
+              <div
+                className="absolute inset-y-0 left-0 bg-accent"
+                style={{ width: `${count}%` }}
+              />
+            </div>
+            <span className="w-10 text-right font-mono text-xs text-accent-deep">
+              {String(count).padStart(3, "0")}
+            </span>
+          </div>
+
+          <p className="mt-6 text-[10px] uppercase tracking-[0.4em] text-muted">
+            Frontend Engineer
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

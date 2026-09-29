@@ -1,132 +1,81 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const fields = ["name", "email", "country", "projectType", "message"] as const;
+type Field = (typeof fields)[number];
+
+// User input is placed into HTML email markup, so it must be escaped.
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 export async function POST(request: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const contactEmail = process.env.CONTACT_EMAIL;
+
+  if (!apiKey || !contactEmail) {
+    console.error("Contact API is missing RESEND_API_KEY or CONTACT_EMAIL.");
+    return NextResponse.json(
+      { success: false, message: "The contact form is temporarily unavailable." },
+      { status: 500 },
+    );
+  }
+
   try {
-    console.log("===== CONTACT API =====");
-    console.log(
-      "RESEND_API_KEY exists:",
-      !!process.env.RESEND_API_KEY
-    );
-    console.log(
-      "CONTACT_EMAIL:",
-      process.env.CONTACT_EMAIL
-    );
+    const body = (await request.json()) as Partial<Record<Field, unknown>>;
+    const values = Object.fromEntries(
+      fields.map((field) => [field, typeof body[field] === "string" ? (body[field] as string).trim() : ""]),
+    ) as Record<Field, string>;
 
-    if (!process.env.RESEND_API_KEY) {
+    if (fields.some((field) => !values[field])) {
       return NextResponse.json(
-        {
-          success: false,
-          message: "RESEND_API_KEY is missing.",
-        },
-        {
-          status: 500,
-        }
+        { success: false, message: "Please complete all fields." },
+        { status: 400 },
       );
     }
 
-    if (!process.env.CONTACT_EMAIL) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "CONTACT_EMAIL is missing.",
-        },
-        {
-          status: 500,
-        }
-      );
-    }
+    const safe = Object.fromEntries(
+      fields.map((field) => [field, escapeHtml(values[field])]),
+    ) as Record<Field, string>;
 
-    const body = await request.json();
-
-    const {
-      name,
-      email,
-      country,
-      projectType,
-      message,
-    } = body;
-
-    if (
-      !name ||
-      !email ||
-      !country ||
-      !projectType ||
-      !message
-    ) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Please complete all fields.",
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    const { data, error } = await resend.emails.send({
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
-      subject: `New Portfolio Inquiry from ${name}`,
+      to: contactEmail,
+      replyTo: values.email,
+      subject: `New Portfolio Inquiry from ${values.name.slice(0, 80)}`,
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;">
           <h2>New Portfolio Inquiry</h2>
-
-          <p><strong>Name:</strong> ${name}</p>
-
-          <p><strong>Email:</strong> ${email}</p>
-
-          <p><strong>Country:</strong> ${country}</p>
-
-          <p><strong>Project Type:</strong> ${projectType}</p>
-
+          <p><strong>Name:</strong> ${safe.name}</p>
+          <p><strong>Email:</strong> ${safe.email}</p>
+          <p><strong>Country:</strong> ${safe.country}</p>
+          <p><strong>Project Type:</strong> ${safe.projectType}</p>
           <p><strong>Message:</strong></p>
-
-          <p>${message}</p>
+          <p style="white-space:pre-wrap;">${safe.message}</p>
         </div>
       `,
     });
 
     if (error) {
-      console.error("Resend Error:", error);
-
+      console.error("Resend error:", error);
       return NextResponse.json(
-        {
-          success: false,
-          message: error.message,
-        },
-        {
-          status: 500,
-        }
+        { success: false, message: "Your message could not be sent. Please try again." },
+        { status: 500 },
       );
     }
 
-    console.log("Email sent successfully:", data);
-
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Message sent successfully.",
-      },
-      {
-        status: 200,
-      }
-    );
+    return NextResponse.json({ success: true, message: "Message sent successfully." });
   } catch (error) {
-    console.error("API Error:", error);
-
+    console.error("Contact API error:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: "Internal server error.",
-      },
-      {
-        status: 500,
-      }
+      { success: false, message: "Internal server error." },
+      { status: 500 },
     );
   }
 }
