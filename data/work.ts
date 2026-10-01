@@ -104,7 +104,15 @@ export const internship = {
   recognition:
     "Recognised for exceptional dedication, professionalism, and a strong commitment to learning, contributing meaningfully to the team and its projects.",
   // TODO: replace with the actual stack used during the internship.
-  stack: ["HTML5", "CSS3", "JavaScript", "React", "Next.js", "Tailwind CSS", "Git"],
+  stack: [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "Git",
+  ],
   // TODO: replace with real week-by-week milestones.
   milestones: [
     {
@@ -145,7 +153,12 @@ export const clientWork = {
   project: "Professional personal portfolio",
   summary:
     "A premium personal portfolio for an executive founder — built to communicate credibility, vision and presence to partners and investors.",
-  scope: ["UI design", "Frontend development", "Responsive build", "Launch & delivery"],
+  scope: [
+    "UI design",
+    "Frontend development",
+    "Responsive build",
+    "Launch & delivery",
+  ],
   certificateId: "bh-ventures-appreciation",
 };
 
@@ -187,3 +200,17 @@ export const workCategories: WorkCategory[] = [
 
 export const getCertificate = (id: string) =>
   certificates.find((certificate) => certificate.id === id);
+
+// Where Muneeza currently works — shown in the About section.
+export const currentRole = {
+  company: "BH Ventures FZE LLC",
+  location: "UAE",
+  mode: "Remote",
+  role: "Frontend & UI/UX Developer",
+  website: "https://bhventures.ae",
+  focus: [
+    "UI/UX design",
+    "React & Next.js builds",
+    "Responsive, fast interfaces",
+  ],
+};
