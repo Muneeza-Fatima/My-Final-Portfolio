@@ -113,12 +113,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
 function Points({ service }: { service: Service }) {
   return (
     <>
-      <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40">
+      <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40 sm:mt-6">
         What you get
       </p>
-      <ul className="mt-3 grid gap-2.5">
+      <ul className="mt-2.5 grid gap-2 sm:mt-3 sm:gap-2.5">
         {service.points.map((point) => (
-          <li key={point} className="flex items-center gap-3 text-[15px] text-white/85">
+          <li key={point} className="flex items-center gap-3 text-sm text-white/85 sm:text-[15px]">
             <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#6d5bd0]/25 text-[#c9bcff]">
               <Check size={12} strokeWidth={3} />
             </span>
@@ -126,7 +126,7 @@ function Points({ service }: { service: Service }) {
           </li>
         ))}
       </ul>
-      <p className="mt-5 text-xs text-white/40">{service.tech.join("  ·  ")}</p>
+      <p className="mt-4 text-xs text-white/40 sm:mt-5">{service.tech.join("  ·  ")}</p>
     </>
   );
 }
@@ -231,7 +231,7 @@ function ServiceStory() {
   return (
     <div ref={ref} className="relative" style={{ height: `calc(100svh + ${total * STEP_SVH}svh)` }}>
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-[72px]">
-        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-6 pt-8 sm:px-10 sm:pt-10 lg:px-14">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 pb-6 pt-6 sm:px-10 sm:pt-10 lg:px-14">
           <div className="flex items-start justify-between gap-6">
             <Heading />
             <p className="font-mono text-sm text-white/40 sm:text-base">
@@ -239,8 +239,8 @@ function ServiceStory() {
             </p>
           </div>
 
-          <div className="grid flex-1 content-center gap-6 py-6 md:grid-cols-[1fr_1fr] md:items-center lg:grid-cols-[1.2fr_0.9fr_1fr] lg:gap-10">
-            <div className="overflow-hidden md:col-span-2 lg:col-span-1">
+          <div className="grid flex-1 content-center gap-4 py-4 sm:gap-6 sm:py-6 md:grid-cols-[1.15fr_0.8fr_1fr] md:items-center md:gap-6 lg:grid-cols-[1.2fr_0.9fr_1fr] lg:gap-10">
+            <div className="overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.h3
                   key={service.title}
@@ -248,14 +248,14 @@ function ServiceStory() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
                   transition={{ duration: 0.5, ease }}
-                  className="font-display text-[clamp(2.4rem,7vw,6.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white [overflow-wrap:anywhere] lg:text-[clamp(2.6rem,4.3vw,4.75rem)]"
+                  className="font-display text-[clamp(2.1rem,9vw,3rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white [overflow-wrap:anywhere] md:text-[clamp(2rem,4.3vw,4.75rem)]"
                 >
                   {service.title}
                 </motion.h3>
               </AnimatePresence>
             </div>
 
-            <div className="hidden md:block">
+            <div>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -263,7 +263,7 @@ function ServiceStory() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
                   transition={{ duration: 0.4, ease }}
-                  className="mx-auto w-full max-w-[220px] lg:max-w-[360px]"
+                  className="mx-auto w-full max-w-[200px] sm:max-w-[240px] md:max-w-[300px] lg:max-w-[360px]"
                 >
                   <ServiceVisual index={active} />
                 </motion.div>
@@ -277,7 +277,7 @@ function ServiceStory() {
                 animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease, delay: 0.1 } }}
                 exit={{ opacity: 0, y: -12, transition: { duration: 0.25 } }}
               >
-                <p className="line-clamp-3 max-w-md text-[15px] leading-7 text-white/70 sm:line-clamp-none sm:text-base">
+                <p className="line-clamp-3 max-w-md text-sm leading-6 text-white/70 sm:text-[15px] sm:leading-7 md:line-clamp-none lg:text-base">
                   {service.description}
                 </p>
                 <Points service={service} />

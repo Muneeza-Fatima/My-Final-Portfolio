@@ -22,7 +22,7 @@ const pad = (value: number) => String(value).padStart(2, "0");
 // (stacked on smaller screens). Sized so the whole card fits one screen.
 function CardBody({ project, index }: { project: Project; index: number }) {
   return (
-    <div className="grid items-center gap-5 lg:grid-cols-[1.4fr_1fr] lg:gap-10">
+    <div className="grid items-center gap-4 sm:gap-5 lg:grid-cols-[1.4fr_1fr] lg:gap-10">
       <a
         href={project.liveUrl}
         target="_blank"
@@ -42,20 +42,20 @@ function CardBody({ project, index }: { project: Project; index: number }) {
           </span>
           <span>{project.category}</span>
           {project.badge && (
-            <span className="rounded-full bg-[#6d5bd0]/15 px-2.5 py-1 tracking-[0.14em] text-[#c9bcff]">
+            <span className="hidden rounded-full bg-[#6d5bd0]/15 px-2.5 py-1 tracking-[0.14em] text-[#c9bcff] sm:inline">
               {project.badge}
             </span>
           )}
         </div>
 
-        <h3 className="mt-3 font-display text-[clamp(1.5rem,2.6vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:mt-4">
+        <h3 className="mt-2 font-display text-[clamp(1.4rem,2.6vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:mt-4">
           {project.title}
         </h3>
-        <p className="mt-3 line-clamp-3 text-sm leading-7 text-white/65 sm:line-clamp-none">
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/60 sm:mt-3 sm:line-clamp-none sm:leading-7">
           {project.description}
         </p>
 
-        <ul className="mt-4 flex flex-wrap gap-1.5">
+        <ul className="mt-4 hidden flex-wrap gap-1.5 sm:flex">
           {project.tech.map((item) => (
             <li
               key={item}
@@ -66,9 +66,9 @@ function CardBody({ project, index }: { project: Project; index: number }) {
           ))}
         </ul>
 
-        <div className="mt-5 h-px bg-white/[0.07] sm:mt-6" />
+        <div className="mt-6 hidden h-px bg-white/[0.07] sm:block" />
         <ProjectLinks
-          className="mt-5 sm:mt-6"
+          className="mt-4 sm:mt-6"
           title={project.title}
           liveUrl={project.liveUrl}
           githubUrl={project.githubUrl}

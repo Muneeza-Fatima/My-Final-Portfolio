@@ -2,13 +2,13 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { ArrowUp, ArrowUpRight } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Mail } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { useRef } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { navigation } from "@/data/navigation";
-import { FaWhatsapp } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
 import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { useSectionNav } from "@/hooks/use-section-nav";
@@ -79,8 +79,23 @@ export function Footer() {
                     href={social.href}
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
-                    className="text-white/75 transition-colors hover:text-accent-soft"
+                    className="group inline-flex items-center gap-3 text-white/75 transition-colors hover:text-white"
                   >
+                    <span
+                      className={
+                        social.name === "LinkedIn"
+                          ? "flex h-8 w-8 items-center justify-center rounded-lg bg-[#0A66C2] text-white shadow-[0_6px_16px_-6px_rgba(10,102,194,0.9)] transition-transform group-hover:scale-110"
+                          : "flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/[0.05] text-white/85 transition-transform group-hover:scale-110"
+                      }
+                    >
+                      {social.name === "GitHub" ? (
+                        <FaGithub size={15} />
+                      ) : social.name === "LinkedIn" ? (
+                        <FaLinkedinIn size={15} />
+                      ) : (
+                        <Mail size={15} />
+                      )}
+                    </span>
                     {social.name}
                   </a>
                 </li>

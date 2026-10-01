@@ -3,13 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import Link from "next/link";
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { navigation } from "@/data/navigation";
-import { contactEmail, socials } from "@/data/socials";
+import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { useSectionNav } from "@/hooks/use-section-nav";
 import { cn } from "@/lib/utils";
 
@@ -257,12 +257,23 @@ export function Navbar() {
                 </Link>
 
                 <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-5">
-                  <a
-                    href={`mailto:${contactEmail}`}
-                    className="truncate text-sm text-white/70"
-                  >
-                    {contactEmail}
-                  </a>
+                  <div className="flex min-w-0 flex-col gap-2">
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="truncate text-sm text-white/70"
+                    >
+                      {contactEmail}
+                    </a>
+                    <a
+                      href={contactPhone.whatsapp}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-white/85"
+                    >
+                      <FaWhatsapp size={16} className="text-[#25D366]" />
+                      {contactPhone.display}
+                    </a>
+                  </div>
                   <div className="flex shrink-0 gap-2">
                     {socials
                       .filter((s) => s.name !== "Email")
@@ -273,12 +284,17 @@ export function Navbar() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={social.name}
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-xs font-semibold text-white/80"
+                          className={cn(
+                            "flex h-11 w-11 items-center justify-center rounded-full text-white transition-transform active:scale-95",
+                            social.name === "LinkedIn"
+                              ? "bg-[#0A66C2] shadow-[0_8px_20px_-8px_rgba(10,102,194,0.9)]"
+                              : "border border-white/15 bg-white/[0.06]",
+                          )}
                         >
                           {social.name === "GitHub" ? (
-                            <FaGithub size={16} />
+                            <FaGithub size={18} />
                           ) : (
-                            <FaLinkedinIn size={16} />
+                            <FaLinkedinIn size={19} />
                           )}
                         </a>
                       ))}

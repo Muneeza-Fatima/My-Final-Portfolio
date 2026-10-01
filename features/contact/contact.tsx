@@ -6,7 +6,7 @@ import { useState, useSyncExternalStore } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { RevealText } from "@/components/interactive/RevealText";
-import { FaWhatsapp } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 
 import { contactEmail, contactPhone, socials } from "@/data/socials";
 
@@ -137,7 +137,7 @@ export function Contact() {
               </div>
               <div>
                 <dt className="text-[10px] uppercase tracking-[0.3em] text-muted">Elsewhere</dt>
-                <dd className="mt-2 flex gap-4 text-sm">
+                <dd className="mt-2 flex gap-3 text-sm">
                   {socials
                     .filter((s) => s.name !== "Email")
                     .map((social) => (
@@ -146,9 +146,15 @@ export function Contact() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-ink underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+                        aria-label={social.name}
+                        title={social.name}
+                        className={
+                          social.name === "LinkedIn"
+                            ? "flex h-11 w-11 items-center justify-center rounded-full bg-[#0A66C2] text-white shadow-[0_8px_20px_-8px_rgba(10,102,194,0.9)] transition-transform hover:-translate-y-0.5"
+                            : "flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-transform hover:-translate-y-0.5"
+                        }
                       >
-                        {social.name}
+                        {social.name === "GitHub" ? <FaGithub size={18} /> : <FaLinkedinIn size={19} />}
                       </a>
                     ))}
                 </dd>
