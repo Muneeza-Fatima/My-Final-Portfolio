@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FcComments, FcGlobe, FcHome } from "react-icons/fc";
 
 import { RevealText } from "@/components/interactive/RevealText";
 import { currentRole } from "@/data/work";
@@ -11,9 +12,13 @@ import { Expertise } from "./expertise";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const facts = [
-  { label: "Based in", value: "Lahore, Pakistan" },
-  { label: "Works with", value: "Clients worldwide, remote" },
-  { label: "Communication", value: "Clear updates, on schedule" },
+  { icon: FcHome, label: "Based in", value: "Lahore, Pakistan" },
+  { icon: FcGlobe, label: "Works with", value: "Clients worldwide, remote" },
+  {
+    icon: FcComments,
+    label: "Communication",
+    value: "Clear updates, on schedule",
+  },
 ];
 
 export default function About() {
@@ -132,14 +137,20 @@ export default function About() {
             </div>
           </div>
 
-          {/* Quick facts — a single quiet line */}
-          <dl className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:flex-wrap sm:gap-x-12">
-            {facts.map(({ label, value }) => (
-              <div key={label} className="flex items-baseline gap-3">
-                <dt className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
-                  {label}
-                </dt>
-                <dd className="text-sm text-white/80">{value}</dd>
+          {/* Quick facts — glass pills with icons */}
+          <dl className="mt-16 flex flex-wrap gap-3">
+            {facts.map(({ icon: Icon, label, value }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.04] py-2.5 pl-3.5 pr-5 backdrop-blur-md transition-colors duration-300 hover:border-[#a78bfa]/40"
+              >
+                <Icon size={28} aria-hidden className="shrink-0" />
+                <div className="flex flex-col leading-tight">
+                  <dt className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">
+                    {label}
+                  </dt>
+                  <dd className="text-sm font-medium text-white">{value}</dd>
+                </div>
               </div>
             ))}
           </dl>

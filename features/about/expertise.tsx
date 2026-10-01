@@ -1,13 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Code2,
-  LayoutTemplate,
-  Sparkles,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FcFilmReel, FcMultipleDevices, FcTemplate } from "react-icons/fc";
 import { useState } from "react";
 
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -29,7 +24,7 @@ const expertise = [
       "Responsive architecture",
       "Reusable components",
     ],
-    icon: Code2,
+    icon: FcMultipleDevices,
     image: "/images/what-i-bring-frontend.jpg" as string | null,
   },
   {
@@ -44,7 +39,7 @@ const expertise = [
       "Visual hierarchy",
       "Responsive UI systems",
     ],
-    icon: LayoutTemplate,
+    icon: FcTemplate,
     image: "/images/what-i-bring-ui.jpg" as string | null,
   },
   {
@@ -55,21 +50,21 @@ const expertise = [
     description:
       "I use subtle motion and thoughtful interaction to make digital experiences feel alive, intuitive, and premium without overwhelming the user.",
     points: ["Micro-interactions", "Scroll animation", "Smooth transitions"],
-    icon: Sparkles,
+    icon: FcFilmReel,
     image: "/images/what-i-bring-motion.jpg" as string | null,
   },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Expanding panels on every screen size: the active panel widens and shows
-// its detail; the others collapse to slim strips (vertical title on small
-// screens). Hover, focus or tap opens a panel.
+// Desktop expanding panels. The active panel is split: a fully bright image
+// on top and the text on a solid block below, so neither covers the other.
+// Collapsed panels show the image full-height with a slim caption at the bottom.
 function DesktopPanels() {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="flex h-[500px] gap-3">
+    <div className="flex h-[580px] gap-3">
       {expertise.map((item, index) => {
         const isActive = active === index;
         const Icon = item.icon;
@@ -85,125 +80,92 @@ function DesktopPanels() {
             layout
             transition={{ layout: { duration: 0.7, ease } }}
             className={cn(
-              "relative isolate flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-[22px] border outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-[#a78bfa]",
+              "relative flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-[22px] border bg-[#16161c] outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-[#a78bfa]",
               isActive
-                ? "flex-1 border-[#a78bfa]/40 p-5 sm:p-8 lg:flex-[2.4] xl:p-9"
-                : "w-11 flex-none border-white/10 px-1 py-3 hover:border-white/20 sm:w-16 sm:p-4 lg:w-auto lg:flex-1 lg:p-6",
+                ? "flex-[2.4] border-[#a78bfa]/40"
+                : "flex-1 border-white/10 hover:border-white/25",
             )}
           >
-            {item.image && (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt=""
-                  aria-hidden
-                  className={cn(
-                    "pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-all duration-700",
-                    isActive ? "scale-100 opacity-100" : "scale-105 opacity-70",
-                  )}
-                />
-                {/* Strong dark gradient so the text always reads clearly */}
-                <div
-                  aria-hidden
-                  className={cn(
-                    "pointer-events-none absolute inset-0 -z-10 transition-colors duration-500",
-                    isActive
-                      ? "bg-gradient-to-t from-noir from-[15%] via-noir/80 via-[50%] to-noir/10"
-                      : "bg-noir/55",
-                  )}
-                />
-              </>
-            )}
+            {/* Image — fully bright, no overlay */}
+            <div
+              className={cn(
+                "relative shrink-0 overflow-hidden transition-[height] duration-700",
+                isActive ? "h-[56%]" : "h-full",
+              )}
+            >
+              {item.image && (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt=""
+                    aria-hidden
+                    className="relative h-full w-full object-cover object-center"
+                  />
+                </>
+              )}
 
-            <div className="flex items-start justify-between gap-4">
-              <span
-                className={cn(
-                  "font-mono text-xs font-semibold text-[#d8ccff]",
-                  !isActive && "mx-auto lg:mx-0",
-                )}
-              >
+              {/* Number + icon chips stay readable on any image */}
+              <span className="absolute left-4 top-4 rounded-full bg-noir/75 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
                 {item.number}
               </span>
-              <span
-                className={cn(
-                  "items-center justify-center rounded-full border transition-all duration-500",
-                  isActive
-                    ? "flex h-12 w-12 border-[#a78bfa] bg-[#a78bfa] text-white"
-                    : "hidden h-12 w-12 border-white/25 bg-noir/40 text-white lg:flex",
-                )}
-              >
-                <Icon size={18} />
+              {/* Icon only — no background; a soft shadow keeps it visible on any image */}
+              <span className="absolute right-4 top-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
+                <Icon size={32} aria-hidden />
               </span>
+
+              {/* Collapsed: slim caption at the bottom of the image */}
+              {!isActive && (
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-noir/95 via-noir/70 to-transparent p-5 pt-14">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#d8ccff]">
+                    {item.label}
+                  </p>
+                  <h3 className="mt-1.5 font-display text-xl font-bold leading-tight text-white xl:text-2xl">
+                    {item.title}
+                  </h3>
+                </div>
+              )}
             </div>
 
-            {/* Collapsed on small screens: vertical title */}
-            {!isActive && (
-              <p className="mt-auto self-center font-display text-base font-bold text-white [writing-mode:vertical-rl] rotate-180 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] lg:hidden">
-                {item.title}
-              </p>
-            )}
-
-            <div
-              className={cn("mt-auto pt-10", !isActive && "hidden lg:block")}
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/70">
-                {item.label}
-              </p>
-              <h3
-                className={cn(
-                  "mt-3 font-display font-bold leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]",
-                  isActive
-                    ? "break-words text-2xl sm:text-4xl"
-                    : "hyphens-auto text-xl xl:text-2xl",
-                )}
+            {/* Active: text on its own solid block */}
+            {isActive && (
+              <motion.div
+                key="text"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: 0.25, duration: 0.5, ease },
+                }}
+                className="flex min-h-0 flex-1 flex-col p-7 xl:p-8"
               >
-                {item.title}
-              </h3>
-
-              <AnimatePresence initial={false}>
-                {isActive && (
-                  <motion.div
-                    key="detail"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      transition: { delay: 0.25, duration: 0.5, ease },
-                    }}
-                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                  >
-                    <Detail item={item} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#b69cff]">
+                  {item.label}
+                </p>
+                <h3 className="mt-2 font-display text-3xl font-bold leading-tight text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 font-display text-lg font-semibold text-[#e7dcff]">
+                  {item.headline}
+                </p>
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-white/90 xl:text-[15px]">
+                  {item.description}
+                </p>
+                <ul className="mt-auto flex flex-wrap gap-2 pt-3">
+                  {item.points.map((point) => (
+                    <li
+                      key={point}
+                      className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium text-white"
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
           </motion.article>
         );
       })}
-    </div>
-  );
-}
-
-function Detail({ item }: { item: (typeof expertise)[number] }) {
-  return (
-    <div className="max-w-md">
-      <p className="mt-4 font-display text-lg font-semibold text-[#e7dcff]">
-        {item.headline}
-      </p>
-      <p className="mt-3 text-sm leading-7 text-white/90 sm:text-[15px]">
-        {item.description}
-      </p>
-      <ul className="mt-6 flex flex-wrap gap-2">
-        {item.points.map((point) => (
-          <li
-            key={point}
-            className="rounded-full border border-white/20 bg-noir/50 px-3.5 py-1.5 text-xs font-medium text-white backdrop-blur-sm"
-          >
-            {point}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
@@ -241,7 +203,7 @@ function CardStack() {
 
   return (
     <div>
-      <div className="relative h-[580px] sm:h-[620px]">
+      <div className="relative h-[670px] sm:h-[720px]">
         {expertise.map((item, index) => {
           const depth = (index - front + count) % count;
           const isFront = depth === 0;
@@ -284,29 +246,31 @@ function CardStack() {
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
               style={{ zIndex: count - depth }}
               className={cn(
-                "absolute inset-x-0 top-0 flex h-[540px] flex-col overflow-hidden rounded-[24px] border bg-[#16161c] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:h-[580px]",
+                "absolute inset-x-0 top-0 flex h-[630px] flex-col overflow-hidden rounded-[24px] border bg-[#16161c] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:h-[680px]",
                 isFront
                   ? "cursor-grab border-[#a78bfa]/40 active:cursor-grabbing"
                   : "cursor-pointer border-white/10",
               )}
             >
               {/* Image block — fully bright, never covered by text */}
-              <div className="relative h-48 shrink-0 overflow-hidden sm:h-56">
+              <div className="relative h-48 shrink-0 overflow-hidden min-[360px]:h-64 sm:h-80">
                 {item.image && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={item.image}
-                    alt=""
-                    aria-hidden
-                    draggable={false}
-                    className="h-full w-full object-cover"
-                  />
+                  <>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image}
+                      alt=""
+                      aria-hidden
+                      draggable={false}
+                      className="relative h-full w-full object-cover object-center"
+                    />
+                  </>
                 )}
                 <span className="absolute left-4 top-4 rounded-full bg-noir/70 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
                   {item.number} / 0{count}
                 </span>
-                <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#a78bfa] text-white shadow-lg">
-                  <Icon size={17} />
+                <span className="absolute right-4 top-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
+                  <Icon size={32} aria-hidden />
                 </span>
               </div>
 
