@@ -125,11 +125,25 @@ export function ContactForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group inline-flex items-center justify-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm text-canvas transition-colors hover:bg-accent-deep disabled:opacity-60"
+                className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-[#6d5bd0] via-[#7f6af0] to-[#9d86ff] py-2 pl-6 pr-2 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_10px_28px_-10px_rgba(109,91,208,0.9)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_16px_40px_-10px_rgba(139,107,255,1)] active:translate-y-0 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-70"
               >
-                {loading ? "Sending…" : "Send inquiry"}
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-canvas text-ink transition-transform duration-500 group-hover:rotate-45">
-                  <ArrowUpRight size={15} />
+                {/* Glossy top highlight */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-full bg-gradient-to-b from-white/25 to-transparent"
+                />
+                {/* Light sweep on hover */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent transition-[left] duration-700 ease-out group-hover:left-[120%]"
+                />
+                <span className="relative">{loading ? "Sending…" : "Send inquiry"}</span>
+                <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#6d5bd0] shadow-[0_4px_12px_-4px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:rotate-45">
+                  {loading ? (
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#6d5bd0]/30 border-t-[#6d5bd0]" />
+                  ) : (
+                    <ArrowUpRight size={15} />
+                  )}
                 </span>
               </button>
             </div>
