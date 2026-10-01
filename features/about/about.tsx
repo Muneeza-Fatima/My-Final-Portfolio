@@ -12,7 +12,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const facts = [
   { label: "Based in", value: "Lahore, Pakistan" },
-  { label: "Availability", value: "Working remotely worldwide" },
+  { label: "Works with", value: "Clients worldwide, remote" },
+  { label: "Communication", value: "Clear updates, on schedule" },
 ];
 
 export default function About() {
@@ -55,18 +56,20 @@ export default function About() {
                 className="mt-8 max-w-xl space-y-5 text-[15px] leading-8 text-white/75 sm:text-base lg:text-[15px] wide:text-base 3xl:max-w-2xl 3xl:text-lg"
               >
                 <p>
-                  I&apos;m Muneeza, a frontend and UI/UX developer who turns
-                  ideas into clean, fast and polished websites — and the details
-                  people feel but rarely notice.
+                  Your website is often the first meeting a client has with your
+                  brand — and they decide in seconds whether you&apos;re worth
+                  their time. I make sure that first impression works in your
+                  favour.
                 </p>
                 <p>
-                  Today I work remotely with{" "}
+                  I&apos;m Muneeza, a frontend and UI/UX developer working
+                  remotely with{" "}
                   <span className="font-semibold text-white">
                     {currentRole.company}
                   </span>{" "}
-                  in the {currentRole.location}, designing and building
-                  interfaces that make the brand look as credible online as it
-                  is in person.
+                  in the {currentRole.location}. I design and build fast,
+                  polished interfaces where every detail has a reason — so
+                  visitors trust what they see and know exactly what to do next.
                 </p>
               </motion.div>
             </div>

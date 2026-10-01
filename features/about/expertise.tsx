@@ -1,9 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Code2, LayoutTemplate, Sparkles } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Code2,
+  LayoutTemplate,
+  Sparkles,
+} from "lucide-react";
 import { useState } from "react";
 
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
 // Background image per panel. Save the images in public/images/ and set each
@@ -58,11 +65,11 @@ const ease = [0.22, 1, 0.36, 1] as const;
 // Expanding panels on every screen size: the active panel widens and shows
 // its detail; the others collapse to slim strips (vertical title on small
 // screens). Hover, focus or tap opens a panel.
-export function Expertise() {
+function DesktopPanels() {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="mt-8 flex h-[660px] gap-2 sm:h-[540px] sm:gap-3 lg:h-[500px]">
+    <div className="flex h-[500px] gap-3">
       {expertise.map((item, index) => {
         const isActive = active === index;
         const Icon = item.icon;
@@ -197,6 +204,187 @@ function Detail({ item }: { item: (typeof expertise)[number] }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+// Desktop: expanding panels. Phones & tablets: a swipeable card stack.
+export function Expertise() {
+  return (
+    <div className="mt-8">
+      <div className="hidden lg:block">
+        <DesktopPanels />
+      </div>
+      <div className="lg:hidden">
+        <CardStack />
+      </div>
+    </div>
+  );
+}
+
+const SWIPE_DISTANCE = 90;
+const SWIPE_VELOCITY = 500;
+
+function CardStack() {
+  const reduceMotion = usePrefersReducedMotion();
+  const count = expertise.length;
+  // `front` is the index of the card on top; the rest follow in order.
+  const [front, setFront] = useState(0);
+
+  const go = (step: 1 | -1) => {
+    setFront((i) => (i + step + count) % count);
+  };
+  const goTo = (index: number) => {
+    if (index === front) return;
+    setFront(index);
+  };
+
+  return (
+    <div>
+      <div className="relative h-[580px] sm:h-[620px]">
+        {expertise.map((item, index) => {
+          const depth = (index - front + count) % count;
+          const isFront = depth === 0;
+          const Icon = item.icon;
+          return (
+            <motion.article
+              key={item.title}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${count}: ${item.title}`}
+              aria-hidden={!isFront}
+              onClick={() => !isFront && goTo(index)}
+              drag={isFront && !reduceMotion ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.6}
+              onDragEnd={(_, info) => {
+                if (
+                  info.offset.x < -SWIPE_DISTANCE ||
+                  info.velocity.x < -SWIPE_VELOCITY
+                )
+                  go(1);
+                else if (
+                  info.offset.x > SWIPE_DISTANCE ||
+                  info.velocity.x > SWIPE_VELOCITY
+                )
+                  go(-1);
+              }}
+              initial={false}
+              animate={
+                reduceMotion
+                  ? { opacity: isFront ? 1 : 0, y: 0, scale: 1, rotate: 0 }
+                  : {
+                      y: depth * 14,
+                      scale: 1 - depth * 0.05,
+                      rotate: depth === 0 ? 0 : (depth % 2 ? 3 : -3) * depth,
+                      opacity: 1 - depth * 0.25,
+                      x: 0,
+                    }
+              }
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              style={{ zIndex: count - depth }}
+              className={cn(
+                "absolute inset-x-0 top-0 flex h-[540px] flex-col overflow-hidden rounded-[24px] border bg-[#16161c] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:h-[580px]",
+                isFront
+                  ? "cursor-grab border-[#a78bfa]/40 active:cursor-grabbing"
+                  : "cursor-pointer border-white/10",
+              )}
+            >
+              {/* Image block — fully bright, never covered by text */}
+              <div className="relative h-48 shrink-0 overflow-hidden sm:h-56">
+                {item.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.image}
+                    alt=""
+                    aria-hidden
+                    draggable={false}
+                    className="h-full w-full object-cover"
+                  />
+                )}
+                <span className="absolute left-4 top-4 rounded-full bg-noir/70 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
+                  {item.number} / 0{count}
+                </span>
+                <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#a78bfa] text-white shadow-lg">
+                  <Icon size={17} />
+                </span>
+              </div>
+
+              {/* Text block — solid background so it always reads clearly */}
+              <div className="flex flex-1 flex-col p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#b69cff]">
+                  {item.label}
+                </p>
+                <h3 className="mt-2 font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
+                  {item.title}
+                </h3>
+                <p className="mt-3 font-display text-base font-semibold text-[#e7dcff]">
+                  {item.headline}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-white/90">
+                  {item.description}
+                </p>
+                <ul className="mt-auto flex flex-wrap gap-2 pt-4">
+                  {item.points.map((point) => (
+                    <li
+                      key={point}
+                      className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-xs font-medium text-white"
+                    >
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.article>
+          );
+        })}
+      </div>
+
+      {/* Controls */}
+      <div className="mt-2 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous card"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:bg-white/10"
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex gap-2">
+            {expertise.map((item, index) => (
+              <button
+                key={item.title}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Show ${item.title}`}
+                aria-current={index === front ? "true" : undefined}
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300",
+                  index === front ? "w-6 bg-[#b69cff]" : "w-2 bg-white/25",
+                )}
+              />
+            ))}
+          </div>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-white/45">
+            Swipe
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next card"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:bg-white/10"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+
+      <p className="sr-only" aria-live="polite">
+        {expertise[front].title}
+      </p>
     </div>
   );
 }
