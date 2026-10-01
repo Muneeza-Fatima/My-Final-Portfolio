@@ -79,7 +79,7 @@ export function Navbar() {
       <header className="fixed inset-x-0 top-0 z-[99999] border-b border-white/10 bg-noir">
         <nav
           aria-label="Main"
-          className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 sm:px-10 lg:px-14"
+          className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 sm:px-10 lg:px-14 2xl:max-w-[1760px] 2xl:px-20"
         >
           <Link
             href="/#home"

@@ -128,7 +128,7 @@ export function Hero() {
             playsInline
             preload="metadata"
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover opacity-60"
+            className="absolute inset-0 h-full w-full object-cover opacity-90 lg:opacity-60"
           >
             <source
               src="/videos/hero-background-480p-web.mp4"
@@ -142,13 +142,13 @@ export function Hero() {
           </video>
 
           {/* Keep the copy side readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-noir/75 via-noir/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-noir/55 via-noir/25 to-noir/10 lg:from-noir/75 lg:via-noir/25 lg:to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-noir to-transparent lg:h-24 lg:from-noir/60" />
         </div>
 
         <div className="relative z-10 flex min-h-[100svh] flex-col">
           {/* Content starts well below the fixed navbar, so nothing sits behind it */}
-          <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-8 px-6 pb-10 pt-28 sm:gap-12 sm:px-10 sm:pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-14 lg:pb-6 lg:pt-28">
+          <div className="mx-auto grid w-full max-w-7xl flex-1 2xl:max-w-[1760px] items-center gap-8 px-6 pb-10 pt-28 sm:gap-12 sm:px-10 sm:pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-14 lg:pb-6 lg:pt-28 2xl:grid-cols-[1.05fr_0.95fr] 2xl:px-20">
             {/* Portrait — after the copy on small screens, right column on desktop */}
             <Enter
               delay={0.15}
@@ -156,7 +156,7 @@ export function Hero() {
             >
               {/* Code-window backdrop: an editor window sits behind the portrait
                   and the head rises above its top edge for depth. */}
-              <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(76svh,46vw,660px)] lg:w-[min(38vw,520px)]">
+              <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(76svh,46vw,660px)] lg:w-[min(38vw,520px)] 2xl:h-[min(78svh,800px)] 2xl:w-[min(40vw,700px)]">
                 <CodeWindow className="absolute bottom-0 left-1/2 h-[76%] w-[96%] -translate-x-1/2" />
                 <motion.div
                   initial={reduceMotion ? false : { opacity: 0, y: 40 }}
@@ -180,13 +180,13 @@ export function Hero() {
             {/* Copy */}
             <div className="order-1 min-w-0">
               <Enter delay={0.05}>
-                <p className="font-display text-lg font-bold uppercase tracking-[0.12em] text-white sm:text-2xl">
+                <p className="font-display text-lg font-bold uppercase tracking-[0.12em] text-white sm:text-2xl 2xl:text-3xl">
                   <span className="text-white/60">Hi, I am</span> Muneeza Fatima
                 </p>
               </Enter>
 
               <Enter delay={0.2}>
-                <h1 className="mt-4 font-display text-[clamp(2.8rem,min(7vw,11svh),6.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.035em]">
+                <h1 className="mt-4 font-display text-[clamp(2.8rem,min(7vw,11svh),6.5rem)] 2xl:text-[min(6.2vw,12svh,8.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.035em]">
                   <span className="sr-only">
                     Muneeza Fatima — Frontend Developer
                   </span>
@@ -204,10 +204,10 @@ export function Hero() {
               </Enter>
 
               <Enter delay={0.35}>
-                <p className="mt-6 text-lg text-white sm:text-xl">
+                <p className="mt-6 text-lg text-white sm:text-xl 2xl:text-2xl">
                   I build <RotatingRole />
                 </p>
-                <p className="mt-3 max-w-lg text-sm leading-7 text-white/80 sm:text-[15px]">
+                <p className="mt-3 max-w-lg text-sm leading-7 text-white/80 sm:text-[15px] 2xl:max-w-xl 2xl:text-lg 2xl:leading-8">
                   People decide whether to trust your brand in under a second. I
                   design and build websites that win that moment — fast,
                   polished, and made to turn visitors into clients.
