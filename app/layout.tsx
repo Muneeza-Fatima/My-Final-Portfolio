@@ -30,10 +30,6 @@ export const metadata: Metadata = {
 
   description: siteConfig.description,
 
-  icons: {
-    icon: "/icon.png",
-  },
-
   keywords: siteConfig.keywords,
 
   authors: [
