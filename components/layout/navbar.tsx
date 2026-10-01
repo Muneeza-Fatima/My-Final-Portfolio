@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import Link from "next/link";
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -18,22 +13,22 @@ import { contactEmail, socials } from "@/data/socials";
 import { useSectionNav } from "@/hooks/use-section-nav";
 import { cn } from "@/lib/utils";
 
-const ease = [0.76, 0, 0.24, 1] as const;
-
 // Tracks which home-page section is in the middle of the viewport.
 function useActiveSection(enabled: boolean) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     if (!enabled) return;
-    const sections = navigation
-      .map((item) => document.getElementById(item.id))
+    // The hero (#home) is observed too, so nothing is highlighted at the top.
+    const sections = ["home", ...navigation.map((item) => item.id)]
+      .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
+          if (entry.isIntersecting)
+            setActive(entry.target.id === "home" ? null : entry.target.id);
         });
       },
       { rootMargin: "-45% 0px -50% 0px" },
@@ -50,18 +45,10 @@ export function Navbar() {
   const isHome = pathname === "/";
   const goTo = useSectionNav();
   const lenis = useLenis();
-  const reduceMotion = usePrefersReducedMotion();
   const active = useActiveSection(isHome);
 
-  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
-
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (y) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    setHidden(y > previous && y > 240 && !open);
-  });
 
   // Mobile menu: lock scroll, close on Esc, return focus to the toggle.
   useEffect(() => {
@@ -88,15 +75,11 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={false}
-        animate={{ y: hidden && !reduceMotion ? "-130%" : "0%" }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-[99999] px-3 pt-3 sm:px-5 sm:pt-4"
-      >
+      {/* Always visible: fixed to the top on every device */}
+      <header className="fixed inset-x-0 top-0 z-[99999] border-b border-white/10 bg-noir">
         <nav
           aria-label="Main"
-          className="mx-auto flex max-w-6xl items-center justify-between rounded-full border border-white/10 bg-noir/85 py-2 pl-5 pr-2 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+          className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 sm:px-10 lg:px-14"
         >
           <Link
             href="/#home"
@@ -167,20 +150,20 @@ export function Navbar() {
             >
               <span
                 className={cn(
-                  "absolute h-px w-5 bg-canvas transition-transform duration-500",
+                  "absolute h-[1.5px] w-5 rounded-full bg-white transition-transform duration-500",
                   open ? "rotate-45" : "-translate-y-[4px]",
                 )}
               />
               <span
                 className={cn(
-                  "absolute h-px w-5 bg-canvas transition-transform duration-500",
+                  "absolute h-[1.5px] w-5 rounded-full bg-white transition-transform duration-500",
                   open ? "-rotate-45" : "translate-y-[4px]",
                 )}
               />
             </button>
           </div>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -190,65 +173,119 @@ export function Navbar() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            initial={{ clipPath: "circle(0% at calc(100% - 44px) 40px)" }}
-            animate={{ clipPath: "circle(150% at calc(100% - 44px) 40px)" }}
-            exit={{ clipPath: "circle(0% at calc(100% - 44px) 40px)" }}
-            transition={{ duration: 0.8, ease }}
-            className="fixed inset-0 z-[99998] flex flex-col justify-between bg-tint px-6 pb-10 pt-32 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.35 }}
+            className="fixed inset-0 z-[99998] overflow-y-auto bg-noir/95 backdrop-blur-2xl md:hidden"
             data-lenis-prevent
           >
-            <ul className="space-y-2">
-              {navigation.map((item, index) => (
-                <li key={item.id} className="overflow-hidden">
-                  <motion.a
-                    href={`/#${item.id}`}
-                    onClick={handleNav(item.id)}
-                    initial={{ y: "110%" }}
-                    animate={{ y: 0 }}
-                    transition={{
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                      delay: 0.25 + index * 0.06,
-                    }}
-                    className="flex items-baseline gap-4 font-display text-5xl text-ink"
-                  >
-                    <span className="font-mono text-xs text-accent-deep">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    {item.name}
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
+            {/* Soft purple light */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-24 top-24 h-80 w-80 rounded-full bg-[#a78bfa]/25 blur-[100px]"
+            />
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="space-y-5 border-t border-accent/25 pt-6"
-            >
-              <a
-                href={`mailto:${contactEmail}`}
-                className="block text-lg text-ink underline decoration-accent underline-offset-4"
-              >
-                {contactEmail}
-              </a>
-              <div className="flex gap-3">
-                {socials
-                  .filter((s) => s.name !== "Email")
-                  .map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rounded-full border border-accent/30 px-4 py-2 text-sm text-ink"
+            <div className="relative flex min-h-full flex-col px-5 pb-8 pt-28">
+              <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/40">
+                Menu
+              </p>
+
+              <ul className="space-y-2">
+                {navigation.map((item, index) => {
+                  const isActive = active === item.id;
+                  return (
+                    <motion.li
+                      key={item.id}
+                      initial={{ opacity: 0, x: 24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 0.08 + index * 0.06,
+                      }}
                     >
-                      {social.name}
-                    </a>
-                  ))}
-              </div>
-            </motion.div>
+                      <a
+                        href={`/#${item.id}`}
+                        onClick={handleNav(item.id)}
+                        aria-current={isActive ? "true" : undefined}
+                        className={cn(
+                          "group flex items-center justify-between rounded-2xl border px-5 py-4 transition-colors duration-300 active:scale-[0.98]",
+                          isActive
+                            ? "border-[#a78bfa]/45 bg-[#a78bfa]/15"
+                            : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.06]",
+                        )}
+                      >
+                        <span className="flex items-center gap-4">
+                          <span
+                            className={cn(
+                              "font-mono text-xs",
+                              isActive ? "text-[#d8ccff]" : "text-white/35",
+                            )}
+                          >
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="font-display text-2xl font-bold text-white">
+                            {item.name}
+                          </span>
+                        </span>
+                        <span
+                          aria-hidden
+                          className={cn(
+                            "h-2 w-2 rounded-full transition-colors",
+                            isActive ? "bg-[#b69cff]" : "bg-white/15",
+                          )}
+                        />
+                      </a>
+                    </motion.li>
+                  );
+                })}
+              </ul>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, duration: 0.5 }}
+                className="mt-auto space-y-5 pt-10"
+              >
+                <Link
+                  href="/#contact"
+                  onClick={handleNav("contact")}
+                  className="btn-shine flex w-full items-center justify-center rounded-full bg-[#8b6bff] py-4 text-base font-bold text-white shadow-[0_12px_40px_-8px_rgba(139,107,255,0.7)]"
+                >
+                  Let&apos;s talk
+                </Link>
+
+                <div className="flex items-center justify-between gap-4 border-t border-white/10 pt-5">
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="truncate text-sm text-white/70"
+                  >
+                    {contactEmail}
+                  </a>
+                  <div className="flex shrink-0 gap-2">
+                    {socials
+                      .filter((s) => s.name !== "Email")
+                      .map((social) => (
+                        <a
+                          key={social.name}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={social.name}
+                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-xs font-semibold text-white/80"
+                        >
+                          {social.name === "GitHub" ? (
+                            <FaGithub size={16} />
+                          ) : (
+                            <FaLinkedinIn size={16} />
+                          )}
+                        </a>
+                      ))}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

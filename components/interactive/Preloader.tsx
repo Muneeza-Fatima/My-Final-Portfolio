@@ -10,7 +10,8 @@ const SESSION_KEY = "mf-preloader-seen";
 // then a tint curtain lifts. Skipped for reduced motion and repeat views.
 // This component is client-only (loaded with ssr:false), so window is available.
 function shouldPlay() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    return false;
   try {
     return sessionStorage.getItem(SESSION_KEY) !== "1";
   } catch {
@@ -63,22 +64,31 @@ export default function Preloader() {
         <motion.div
           key="preloader"
           aria-hidden
-          className="fixed inset-0 z-[100003] flex flex-col items-center justify-center bg-tint"
+          className="fixed inset-0 z-[100003] flex flex-col items-center justify-center bg-noir"
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           initial={{ clipPath: "inset(0 0 0% 0)" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <svg viewBox="0 0 640 120" className="w-[82vw] max-w-[620px] text-ink">
+          {/* textLength keeps the whole name inside the viewBox on every screen width */}
+          <svg
+            viewBox="0 0 720 120"
+            className="w-[86vw] max-w-[640px] overflow-visible text-white"
+          >
             <motion.text
-              x="50%"
-              y="82"
-              textAnchor="middle"
+              x="30"
+              y="84"
+              textLength="660"
+              lengthAdjust="spacingAndGlyphs"
               className="font-display"
-              fontSize="92"
+              fontSize="84"
               fill="currentColor"
               stroke="currentColor"
               strokeWidth="0.8"
-              initial={{ strokeDasharray: 1400, strokeDashoffset: 1400, fillOpacity: 0 }}
+              initial={{
+                strokeDasharray: 1400,
+                strokeDashoffset: 1400,
+                fillOpacity: 0,
+              }}
               animate={{ strokeDashoffset: 0, fillOpacity: 1 }}
               transition={{
                 strokeDashoffset: { duration: 1.6, ease: "easeInOut" },
@@ -90,19 +100,19 @@ export default function Preloader() {
           </svg>
 
           <div className="mt-6 flex w-[min(320px,70vw)] items-center gap-4">
-            <div className="relative h-px flex-1 overflow-hidden bg-accent/20">
+            <div className="relative h-px flex-1 overflow-hidden bg-white/15">
               <div
-                className="absolute inset-y-0 left-0 bg-accent"
+                className="absolute inset-y-0 left-0 bg-[#b69cff]"
                 style={{ width: `${count}%` }}
               />
             </div>
-            <span className="w-10 text-right font-mono text-xs text-accent-deep">
+            <span className="w-10 text-right font-mono text-xs text-[#d8ccff]">
               {String(count).padStart(3, "0")}
             </span>
           </div>
 
-          <p className="mt-6 text-[10px] uppercase tracking-[0.4em] text-muted">
-            Frontend Engineer
+          <p className="mt-6 text-[10px] uppercase tracking-[0.4em] text-white/50">
+            Frontend Developer
           </p>
         </motion.div>
       )}

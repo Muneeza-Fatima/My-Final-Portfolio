@@ -28,8 +28,8 @@ export default function About() {
   const reduceMotion = usePrefersReducedMotion();
 
   return (
-    <section id="about" className="relative bg-canvas p-2.5 sm:p-3">
-      <div className="relative overflow-hidden rounded-[28px] bg-noir py-24 sm:py-32">
+    <section id="about" className="relative border-t border-white/[0.06] bg-noir">
+      <div className="relative overflow-hidden bg-noir py-24 sm:py-32">
         <div className="relative mx-auto max-w-7xl px-6 sm:px-10 lg:px-14">
           <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/50">
             <span className="h-px w-8 bg-white/30" /> About me

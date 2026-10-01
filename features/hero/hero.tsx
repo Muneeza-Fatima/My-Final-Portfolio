@@ -115,8 +115,8 @@ export function Hero() {
   const goTo = useSectionNav();
 
   return (
-    <section id="home" className="relative bg-canvas p-2.5 sm:p-3">
-      <div className="relative overflow-hidden rounded-[28px] bg-noir">
+    <section id="home" className="relative bg-noir">
+      <div className="relative overflow-hidden bg-noir">
         {/* Background video (kept from the original design) */}
         <video
           autoPlay
@@ -139,17 +139,17 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-noir/75 via-noir/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-noir/60 to-transparent" />
 
-        <div className="relative z-10 flex min-h-[calc(100svh-24px)] flex-col">
+        <div className="relative z-10 flex min-h-[100svh] flex-col">
           {/* Content starts well below the fixed navbar, so nothing sits behind it */}
-          <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-8 px-6 pb-10 pt-24 sm:gap-12 sm:px-10 sm:pt-28 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-14 lg:pb-6 lg:pt-28">
-            {/* Portrait — first on small screens, right column on desktop */}
+          <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-8 px-6 pb-10 pt-28 sm:gap-12 sm:px-10 sm:pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-14 lg:pb-6 lg:pt-28">
+            {/* Portrait — after the copy on small screens, right column on desktop */}
             <Enter
               delay={0.15}
-              className="order-1 flex justify-center lg:order-2 lg:justify-end"
+              className="order-2 flex justify-center lg:justify-end"
             >
               {/* Code-window backdrop: an editor window sits behind the portrait
                   and the head rises above its top edge for depth. */}
-              <div className="relative flex h-[min(38svh,330px)] w-[min(70vw,300px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(68svh,620px)] lg:w-[min(34vw,470px)]">
+              <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(68svh,620px)] lg:w-[min(34vw,470px)]">
                 <CodeWindow className="absolute bottom-0 left-1/2 h-[76%] w-[96%] -translate-x-1/2" />
                 <motion.div
                   initial={reduceMotion ? false : { opacity: 0, y: 40 }}
@@ -171,7 +171,7 @@ export function Hero() {
             </Enter>
 
             {/* Copy */}
-            <div className="order-2 min-w-0 lg:order-1">
+            <div className="order-1 min-w-0">
               <Enter delay={0.05}>
                 <p className="font-display text-lg font-bold uppercase tracking-[0.12em] text-white sm:text-2xl">
                   <span className="text-white/60">Hi, I am</span> Muneeza Fatima

@@ -26,7 +26,7 @@ export function Footer() {
   };
 
   return (
-    <footer ref={ref} className="relative overflow-hidden rounded-t-[40px] bg-noir text-white">
+    <footer ref={ref} className="relative overflow-hidden bg-noir text-white">
       <div className="mx-auto max-w-7xl px-5 pt-20 sm:px-8 sm:pt-28 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_auto]">
           <div>
