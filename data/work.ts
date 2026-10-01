@@ -164,37 +164,37 @@ export const clientWork = {
 
 export const workCategories: WorkCategory[] = [
   {
-    id: "internship",
-    number: "01",
-    title: "Internship",
-    label: "Foundation",
-    description:
-      "Eight weeks in the Web Development department at Digital Brains — real team, real deadlines, real product standards.",
-    href: "/work/internship",
-    image: "/projects/Internship.jpeg",
-    proof: "Certified · DB-INT-2026-001",
-  },
-  {
     id: "demo-projects",
-    number: "02",
-    title: "Demo Projects",
-    label: "Exploration",
+    number: "01",
+    title: "Crafted Work",
+    label: "Craft",
     description:
-      "Independent builds exploring interfaces, interaction and front-end craft — each one live and open source.",
+      "Independent builds, each one live and open source.",
     href: "/work/demo-projects",
     image: "/projects/demo-projects.jpeg",
     proof: "Live · Open source",
   },
   {
     id: "client-work",
-    number: "03",
+    number: "02",
     title: "Client Work",
     label: "Impact",
     description:
-      "A premium portfolio for the CEO & Founder of BH Ventures, UAE — delivered and formally recognised by the client.",
+      "Remote work with BH Ventures FZE LLC, UAE, recognised by the client.",
     href: "/work/client-work",
     image: "/projects/client-work.jpeg",
     proof: "Appreciated · BH Ventures",
+  },
+  {
+    id: "internship",
+    number: "03",
+    title: "Internship",
+    label: "Where it started",
+    description:
+      "Eight weeks with the Digital Brains web team, shipping to real deadlines.",
+    href: "/work/internship",
+    image: "/projects/Internship.jpeg",
+    proof: "Certified · DB-INT-2026-001",
   },
 ];
 

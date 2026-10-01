@@ -20,8 +20,7 @@ export default function ClientWorkPage() {
   return (
     <main className="min-h-screen bg-canvas text-ink">
       <CaseHeader
-        chapter="Chapter 03 · Client Work"
-        crumb="Client Work"
+        chapter="Chapter 02 · Client Work"
         title={["Real work.", "Trust in writing."]}
         intro={clientWork.summary}
         aside={<VerifiedSeal size={124} label="CLIENT APPROVED · UAE · " />}

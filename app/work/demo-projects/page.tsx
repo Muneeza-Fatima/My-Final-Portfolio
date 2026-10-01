@@ -7,7 +7,7 @@ import { Footer } from "@/features/footer";
 import { ProjectCard } from "@/features/projects/projects-card";
 
 export const metadata: Metadata = {
-  title: "Demo Projects",
+  title: "Crafted Work",
   description: "Independent frontend builds exploring interfaces, interaction and craft.",
 };
 
@@ -15,8 +15,7 @@ export default function DemoProjectsPage() {
   return (
     <main className="min-h-screen bg-canvas text-ink">
       <CaseHeader
-        chapter="Chapter 02 · Demo Projects"
-        crumb="Demo Projects"
+        chapter="Chapter 01 · Crafted Work"
         title={["Selected projects.", "Built to explore."]}
         intro="Frontend projects focused on responsive interfaces, thoughtful UX, interactive experiences and modern development practice — each one live and open source."
         meta={[

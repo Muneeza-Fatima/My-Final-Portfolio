@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
 
 import { CaseHeader } from "@/components/work/CaseHeader";
 import { InternshipOutcomes, InternshipTimeline } from "@/components/work/InternshipTimeline";
 import WorkCTA from "@/components/work/WorkCTA";
+import { ToolkitChips } from "@/components/work/internship/ToolkitChips";
 import { CertificateShowcase } from "@/components/work/proof/CertificateShowcase";
 import { ProofId } from "@/components/work/proof/ProofId";
 import { VerifiedSeal } from "@/components/work/proof/VerifiedSeal";
@@ -21,11 +21,10 @@ export default function InternshipPage() {
   return (
     <main className="min-h-screen bg-canvas text-ink">
       <CaseHeader
-        chapter="Chapter 01 · Internship"
-        crumb="Internship"
+        chapter="Chapter 03 · Internship"
         title={["Where the foundation", "was built."]}
         intro={internship.summary}
-        aside={<VerifiedSeal size={124} />}
+        aside={<VerifiedSeal size={84} />}
         meta={[
           { label: "Company", value: internship.company },
           { label: "Role", value: internship.role },
@@ -35,60 +34,57 @@ export default function InternshipPage() {
       />
 
       {/* Recognition + certificate */}
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20 lg:px-12">
+      <section className="py-16 sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 lg:px-12">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-accent-deep">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">
               On record
             </p>
-            <h2 className="mt-5 font-display text-5xl leading-[1] sm:text-6xl">
-              Certified by <span className="text-accent">{internship.company}.</span>
+            <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+              Certified by <span className="text-[#6d5bd0]">{internship.company}.</span>
             </h2>
-            <p className="mt-6 text-sm leading-7 text-muted sm:text-base">{internship.recognition}</p>
+            <p className="mt-4 text-sm leading-7 text-muted sm:text-[15px]">{internship.recognition}</p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-2">
               <ProofId>No. {internship.certificateNumber}</ProofId>
               <ProofId>{internship.duration}</ProofId>
               <ProofId>{internship.department}</ProofId>
             </div>
-
-            <a
-              href={internship.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-10 inline-flex items-center gap-2 text-sm text-ink underline decoration-accent/40 underline-offset-8 transition hover:decoration-accent"
-            >
-              digitalbrains.tech <ArrowUpRight size={15} />
-            </a>
           </div>
 
-          {certificate && <CertificateShowcase certificate={certificate} tilt={1.2} />}
+          {certificate && (
+            <div>
+              <CertificateShowcase certificate={certificate} tilt={1.2} />
+              <p className="mt-4 text-center text-[11px] uppercase tracking-[0.22em] text-muted">
+                Hover to tilt · click to inspect
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
       {/* Timeline */}
-      <section className="bg-tint-soft py-24 sm:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-12">
+      <section className="relative overflow-hidden bg-tint-soft py-16 sm:py-20">
+        <div className="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-12">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-accent-deep">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">
               The eight weeks
             </p>
-            <h2 className="mt-5 font-display text-5xl leading-[1] sm:text-6xl">
+            <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
               From onboarding
               <br />
-              <span className="text-accent">to delivery.</span>
+              <span className="text-[#6d5bd0]">to delivery.</span>
             </h2>
+            <p className="mt-4 max-w-sm text-sm leading-7 text-muted">
+              Eight weeks, two at a time — from first commit to final delivery.
+            </p>
 
-            <p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">
+            <p className="mt-8 text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">
               Toolkit
             </p>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {internship.stack.map((tool) => (
-                <li key={tool} className="rounded-full border border-accent/25 bg-surface px-3.5 py-1.5 text-xs text-ink">
-                  {tool}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-4">
+              <ToolkitChips />
+            </div>
           </div>
 
           <InternshipTimeline />
@@ -96,8 +92,14 @@ export default function InternshipPage() {
       </section>
 
       {/* Outcomes */}
-      <section className="py-24 sm:py-32">
+      <section className="py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">
+            Outcomes
+          </p>
+          <h2 className="mb-8 mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+            What it <span className="text-[#6d5bd0]">added up to.</span>
+          </h2>
           <InternshipOutcomes />
         </div>
       </section>

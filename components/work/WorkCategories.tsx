@@ -1,146 +1,106 @@
 "use client";
 
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
 
 import { RevealText } from "@/components/interactive/RevealText";
 import { workCategories, type WorkCategory } from "@/data/work";
+import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-import { VerifiedSeal } from "./proof/VerifiedSeal";
-
-// Each card sits a little lower than the previous one so the stack is visible.
-const STACK_OFFSET = 28;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function ChapterCard({
   category,
   index,
-  total,
-  progress,
 }: {
   category: WorkCategory;
   index: number;
-  total: number;
-  progress: MotionValue<number>;
 }) {
   const reduceMotion = usePrefersReducedMotion();
-  // Once the next card starts covering this one, shrink and dim it slightly.
-  const start = index / total;
-  const scale = useTransform(progress, [start, 1], [1, 1 - (total - index - 1) * 0.045]);
-  const dim = useTransform(progress, [start, 1], [0, (total - index - 1) * 0.12]);
-  const isVerified = category.id !== "demo-projects";
 
   return (
-    <div
-      className="sticky h-[82svh] min-h-[560px]"
-      style={{ top: `calc(96px + ${index * STACK_OFFSET}px)` }}
+    <motion.div
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.7, ease, delay: index * 0.08 }}
+      className="w-[88%] shrink-0 snap-start sm:w-[60%] lg:w-auto"
     >
-      <motion.article
-        style={reduceMotion ? undefined : { scale, transformOrigin: "top center" }}
-        className="relative grid h-full grid-rows-[42%_1fr] overflow-hidden rounded-[32px] border border-line bg-surface shadow-[0_-20px_60px_-30px_rgba(38,38,47,0.35)] lg:grid-cols-[1.05fr_1fr] lg:grid-rows-1"
+      <Link
+        href={category.href}
+        className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-line bg-surface transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_24px_50px_-28px_rgba(38,38,47,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-deep"
       >
         {/* Image */}
-        <Link
-          href={category.href}
-          data-cursor="Open"
-          className="group relative block overflow-hidden"
-          aria-label={`Open ${category.title}`}
-        >
+        <div className="relative aspect-[5/4] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={category.image}
             alt=""
-            className="h-full w-full scale-[1.08] object-cover transition-transform duration-[1400ms] ease-[var(--ease-luxe)] group-hover:scale-[1.14]"
+            className="h-full w-full object-cover object-center transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-noir/55 via-transparent to-transparent" />
-          <span className="absolute bottom-3 left-5 font-display text-[96px] leading-none text-white/90 sm:text-[140px] lg:bottom-6 lg:left-8">
+          <span className="absolute left-3 top-3 rounded-full bg-noir/75 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
             {category.number}
           </span>
-        </Link>
-
-        {/* Content */}
-        <div className="relative flex min-h-0 flex-col p-6 sm:p-10 lg:p-14">
-          <div className="flex items-start justify-between gap-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-tint-soft px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-accent-deep">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              {category.proof}
-            </span>
-            {isVerified && <VerifiedSeal size={84} className="-mr-2 -mt-3 hidden sm:block" />}
-          </div>
-
-          <div className="mt-auto">
-            <p className="text-[10px] uppercase tracking-[0.35em] text-muted">
-              Chapter {category.number} · {category.label}
-            </p>
-            <h3 className="mt-3 font-display text-4xl leading-[0.95] text-ink sm:text-6xl lg:text-7xl">
-              {category.title}
-            </h3>
-            <p className="mt-4 max-w-md text-sm leading-7 text-muted sm:text-base">
-              {category.description}
-            </p>
-
-            <Link
-              href={category.href}
-              className="group/cta mt-6 inline-flex items-center gap-3 rounded-full bg-ink py-2 pl-6 pr-2 text-sm text-canvas transition-colors hover:bg-accent-deep sm:mt-8"
-            >
-              Open chapter
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-canvas text-ink transition-transform duration-500 group-hover/cta:rotate-45">
-                <ArrowUpRight size={15} />
-              </span>
-            </Link>
-          </div>
         </div>
 
-        {/* Dimming layer as later cards stack on top */}
-        {!reduceMotion && (
-          <motion.div
-            aria-hidden
-            style={{ opacity: dim }}
-            className="pointer-events-none absolute inset-0 bg-tint"
-          />
-        )}
-      </motion.article>
-    </div>
+        {/* Body — minimal: label, title, two-line summary, link */}
+        <div className="flex flex-1 flex-col p-6 sm:p-8">
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-deep">
+            {category.label}
+          </p>
+          <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-ink sm:text-3xl">
+            {category.title}
+          </h3>
+          <p className="mt-3 text-[15px] leading-7 text-muted sm:text-base">
+            {category.description}
+          </p>
+
+          <span className="mt-auto inline-flex items-center gap-1 pt-5 text-sm font-medium text-ink/80 transition-colors group-hover:text-accent-deep">
+            See the work
+            <ArrowUpRight
+              size={14}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </span>
+        </div>
+      </Link>
+    </motion.div>
   );
 }
 
 export default function WorkCategories() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
   return (
-    <section id="work" className="relative bg-canvas pb-24 pt-28 sm:pb-32 sm:pt-40">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="mb-14 flex items-center justify-between border-b border-line pb-5 text-[10px] uppercase tracking-[0.35em] text-muted">
+    <section id="work" className="relative bg-canvas py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-14">
+        <div className="mb-10 flex items-center justify-between border-b border-line pb-5 text-[10px] uppercase tracking-[0.35em] text-muted">
           <span className="flex items-center gap-3 text-accent-deep">
             <span className="h-px w-8 bg-accent" /> Selected work
           </span>
           <span>02 — Chapters</span>
         </div>
 
-        <div className="mb-16 grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+        <div className="mb-10 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
           <RevealText
             as="h2"
-            className="font-display text-[clamp(3rem,8vw,7rem)] leading-[0.92] text-ink"
-            text={[{ text: "Work that shaped\n" }, { text: "the journey.", className: "text-accent" }]}
+            className="font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
+            text={[
+              { text: "Work you can " },
+              { text: "trust.", className: "text-accent" },
+            ]}
           />
-          <p className="text-sm leading-7 text-muted sm:text-[15px]">
-            Three chapters — a real team, independent craft, and a client who put
-            their trust in writing. Each one is documented.
+          <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">
+            Every chapter answers the first question clients ask: can she
+            deliver? From independent builds, to a company I work with today, to
+            where it started inside a real product team — each one is
+            documented.
           </p>
         </div>
 
-        <div ref={ref} className="relative flex flex-col gap-[12vh]">
+        {/* Phones & tablets: swipeable row. Desktop: three columns. */}
+        <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 [scrollbar-width:none] sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden">
           {workCategories.map((category, index) => (
-            <ChapterCard
-              key={category.id}
-              category={category}
-              index={index}
-              total={workCategories.length}
-              progress={scrollYProgress}
-            />
+            <ChapterCard key={category.id} category={category} index={index} />
           ))}
         </div>
       </div>

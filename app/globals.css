@@ -291,6 +291,44 @@ html.has-custom-cursor * {
   pointer-events: none;
 }
 
+/* Static light-catching border: violet sheen on both corners fading through
+   a soft lavender edge. A border-box gradient (not a pseudo-element), so it
+   works with overflow-hidden. --shine-fill sets the inner fill. */
+.border-shine {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--shine-fill, var(--color-surface)), var(--shine-fill, var(--color-surface))) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(109, 91, 208, 0.75) 0%,
+        rgba(157, 134, 255, 0.55) 18%,
+        rgba(214, 205, 250, 0.7) 36%,
+        rgba(201, 188, 255, 0.55) 50%,
+        rgba(214, 205, 250, 0.7) 64%,
+        rgba(157, 134, 255, 0.5) 82%,
+        rgba(109, 91, 208, 0.65) 100%
+      )
+      border-box;
+}
+
+/* Dark variant for solid ink buttons: a bright lavender/white rim. */
+.border-shine-dark {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--shine-fill, var(--color-ink)), var(--shine-fill, var(--color-ink))) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(109, 91, 208, 0.8) 0%,
+        rgba(182, 156, 255, 0.7) 20%,
+        rgba(239, 233, 255, 0.75) 32%,
+        rgba(139, 107, 255, 0.6) 50%,
+        rgba(109, 91, 208, 0.55) 68%,
+        rgba(182, 156, 255, 0.65) 84%,
+        rgba(109, 91, 208, 0.8) 100%
+      )
+      border-box;
+}
+
 /* Touch devices: give every tappable element a small press response. */
 @media (hover: none) {
   a:active,

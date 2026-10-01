@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 import { RevealText } from "@/components/interactive/RevealText";
 
@@ -9,7 +8,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 type CaseHeaderProps = {
   chapter: string;
-  crumb: string;
   // Plain part, then the accent part.
   title: [string, string];
   intro: string;
@@ -18,28 +16,15 @@ type CaseHeaderProps = {
 };
 
 // Shared "case file" header for the work detail pages.
-export function CaseHeader({ chapter, crumb, title, intro, aside, meta }: CaseHeaderProps) {
+export function CaseHeader({ chapter, title, intro, aside, meta }: CaseHeaderProps) {
   return (
     <header className="relative overflow-hidden bg-canvas">
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 -top-40 h-[620px] w-[620px] rounded-full bg-accent/[0.14] blur-[160px]"
+        className="pointer-events-none absolute -right-40 -top-40 h-[620px] w-[620px] rounded-full bg-[#6d5bd0]/[0.08] blur-[160px]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-36 sm:px-8 sm:pt-44 lg:px-12">
-        <nav aria-label="Breadcrumb" className="mb-14 text-xs text-muted">
-          <ol className="flex items-center gap-2">
-            <li>
-              <Link href="/" className="transition-colors hover:text-accent-deep">Home</Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li>
-              <Link href="/#work" className="transition-colors hover:text-accent-deep">Work</Link>
-            </li>
-            <li aria-hidden>/</li>
-            <li aria-current="page" className="text-ink">{crumb}</li>
-          </ol>
-        </nav>
+      <div className="relative mx-auto max-w-7xl px-5 pb-12 pt-28 sm:px-8 sm:pt-32 lg:px-12">
 
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
@@ -47,22 +32,22 @@ export function CaseHeader({ chapter, crumb, title, intro, aside, meta }: CaseHe
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease }}
-              className="mb-6 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.4em] text-accent-deep"
+              className="mb-6 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.4em] text-muted"
             >
-              <span className="h-px w-8 bg-accent" /> {chapter}
+              <span className="h-px w-8 bg-[#6d5bd0]" /> {chapter}
             </motion.p>
             <RevealText
               as="h1"
               immediate
               delay={0.2}
-              className="max-w-5xl font-display text-[clamp(3.2rem,9vw,8rem)] leading-[0.92] text-ink"
-              text={[{ text: `${title[0]}\n` }, { text: title[1], className: "text-accent" }]}
+              className="max-w-4xl font-display text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
+              text={[{ text: `${title[0]}\n` }, { text: title[1], className: "text-[#6d5bd0]" }]}
             />
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease, delay: 0.6 }}
-              className="mt-8 max-w-2xl text-sm leading-7 text-muted sm:text-base"
+              className="mt-5 max-w-xl text-sm leading-7 text-muted sm:text-[15px]"
             >
               {intro}
             </motion.p>
@@ -75,14 +60,21 @@ export function CaseHeader({ chapter, crumb, title, intro, aside, meta }: CaseHe
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75, ease }}
-          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-[24px] border border-accent/15 bg-accent/15 md:grid-cols-4"
+          className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4"
         >
           {meta.map((item) => (
-            <div key={item.label} className="flex flex-col bg-tint-soft p-5 sm:p-6">
+            <div
+              key={item.label}
+              className="group relative flex flex-col overflow-hidden border-shine rounded-[18px] px-5 py-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-24px_rgba(17,18,22,0.35)]"
+            >
+              <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[#6d5bd0] transition-transform duration-500 group-hover:scale-x-100"
+              />
               <dt className="order-2 mt-2 text-[10px] uppercase tracking-[0.28em] text-muted">
                 {item.label}
               </dt>
-              <dd className="text-sm text-ink sm:text-base">{item.value}</dd>
+              <dd className="text-sm font-semibold text-ink">{item.value}</dd>
             </div>
           ))}
         </motion.dl>
