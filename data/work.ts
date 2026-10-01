@@ -9,7 +9,7 @@ export type Certificate = {
   title: string;
   kind: string;
   issuer: string;
-  issuerUrl: string;
+  issuerUrl?: string;
   recipient: string;
   date: string;
   image: string;
@@ -61,7 +61,6 @@ export const certificates: Certificate[] = [
     title: "Certificate of Appreciation",
     kind: "Client Work",
     issuer: "BH Ventures FZE LLC",
-    issuerUrl: "https://bhventures.ae",
     recipient: "Muneeza Fatima",
     date: "12 September 2026",
     image: "/certificates/bh-ventures-appreciation.jpg",
@@ -149,7 +148,6 @@ export const clientWork = {
   company: "BH Ventures FZE LLC",
   industry: "Business & Ventures",
   location: "UAE",
-  website: "https://bhventures.ae",
   project: "Professional personal portfolio",
   summary:
     "A premium personal portfolio for an executive founder — built to communicate credibility, vision and presence to partners and investors.",
@@ -207,7 +205,6 @@ export const currentRole = {
   location: "UAE",
   mode: "Remote",
   role: "Frontend & UI/UX Developer",
-  website: "https://bhventures.ae",
   focus: [
     "UI/UX design",
     "React & Next.js builds",

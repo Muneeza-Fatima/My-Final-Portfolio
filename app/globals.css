@@ -80,7 +80,7 @@
     color: var(--foreground);
     font-family: var(--font-inter), sans-serif;
     letter-spacing: -0.01em;
-    overflow-x: hidden;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -153,9 +153,11 @@
   background: #3b3b48;
 }
 
+/* clip (not hidden) so body doesn't become a scroll container — hidden
+   would break position: sticky. */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Hide the native cursor only when the custom cursor is active. */
@@ -309,6 +311,80 @@ html.has-custom-cursor * {
         rgba(109, 91, 208, 0.65) 100%
       )
       border-box;
+}
+
+/* Quiet dark card: near-black fill with a hairline rim that catches a faint
+   violet light on two corners. */
+.card-dark {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#15161b, #15161b) padding-box,
+    linear-gradient(
+        135deg,
+        rgba(182, 156, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.07) 30%,
+        rgba(255, 255, 255, 0.05) 70%,
+        rgba(182, 156, 255, 0.3) 100%
+      )
+      border-box;
+}
+
+/* Interactive dark card. ::before is a static shine rim (violet light on two
+   corners); ::after is a brighter rim that follows the pointer on hover
+   (--mx / --my are set from JS). Both are masked to a 1.5px ring. */
+.card-shine {
+  position: relative;
+  isolation: isolate;
+  /* Soft diagonal sheen across the top-left of the card. */
+  background:
+    linear-gradient(150deg, rgba(182, 156, 255, 0.14) 0%, rgba(139, 107, 255, 0.04) 28%, transparent 50%),
+    radial-gradient(120% 60% at 100% 100%, rgba(109, 91, 208, 0.1), transparent 60%),
+    #15161b;
+}
+
+.card-shine::before,
+.card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 2px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card-shine::before {
+  background: linear-gradient(
+    135deg,
+    #e2d9ff 0%,
+    #9d86ff 16%,
+    rgba(139, 107, 255, 0.45) 34%,
+    rgba(139, 107, 255, 0.22) 50%,
+    rgba(139, 107, 255, 0.45) 66%,
+    #9d86ff 84%,
+    #e2d9ff 100%
+  );
+}
+
+.card-shine::after {
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 0%),
+    #ffffff,
+    rgba(182, 156, 255, 0.9) 30%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card-shine:hover::after,
+.card-shine:focus-within::after {
+  opacity: 1;
 }
 
 /* Dark variant for solid ink buttons: a bright lavender/white rim. */

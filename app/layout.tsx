@@ -73,7 +73,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${display.variable} ${code.variable} grain overflow-x-hidden bg-noir text-ink`}>
+      <body className={`${inter.variable} ${display.variable} ${code.variable} grain overflow-x-clip bg-noir text-ink`}>
         <Providers>
           <InteractiveLayer />
           <ScrollProgress />

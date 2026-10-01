@@ -60,7 +60,7 @@ export function CaseHeader({ chapter, title, intro, aside, meta }: CaseHeaderPro
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.75, ease }}
-          className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4"
+          className={`mt-10 grid grid-cols-2 gap-3 ${meta.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4"}`}
         >
           {meta.map((item) => (
             <div

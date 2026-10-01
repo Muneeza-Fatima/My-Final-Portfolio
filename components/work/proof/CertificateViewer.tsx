@@ -213,15 +213,17 @@ export function CertificateViewer({
                   <FileText size={15} />
                   Open original PDF
                 </a>
-                <a
-                  href={certificate.issuerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-5 py-3 text-sm text-ink transition hover:border-accent"
-                >
-                  Visit {certificate.issuer}
-                  <ArrowUpRight size={15} />
-                </a>
+                {certificate.issuerUrl && (
+                  <a
+                    href={certificate.issuerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-5 py-3 text-sm text-ink transition hover:border-accent"
+                  >
+                    Visit {certificate.issuer}
+                    <ArrowUpRight size={15} />
+                  </a>
+                )}
               </div>
 
               {hasMany && (
