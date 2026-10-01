@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-const countries = ["United Kingdom", "United States", "Canada", "Australia", "UAE", "Pakistan", "Other"];
+import { CountrySelect } from "./country-select";
 
 const empty = { name: "", email: "", country: "", projectType: "", message: "" };
 
@@ -22,7 +22,7 @@ export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<Status>({ type: "idle" });
 
-  const update = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+  const update = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
 
   async function handleSubmit(event: React.FormEvent) {
@@ -101,33 +101,11 @@ export function ContactForm() {
               <input id="email" name="email" type="email" required value={form.email} onChange={update} placeholder=" " autoComplete="email" className={fieldBase} />
               <label htmlFor="email" className={labelBase}>Email address</label>
             </div>
-            <div className="relative">
-              <select
-                id="country"
-                name="country"
-                required
-                value={form.country}
-                onChange={update}
-                className={cn(fieldBase, "appearance-none", !form.country && "text-transparent")}
-              >
-                <option value="" disabled hidden />
-                {countries.map((country) => (
-                  <option key={country} value={country} className="text-ink">
-                    {country}
-                  </option>
-                ))}
-              </select>
-              <label
-                htmlFor="country"
-                className={cn(
-                  "pointer-events-none absolute left-5 text-muted transition-all duration-300",
-                  form.country ? "top-2.5 text-[10px] uppercase tracking-[0.2em]" : "top-5 text-sm",
-                )}
-              >
-                Country
-              </label>
-              <span aria-hidden className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-muted">⌄</span>
-            </div>
+            <CountrySelect
+              value={form.country}
+              onChange={(country) => setForm((prev) => ({ ...prev, country }))}
+              className={fieldBase}
+            />
             <div className="relative">
               <input id="projectType" name="projectType" required value={form.projectType} onChange={update} placeholder=" " className={fieldBase} />
               <label htmlFor="projectType" className={labelBase}>Project type</label>

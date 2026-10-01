@@ -8,7 +8,9 @@ import { useRef } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { navigation } from "@/data/navigation";
-import { contactEmail, socials } from "@/data/socials";
+import { FaWhatsapp } from "react-icons/fa6";
+
+import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { useSectionNav } from "@/hooks/use-section-nav";
 
 export function Footer() {
@@ -40,6 +42,14 @@ export function Footer() {
               className="mt-8 inline-flex items-center gap-2 text-sm text-white/80 underline decoration-white/25 underline-offset-8 transition-colors hover:text-white hover:decoration-accent-soft"
             >
               {contactEmail} <ArrowUpRight size={14} />
+            </a>
+            <a
+              href={contactPhone.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 flex w-fit items-center gap-2 text-sm text-white/80 underline decoration-white/25 underline-offset-8 transition-colors hover:text-white hover:decoration-accent-soft"
+            >
+              <FaWhatsapp size={15} className="text-[#25D366]" /> {contactPhone.display}
             </a>
           </div>
 
@@ -97,10 +107,10 @@ export function Footer() {
       </div>
 
       {/* Giant wordmark rising into view */}
-      <div aria-hidden className="overflow-hidden">
+      <div aria-hidden className="overflow-hidden pb-10 sm:pb-14">
         <motion.p
           style={reduceMotion ? undefined : { y: wordY }}
-          className="text-foil select-none whitespace-nowrap px-3 text-center font-display text-[23vw] leading-[0.8]"
+          className="text-foil select-none whitespace-nowrap px-3 text-center font-display text-[14vw] leading-[0.9]"
         >
           Muneeza
         </motion.p>

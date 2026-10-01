@@ -83,10 +83,10 @@ export default function WorkCategories() {
         <div className="mb-10 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
           <RevealText
             as="h2"
-            className="font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
+            className="font-display text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.98] tracking-[-0.035em] text-ink"
             text={[
               { text: "Work you can " },
-              { text: "trust.", className: "text-accent" },
+              { text: "trust.", className: "text-[#6d5bd0]" },
             ]}
           />
           <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">

@@ -2,7 +2,7 @@
 export const navigation = [
   { name: "About", id: "about" },
   { name: "Work", id: "work" },
-  { name: "Projects", id: "projects" },
+  { name: "FAQ", id: "faq" },
   { name: "Services", id: "services" },
   { name: "Contact", id: "contact" },
 ];

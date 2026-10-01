@@ -1,6 +1,6 @@
 
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 
@@ -11,21 +11,15 @@ import { Navbar } from "@/components/layout/navbar";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { InteractiveLayer } from "@/components/interactive/InteractiveLayer";
 
-const inter = Inter({
+// Geist for headings and body, Geist Mono for code and labels.
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
 });
 
-const code = JetBrains_Mono({
+const code = Geist_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
   variable: "--font-code",
-});
-
-const display = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-display-face",
 });
 
 export const metadata: Metadata = {
@@ -73,7 +67,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${display.variable} ${code.variable} grain overflow-x-clip bg-noir text-ink`}>
+      <body className={`${geist.variable} ${code.variable} grain overflow-x-clip bg-noir text-ink`}>
         <Providers>
           <InteractiveLayer />
           <ScrollProgress />

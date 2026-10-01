@@ -1,8 +1,8 @@
 import { About } from "@/features/about";
 import { Contact } from "@/features/contact";
+import { Faq } from "@/features/faq";
 import { Footer } from "@/features/footer";
 import { Hero } from "@/features/hero";
-import { Projects } from "@/features/projects";
 import { Services } from "@/features/services";
 
 import ProofVault from "@/components/work/ProofVault";
@@ -15,7 +15,7 @@ export default function Home() {
       <About />
       <WorkCategories />
       <ProofVault />
-      <Projects />
+      <Faq />
       <Services />
       <Contact />
       <Footer />

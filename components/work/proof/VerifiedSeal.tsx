@@ -74,7 +74,7 @@ export function VerifiedSeal({
           fontSize="7.4"
           fontWeight="700"
           letterSpacing="1.6"
-          style={{ fontFamily: "var(--font-inter)" }}
+          style={{ fontFamily: "var(--font-geist)" }}
         >
           <textPath href={`#${ringId}`} startOffset="0">
             {text}

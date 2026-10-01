@@ -6,7 +6,9 @@ import { useState, useSyncExternalStore } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { RevealText } from "@/components/interactive/RevealText";
-import { contactEmail, socials } from "@/data/socials";
+import { FaWhatsapp } from "react-icons/fa6";
+
+import { contactEmail, contactPhone, socials } from "@/data/socials";
 
 import { ContactForm } from "./contact-form";
 
@@ -88,19 +90,31 @@ export function Contact() {
           <div className="flex flex-col">
             <RevealText
               as="h2"
-              className="font-display text-[clamp(3rem,7.5vw,6.5rem)] leading-[0.92] text-ink"
-              text={[{ text: "Let’s create something " }, { text: "remarkable.", className: "text-accent" }]}
+              className="font-display text-[clamp(2.4rem,4.8vw,4rem)] font-bold leading-[1] tracking-[-0.035em] text-ink"
+              text={[{ text: "Let’s create something " }, { text: "remarkable.", className: "text-[#6d5bd0]" }]}
             />
             <p className="mt-6 max-w-md text-sm leading-7 text-muted sm:text-base">
               Have a website idea, frontend project or digital product in mind?
               Let&apos;s discuss how we can create something impactful.
             </p>
 
-            <div className="mt-10">
+            <div className="mt-10 flex flex-col items-start gap-3">
               <CopyEmail />
+              <a
+                href={contactPhone.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Chat on WhatsApp: ${contactPhone.display}`}
+                className="group inline-flex items-center gap-4 rounded-full border border-line bg-surface py-2 pl-6 pr-2 text-sm text-ink transition-colors hover:border-[#25D366] sm:text-base"
+              >
+                {contactPhone.display}
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_6px_16px_-6px_rgba(37,211,102,0.8)] transition-transform group-hover:scale-110">
+                  <FaWhatsapp size={18} />
+                </span>
+              </a>
             </div>
 
-            <dl className="mt-auto grid grid-cols-2 gap-6 border-t border-line pt-8 lg:mt-16">
+            <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-line pt-8 lg:mt-16">
               <div>
                 <dt className="text-[10px] uppercase tracking-[0.3em] text-muted">Lahore, PK</dt>
                 <dd className="mt-2 text-2xl text-ink">
