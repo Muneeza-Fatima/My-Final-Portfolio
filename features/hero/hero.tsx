@@ -117,27 +117,34 @@ export function Hero() {
   return (
     <section id="home" className="relative bg-noir">
       <div className="relative overflow-hidden bg-noir">
-        {/* Background video (kept from the original design) */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover opacity-60"
-        >
-          <source
-            src="/videos/hero-background-480p-web.mp4"
-            type="video/mp4"
-            media="(max-width: 1023px)"
-          />
-          <source src="/videos/hero-background-720p-web.mp4" type="video/mp4" />
-        </video>
+        {/* Background video. On phones / tablets the hero is taller than the
+            screen, so the video fills exactly one viewport and then fades
+            into the background; on desktop it covers the whole hero. */}
+        <div className="absolute inset-x-0 top-0 h-[100svh] lg:inset-y-0 lg:h-auto">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover opacity-60"
+          >
+            <source
+              src="/videos/hero-background-480p-web.mp4"
+              type="video/mp4"
+              media="(max-width: 1023px)"
+            />
+            <source
+              src="/videos/hero-background-720p-web.mp4"
+              type="video/mp4"
+            />
+          </video>
 
-        {/* Keep the copy side readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-noir/75 via-noir/25 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-noir/60 to-transparent" />
+          {/* Keep the copy side readable */}
+          <div className="absolute inset-0 bg-gradient-to-r from-noir/75 via-noir/25 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-noir to-transparent lg:h-24 lg:from-noir/60" />
+        </div>
 
         <div className="relative z-10 flex min-h-[100svh] flex-col">
           {/* Content starts well below the fixed navbar, so nothing sits behind it */}
@@ -149,7 +156,7 @@ export function Hero() {
             >
               {/* Code-window backdrop: an editor window sits behind the portrait
                   and the head rises above its top edge for depth. */}
-              <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(68svh,620px)] lg:w-[min(34vw,470px)]">
+              <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(76svh,46vw,660px)] lg:w-[min(38vw,520px)]">
                 <CodeWindow className="absolute bottom-0 left-1/2 h-[76%] w-[96%] -translate-x-1/2" />
                 <motion.div
                   initial={reduceMotion ? false : { opacity: 0, y: 40 }}
