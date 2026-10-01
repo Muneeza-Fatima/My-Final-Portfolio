@@ -21,10 +21,24 @@
   --color-sand: #ecebf3;
   --color-noir: #0e0f12;
 
+  /* Large desktops at 100% scale (e.g. 1920px). Smaller scales stay below it. */
+  /* Desktops at ~125% scale and wider laptops; below this (150%/175%) the hero type is smaller. */
+  --breakpoint-wide: 90rem;
+  --breakpoint-3xl: 106.25rem;
+
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
 
+
+  @keyframes hero-drift {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(6%, 4%, 0) scale(1.08);
+    }
+  }
 
   @keyframes marquee {
     from {

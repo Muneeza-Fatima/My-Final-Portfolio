@@ -37,7 +37,7 @@ export function HeroStats() {
             tabIndex={0}
             className="group flex flex-col items-center gap-2 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] sm:flex-row sm:gap-3"
           >
-            <div className="relative h-14 w-14 shrink-0 transition-transform duration-500 ease-[var(--ease-luxe)] group-hover:scale-110 group-focus-visible:scale-110 group-active:scale-110 sm:h-16 sm:w-16">
+            <div className="relative h-14 w-14 shrink-0 transition-transform duration-500 ease-[var(--ease-luxe)] group-hover:scale-110 group-focus-visible:scale-110 group-active:scale-110 sm:h-16 sm:w-16 lg:h-12 lg:w-12 wide:h-16 wide:w-16">
               {/* Glow */}
               <span
                 aria-hidden
@@ -79,7 +79,7 @@ export function HeroStats() {
                   }}
                 />
               </svg>
-              <span className="absolute inset-0 flex items-center justify-center font-display text-base font-bold text-white sm:text-lg">
+              <span className="absolute inset-0 flex items-center justify-center font-display text-base font-bold text-white sm:text-lg lg:text-sm wide:text-lg">
                 {stat.icon ? (
                   <SiReact
                     aria-hidden
@@ -103,7 +103,7 @@ export function HeroStats() {
               </span>
             </div>
 
-            <p className="text-center text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.12em] text-white/60 transition-colors duration-300 group-hover:text-white sm:text-left sm:text-[11px] sm:tracking-[0.16em]">
+            <p className="text-center text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.12em] text-white/60 transition-colors duration-300 group-hover:text-white sm:text-left sm:text-[11px] sm:tracking-[0.16em] lg:text-[10px] wide:text-[11px]">
               {stat.label[0]}
               <br />
               {stat.label[1]}
