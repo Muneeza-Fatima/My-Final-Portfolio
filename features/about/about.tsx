@@ -49,7 +49,7 @@ export default function About() {
                 className="font-display text-[clamp(2.4rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white lg:text-[clamp(2.2rem,4vw,3.5rem)] wide:text-[clamp(2.6rem,4.4vw,4.2rem)] 3xl:text-[4.75rem]"
                 text={[
                   { text: "Where digital presence becomes " },
-                  { text: "brand presence.", className: "text-[#b69cff]" },
+                  { text: "brand presence.", className: "heading-accent text-[#b69cff]" },
                 ]}
               />
 

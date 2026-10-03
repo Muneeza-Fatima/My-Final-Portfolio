@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 
+import { pageMetadata } from "@/config/seo";
+
 import { CaseHeader } from "@/components/work/CaseHeader";
+import { BackBar } from "@/components/work/BackButton";
 import WorkCTA from "@/components/work/WorkCTA";
 import { PortfolioEvolution } from "@/components/work/crafted/PortfolioEvolution";
 import { ProjectStack } from "@/components/work/crafted/ProjectStack";
 import { Footer } from "@/features/footer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Crafted Work",
-  description: "Client builds and independent frontend projects — each one live.",
-};
+  description:
+    "Client builds and independent frontend projects by Muneeza Fatima — portfolios, e-commerce, healthcare and more, each one live to explore.",
+  path: "/work/demo-projects",
+});
 
 function SectionHeading({
   eyebrow,
@@ -27,7 +32,7 @@ function SectionHeading({
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">{eyebrow}</p>
         <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-          {title} <span className="text-[#6d5bd0]">{accent}</span>
+          {title} <span className="heading-accent text-[#6d5bd0]">{accent}</span>
         </h2>
       </div>
       <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">{intro}</p>
@@ -76,6 +81,7 @@ export default function DemoProjectsPage() {
       </section>
 
       <WorkCTA />
+      <BackBar />
       <Footer />
     </main>
   );

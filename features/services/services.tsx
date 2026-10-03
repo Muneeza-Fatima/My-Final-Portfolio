@@ -190,7 +190,7 @@ function Heading() {
     <div>
       <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/45">Services</p>
       <h2 className="mt-2 font-display text-xl font-semibold tracking-[-0.02em] text-white sm:text-2xl">
-        Whatever you need, <span className="text-[#b69cff]">built.</span>
+        Whatever you need, <span className="heading-accent text-[#b69cff]">built.</span>
       </h2>
     </div>
   );

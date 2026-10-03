@@ -34,7 +34,7 @@ export default function WorkCTA() {
         >
           Have something
           <br />
-          <span className="font-display font-normal text-accent">worth building?</span>
+          <span className="heading-accent text-[#6d5bd0]">worth building?</span>
         </motion.h2>
 
         <motion.div

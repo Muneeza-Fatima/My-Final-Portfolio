@@ -41,7 +41,7 @@ export function CaseHeader({ chapter, title, intro, aside, meta }: CaseHeaderPro
               immediate
               delay={0.2}
               className="max-w-4xl font-display text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
-              text={[{ text: `${title[0]}\n` }, { text: title[1], className: "text-[#6d5bd0]" }]}
+              text={[{ text: `${title[0]}\n` }, { text: title[1], className: "heading-accent text-[#6d5bd0]" }]}
             />
             <motion.p
               initial={{ opacity: 0, y: 12 }}

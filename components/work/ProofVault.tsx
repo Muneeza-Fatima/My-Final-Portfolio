@@ -86,7 +86,7 @@ export default function ProofVault() {
             <RevealText
               as="h2"
               className="mt-3 font-display text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.98] tracking-[-0.035em] text-ink"
-              text={[{ text: "Proof, not " }, { text: "promises.", className: "text-[#6d5bd0]" }]}
+              text={[{ text: "Proof, not " }, { text: "promises.", className: "heading-accent text-[#6d5bd0]" }]}
             />
           </div>
           <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">

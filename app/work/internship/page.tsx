@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 
+import { pageMetadata } from "@/config/seo";
+
 import { CaseHeader } from "@/components/work/CaseHeader";
 import { InternshipOutcomes, InternshipTimeline } from "@/components/work/InternshipTimeline";
+import { BackBar } from "@/components/work/BackButton";
 import WorkCTA from "@/components/work/WorkCTA";
 import { ToolkitChips } from "@/components/work/internship/ToolkitChips";
 import { CertificateShowcase } from "@/components/work/proof/CertificateShowcase";
@@ -10,10 +13,12 @@ import { VerifiedSeal } from "@/components/work/proof/VerifiedSeal";
 import { getCertificate, internship } from "@/data/work";
 import { Footer } from "@/features/footer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: `Internship — ${internship.company}`,
-  description: `${internship.duration} ${internship.department} internship at ${internship.company}, ${internship.period}.`,
-};
+  description:
+    `${internship.duration} ${internship.department} internship at ${internship.company} (${internship.period}) — onboarding to delivery inside a real web team, certified on completion.`,
+  path: "/work/internship",
+});
 
 export default function InternshipPage() {
   const certificate = getCertificate(internship.certificateId);
@@ -41,7 +46,7 @@ export default function InternshipPage() {
               On record
             </p>
             <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-              Certified by <span className="text-[#6d5bd0]">{internship.company}.</span>
+              Certified by <span className="heading-accent text-[#6d5bd0]">{internship.company}.</span>
             </h2>
             <p className="mt-4 text-sm leading-7 text-muted sm:text-[15px]">{internship.recognition}</p>
 
@@ -73,7 +78,7 @@ export default function InternshipPage() {
             <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
               From onboarding
               <br />
-              <span className="text-[#6d5bd0]">to delivery.</span>
+              <span className="heading-accent text-[#6d5bd0]">to delivery.</span>
             </h2>
             <p className="mt-4 max-w-sm text-sm leading-7 text-muted">
               Eight weeks, two at a time — from first commit to final delivery.
@@ -98,13 +103,14 @@ export default function InternshipPage() {
             Outcomes
           </p>
           <h2 className="mb-8 mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-            What it <span className="text-[#6d5bd0]">added up to.</span>
+            What it <span className="heading-accent text-[#6d5bd0]">added up to.</span>
           </h2>
           <InternshipOutcomes />
         </div>
       </section>
 
       <WorkCTA />
+      <BackBar />
       <Footer />
     </main>
   );

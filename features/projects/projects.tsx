@@ -43,7 +43,7 @@ export function Projects() {
           <RevealText
             as="h2"
             className="font-display text-[clamp(3rem,8vw,7rem)] leading-[0.92] text-ink"
-            text={[{ text: "Selected " }, { text: "builds.", className: "text-accent" }]}
+            text={[{ text: "Selected " }, { text: "builds.", className: "heading-accent text-[#6d5bd0]" }]}
           />
           <p className="text-sm leading-7 text-muted sm:text-[15px]">
             Frontend projects focused on responsive interfaces, thoughtful UX and

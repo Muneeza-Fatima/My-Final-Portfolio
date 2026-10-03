@@ -91,7 +91,7 @@ export function Contact() {
             <RevealText
               as="h2"
               className="font-display text-[clamp(2.4rem,4.8vw,4rem)] font-bold leading-[1] tracking-[-0.035em] text-ink"
-              text={[{ text: "Let’s create something " }, { text: "remarkable.", className: "text-[#6d5bd0]" }]}
+              text={[{ text: "Let’s create something " }, { text: "remarkable.", className: "heading-accent text-[#6d5bd0]" }]}
             />
             <p className="mt-6 max-w-md text-sm leading-7 text-muted sm:text-base">
               Have a website idea, frontend project or digital product in mind?

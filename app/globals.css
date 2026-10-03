@@ -423,3 +423,11 @@ html.has-custom-cursor * {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Highlighted words in section headings: bold sans for the rest of the
+   heading, this elegant light face (in the accent colour) for the emphasis. */
+.heading-accent {
+  font-family: var(--font-accent), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}

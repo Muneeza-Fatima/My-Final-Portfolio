@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 
+import { pageMetadata } from "@/config/seo";
+
 import { CaseHeader } from "@/components/work/CaseHeader";
+import { BackBar } from "@/components/work/BackButton";
 import WorkCTA from "@/components/work/WorkCTA";
 import { CertificateShowcase } from "@/components/work/proof/CertificateShowcase";
 import { VerifiedSeal } from "@/components/work/proof/VerifiedSeal";
 import { clientWork, getCertificate, testimonials } from "@/data/work";
 import { Footer } from "@/features/footer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: `Client Work — ${clientWork.company}`,
-  description: clientWork.summary,
-};
+  description:
+    clientWork.summary,
+  path: "/work/client-work",
+});
 
 export default function ClientWorkPage() {
   const certificate = getCertificate(clientWork.certificateId);
@@ -96,6 +101,7 @@ export default function ClientWorkPage() {
       </section>
 
       <WorkCTA />
+      <BackBar />
       <Footer />
     </main>
   );

@@ -86,7 +86,7 @@ export default function WorkCategories() {
             className="font-display text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.98] tracking-[-0.035em] text-ink"
             text={[
               { text: "Work you can " },
-              { text: "trust.", className: "text-[#6d5bd0]" },
+              { text: "trust.", className: "heading-accent text-[#6d5bd0]" },
             ]}
           />
           <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">

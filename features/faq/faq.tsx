@@ -57,7 +57,7 @@ export function Faq() {
         <div className="lg:sticky lg:top-32 lg:self-start">
           <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">FAQ</p>
           <h2 className="mt-3 font-display text-[clamp(2.75rem,6vw,5rem)] font-bold leading-[0.98] tracking-[-0.035em] text-ink">
-            Questions, <span className="text-[#6d5bd0]">answered.</span>
+            Questions, <span className="heading-accent text-[#6d5bd0]">answered.</span>
           </h2>
           <p className="mt-4 max-w-sm text-sm leading-7 text-muted sm:text-[15px]">
             The things clients usually ask before we start working together.

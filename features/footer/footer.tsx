@@ -35,7 +35,7 @@ export function Footer() {
             <p className="font-display text-4xl leading-tight sm:text-5xl">
               Have an idea?
               <br />
-              <span className="text-accent-soft">Let&apos;s make it real.</span>
+              <span className="heading-accent text-[#b69cff]">Let&apos;s make it real.</span>
             </p>
             <a
               href={`mailto:${contactEmail}`}
@@ -127,7 +127,7 @@ export function Footer() {
           style={reduceMotion ? undefined : { y: wordY }}
           className="text-foil select-none whitespace-nowrap px-3 text-center font-display text-[14vw] leading-[0.9]"
         >
-          Muneeza
+          Muneeza<span className="ml-[0.03em] inline-block h-[0.17em] w-[0.17em] rounded-full bg-[#8b6bff] align-baseline shadow-[0_0_0.25em_rgba(139,107,255,0.6)]" />
         </motion.p>
       </div>
     </footer>
