@@ -115,7 +115,7 @@ function DesktopPanels() {
               )}
 
               {/* Number + icon chips stay readable on any image */}
-              <span className="absolute left-4 top-4 rounded-full bg-noir/75 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
+              <span className="absolute left-4 top-4 rounded-full bg-noir/85 px-2.5 py-1 font-mono text-[11px] font-semibold text-white">
                 {item.number}
               </span>
               {/* Icon only — no background; a soft shadow keeps it visible on any image */}
@@ -226,6 +226,9 @@ function CardStack() {
               aria-hidden={!isFront}
               onClick={() => !isFront && goTo(index)}
               drag={isFront && !reduceMotion ? "x" : false}
+              // Lock to the first clear direction: a vertical swipe always
+              // scrolls the page, only a sideways swipe moves the card.
+              dragDirectionLock
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.6}
               onDragEnd={(_, info) => {
@@ -253,7 +256,7 @@ function CardStack() {
                     }
               }
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
-              style={{ zIndex: count - depth }}
+              style={{ zIndex: count - depth, touchAction: "pan-y" }}
               className={cn(
                 "absolute inset-x-0 top-0 flex h-[630px] flex-col overflow-hidden rounded-[24px] border bg-[#16161c] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)] sm:h-[680px]",
                 isFront
@@ -275,7 +278,7 @@ function CardStack() {
                     />
                   </>
                 )}
-                <span className="absolute left-4 top-4 rounded-full bg-noir/70 px-2.5 py-1 font-mono text-[11px] font-semibold text-white backdrop-blur-sm">
+                <span className="absolute left-4 top-4 rounded-full bg-noir/85 px-2.5 py-1 font-mono text-[11px] font-semibold text-white">
                   {item.number} / 0{count}
                 </span>
                 <span className="absolute right-4 top-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">

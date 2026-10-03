@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useAnimationFrame,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useInView,
-  useVelocity,
-} from "framer-motion";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 import { cn } from "@/lib/utils";
@@ -18,44 +8,24 @@ import { cn } from "@/lib/utils";
 type MarqueeProps = {
   items: string[];
   className?: string;
-  // Base speed in % of one copy per second.
-  speed?: number;
+  // Seconds for one full loop.
+  duration?: number;
   direction?: 1 | -1;
   starClassName?: string;
 };
 
-const wrap = (min: number, max: number, v: number) => {
-  const range = max - min;
-  return ((((v - min) % range) + range) % range) + min;
-};
-
-// Endless text band that drifts slowly and speeds up with scroll velocity.
+// Endless text band. Pure CSS animation (runs on the compositor, so it costs
+// the main thread nothing while the page scrolls) and paused off screen.
+// Reduced motion stops it via the global prefers-reduced-motion rule.
 export function Marquee({
   items,
   className,
-  speed = 2.2,
+  duration = 40,
   direction = -1,
   starClassName = "text-accent",
 }: MarqueeProps) {
-  const reduceMotion = usePrefersReducedMotion();
-  const base = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const velocity = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 400 });
-  const boost = useTransform(velocity, [-1500, 0, 1500], [5, 0, 5], { clamp: false });
-  const x = useTransform(base, (v) => `${wrap(-50, 0, v)}%`);
-  const dir = useRef(direction);
   const ref = useRef<HTMLDivElement>(null);
-  // Only animate while the band is on screen.
   const inView = useInView(ref, { margin: "100px 0px" });
-
-  useAnimationFrame((_, delta) => {
-    if (reduceMotion || !inView) return;
-    const v = velocity.get();
-    if (v < 0) dir.current = -direction as 1 | -1;
-    else if (v > 0) dir.current = direction;
-    const step = dir.current * speed * (delta / 1000) * (1 + Math.abs(boost.get()));
-    base.set(base.get() + step);
-  });
 
   const row = (hidden: boolean) => (
     <div className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
@@ -70,10 +40,19 @@ export function Marquee({
 
   return (
     <div ref={ref} className={cn("overflow-hidden whitespace-nowrap", className)}>
-      <motion.div className="flex w-max" style={{ x }}>
+      <div
+        className="flex w-max animate-marquee will-change-transform motion-reduce:animate-none"
+        style={
+          {
+            "--marquee-duration": `${duration}s`,
+            animationDirection: direction === 1 ? "reverse" : "normal",
+            animationPlayState: inView ? "running" : "paused",
+          } as React.CSSProperties
+        }
+      >
         {row(false)}
         {row(true)}
-      </motion.div>
+      </div>
     </div>
   );
 }

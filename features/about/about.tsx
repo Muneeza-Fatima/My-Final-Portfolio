@@ -83,7 +83,7 @@ export default function About() {
             <div className="relative">
               <div
                 aria-hidden
-                className="pointer-events-none absolute -inset-8 rounded-full bg-[radial-gradient(closest-side,rgba(139,107,255,0.22),transparent)] blur-2xl"
+                className="pointer-events-none absolute -inset-8 rounded-full bg-[radial-gradient(closest-side,rgba(139,107,255,0.2),rgba(139,107,255,0.06)_60%,transparent)]"
               />
 
               <motion.aside
@@ -92,7 +92,7 @@ export default function About() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8, ease }}
                 aria-label={`Currently working at ${currentRole.company}`}
-                className="relative overflow-hidden rounded-[24px] border border-white/20 bg-white/[0.07] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-colors duration-500 hover:border-white/25 sm:p-9"
+                className="relative overflow-hidden rounded-[24px] border border-white/20 bg-[linear-gradient(160deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_30px_80px_-40px_rgba(0,0,0,0.8)] transition-colors duration-500 hover:border-white/25 sm:p-9"
               >
                 {/* Hairline accent */}
                 <span
@@ -142,7 +142,7 @@ export default function About() {
             {facts.map(({ icon: Icon, label, value }) => (
               <div
                 key={label}
-                className="flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.04] py-2.5 pl-3.5 pr-5 backdrop-blur-md transition-colors duration-300 hover:border-[#a78bfa]/40"
+                className="flex items-center gap-3 rounded-full border border-white/[0.12] bg-white/[0.05] py-2.5 pl-3.5 pr-5 transition-colors duration-300 hover:border-[#a78bfa]/40"
               >
                 <Icon size={28} aria-hidden className="shrink-0" />
                 <div className="flex flex-col leading-tight">
