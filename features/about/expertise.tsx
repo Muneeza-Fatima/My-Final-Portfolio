@@ -63,24 +63,33 @@ const ease = [0.22, 1, 0.36, 1] as const;
 function DesktopPanels() {
   const [active, setActive] = useState(0);
 
+  // Only a real mouse movement opens a panel. Panels sliding under a still
+  // cursor while the page scrolls must not trigger the expand animation —
+  // that made scrolling past this section stutter.
+  const openOnMove = (index: number) => (event: React.PointerEvent) => {
+    if (event.pointerType !== "mouse") return;
+    if (event.movementX === 0 && event.movementY === 0) return;
+    if (active !== index) setActive(index);
+  };
+
   return (
     <div className="flex h-[580px] gap-3">
       {expertise.map((item, index) => {
         const isActive = active === index;
         const Icon = item.icon;
         return (
-          <motion.article
+          <article
             key={item.title}
-            onMouseEnter={() => setActive(index)}
+            onPointerMove={openOnMove(index)}
             onFocus={() => setActive(index)}
             onClick={() => setActive(index)}
             tabIndex={0}
-            aria-expanded={isActive}
+            aria-current={isActive ? "true" : undefined}
             aria-label={item.title}
-            layout
-            transition={{ layout: { duration: 0.7, ease } }}
             className={cn(
-              "relative flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-[22px] border bg-[#16161c] outline-none transition-colors duration-500 focus-visible:ring-2 focus-visible:ring-[#a78bfa]",
+              // CSS flex-grow transition instead of a JS layout animation:
+              // lighter, and it never fights the page scroll.
+              "relative flex min-w-0 cursor-pointer flex-col overflow-hidden rounded-[22px] border bg-[#16161c] outline-none transition-[flex-grow,border-color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-[#a78bfa]",
               isActive
                 ? "flex-[2.4] border-[#a78bfa]/40"
                 : "flex-1 border-white/10 hover:border-white/25",
@@ -89,7 +98,7 @@ function DesktopPanels() {
             {/* Image — fully bright, no overlay */}
             <div
               className={cn(
-                "relative shrink-0 overflow-hidden transition-[height] duration-700",
+                "relative shrink-0 overflow-hidden transition-[height] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 isActive ? "h-[56%]" : "h-full",
               )}
             >
@@ -163,7 +172,7 @@ function DesktopPanels() {
                 </ul>
               </motion.div>
             )}
-          </motion.article>
+          </article>
         );
       })}
     </div>
