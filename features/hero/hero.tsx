@@ -1,9 +1,9 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -25,21 +25,24 @@ const roles = [
 function RotatingRole() {
   const [index, setIndex] = useState(0);
   const reduceMotion = usePrefersReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  // Only rotate while the hero is on screen (saves work while scrolling).
+  const inView = useInView(ref);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion || !inView) return;
     const timer = setInterval(
       () => setIndex((i) => (i + 1) % roles.length),
       2600,
     );
     return () => clearInterval(timer);
-  }, [reduceMotion]);
+  }, [reduceMotion, inView]);
 
   // The phrase is set in static chrome text with a soft lavender glow.
   return (
     // No overflow clipping here, so the glow is never cut into a box;
     // phrases cross-fade instead of sliding.
-    <span className="relative inline-block align-bottom">
+    <span ref={ref} className="relative inline-block align-bottom">
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={roles[index]}

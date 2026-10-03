@@ -431,3 +431,10 @@ html.has-custom-cursor * {
   font-weight: 400;
   letter-spacing: -0.01em;
 }
+
+/* Big blurred glow blobs: give each its own compositor layer so the blur is
+   rasterised once instead of being repainted on every scroll frame. */
+:is([class*=" blur-[1"], [class*=" blur-3xl"], [class*=" blur-2xl"]):not([class*="backdrop-blur"]) {
+  will-change: transform;
+  transform: translateZ(0);
+}

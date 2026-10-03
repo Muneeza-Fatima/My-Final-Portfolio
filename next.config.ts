@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
 
+  // Optional separate build folder (local testing only); defaults to .next.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
+
   reactStrictMode: true,
 
   devIndicators: false,

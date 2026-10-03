@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useLenis } from "lenis/react";
 import Link from "next/link";
 import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
@@ -11,6 +10,7 @@ import { Magnetic } from "@/components/interactive/Magnetic";
 import { navigation } from "@/data/navigation";
 import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { useSectionNav } from "@/hooks/use-section-nav";
+import { lockScroll } from "@/lib/scroll-lock";
 import { cn } from "@/lib/utils";
 
 // Tracks which home-page section is in the middle of the viewport.
@@ -44,7 +44,6 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const goTo = useSectionNav();
-  const lenis = useLenis();
   const active = useActiveSection(isHome);
 
   const [open, setOpen] = useState(false);
@@ -53,20 +52,18 @@ export function Navbar() {
   // Mobile menu: lock scroll, close on Esc, return focus to the toggle.
   useEffect(() => {
     if (!open) return;
-    lenis?.stop();
-    document.documentElement.style.overflow = "hidden";
+    const unlock = lockScroll();
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     const toggle = toggleRef.current;
     return () => {
-      lenis?.start();
-      document.documentElement.style.overflow = "";
+      unlock();
       window.removeEventListener("keydown", onKey);
       toggle?.focus();
     };
-  }, [open, lenis]);
+  }, [open]);
 
   const handleNav = (id: string) => (event: React.MouseEvent) => {
     setOpen(false);

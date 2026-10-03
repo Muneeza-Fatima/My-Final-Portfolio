@@ -5,6 +5,7 @@ import {
   motion,
   useMotionValueEvent,
   useScroll,
+  useInView,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -213,6 +214,8 @@ function ServiceStory() {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  // Visual loops only run while the story is on screen.
+  const onScreen = useInView(ref, { margin: "0px 0px" });
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
     setActive(Math.min(total - 1, Math.max(0, Math.floor(p * total))));
@@ -265,7 +268,7 @@ function ServiceStory() {
                   transition={{ duration: 0.4, ease }}
                   className="mx-auto w-full max-w-[200px] sm:max-w-[240px] md:max-w-[300px] lg:max-w-[360px]"
                 >
-                  <ServiceVisual index={active} />
+                  <ServiceVisual index={active} still={!onScreen} />
                 </motion.div>
               </AnimatePresence>
             </div>

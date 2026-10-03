@@ -1,8 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useLenis } from "lenis/react";
 import { useEffect, useState } from "react";
+
+import { lockScroll } from "@/lib/scroll-lock";
 
 const SESSION_KEY = "mf-preloader-seen";
 
@@ -20,7 +21,6 @@ function shouldPlay() {
 }
 
 export default function Preloader() {
-  const lenis = useLenis();
   const [active, setActive] = useState(shouldPlay);
   const [count, setCount] = useState(0);
 
@@ -46,17 +46,11 @@ export default function Preloader() {
     return () => cancelAnimationFrame(frame);
   }, [active]);
 
+  // Hold the page still while the intro plays.
   useEffect(() => {
-    if (!active) {
-      lenis?.start();
-      return;
-    }
-    lenis?.stop();
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
-  }, [active, lenis]);
+    if (!active) return;
+    return lockScroll();
+  }, [active]);
 
   return (
     <AnimatePresence>

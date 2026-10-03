@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
-import { useLenis } from "lenis/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,6 +17,7 @@ import { createPortal } from "react-dom";
 import type { Certificate } from "@/data/work";
 
 import { ProofId } from "./ProofId";
+import { lockScroll } from "@/lib/scroll-lock";
 
 type CertificateViewerProps = {
   certificates: Certificate[];
@@ -33,7 +33,6 @@ export function CertificateViewer({
   onChange,
 }: CertificateViewerProps) {
   const reduceMotion = usePrefersReducedMotion();
-  const lenis = useLenis();
   const dialogRef = useRef<HTMLDivElement>(null);
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState("50% 50%");
@@ -54,14 +53,8 @@ export function CertificateViewer({
   // Lock page scroll (native + Lenis) while open.
   useEffect(() => {
     if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    lenis?.stop();
-    return () => {
-      document.body.style.overflow = previous;
-      lenis?.start();
-    };
-  }, [open, lenis]);
+    return lockScroll();
+  }, [open]);
 
   // Keyboard: Esc closes, arrows navigate, Tab stays inside the dialog.
   useEffect(() => {

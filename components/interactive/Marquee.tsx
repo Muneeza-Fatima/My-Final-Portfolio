@@ -7,6 +7,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  useInView,
   useVelocity,
 } from "framer-motion";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
@@ -43,9 +44,12 @@ export function Marquee({
   const boost = useTransform(velocity, [-1500, 0, 1500], [5, 0, 5], { clamp: false });
   const x = useTransform(base, (v) => `${wrap(-50, 0, v)}%`);
   const dir = useRef(direction);
+  const ref = useRef<HTMLDivElement>(null);
+  // Only animate while the band is on screen.
+  const inView = useInView(ref, { margin: "100px 0px" });
 
   useAnimationFrame((_, delta) => {
-    if (reduceMotion) return;
+    if (reduceMotion || !inView) return;
     const v = velocity.get();
     if (v < 0) dir.current = -direction as 1 | -1;
     else if (v > 0) dir.current = direction;
@@ -65,7 +69,7 @@ export function Marquee({
   );
 
   return (
-    <div className={cn("overflow-hidden whitespace-nowrap", className)}>
+    <div ref={ref} className={cn("overflow-hidden whitespace-nowrap", className)}>
       <motion.div className="flex w-max" style={{ x }}>
         {row(false)}
         {row(true)}
