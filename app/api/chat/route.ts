@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   if (rateLimited(ip)) {
     return NextResponse.json(
-      { message: "You've sent a lot of questions — please wait a few minutes and try again." },
+      { message: "You've sent quite a few questions. Please wait a few minutes and try again." },
       { status: 429 },
     );
   }
@@ -128,7 +128,7 @@ export async function POST(request: Request) {
         // Nothing streamed yet: fall back to the built-in answer instead of an error.
         if (!request.signal.aborted) {
           controller.enqueue(
-            encoder.encode(sent ? "\n\n(The answer was cut off — please try again.)" : localAnswer(question)),
+            encoder.encode(sent ? "\n\n(Sorry, the answer got cut off. Please try again.)" : localAnswer(question)),
           );
         }
       } finally {
