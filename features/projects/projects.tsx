@@ -128,6 +128,8 @@ export function Projects() {
                       {projects.map((project) => (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
+                          loading="lazy"
+                          decoding="async"
                           key={project.title}
                           src={project.image}
                           alt=""

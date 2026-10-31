@@ -1,11 +1,11 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, RoundedBox } from "@react-three/drei";
 import { MessageCircle } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { Group, Mesh, MeshBasicMaterial } from "three";
-import { MathUtils } from "three";
+import { ExtrudeGeometry, MathUtils, Shape } from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
 type RobotState = {
   // The assistant is writing an answer: eyes and antenna pulse.
@@ -16,6 +16,25 @@ type RobotState = {
   waving?: boolean;
   reduceMotion: boolean;
 };
+
+// A thin panel with rounded corners on its face (used for the visor).
+function roundedPanel(width: number, height: number, depth: number, radius: number) {
+  const x = -width / 2;
+  const y = -height / 2;
+  const shape = new Shape();
+  shape.moveTo(x + radius, y);
+  shape.lineTo(x + width - radius, y);
+  shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+  shape.lineTo(x + width, y + height - radius);
+  shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  shape.lineTo(x + radius, y + height);
+  shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+  shape.lineTo(x, y + radius);
+  shape.quadraticCurveTo(x, y, x + radius, y);
+  const geometry = new ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelSize: 0.02, bevelThickness: 0.02, bevelSegments: 3, curveSegments: 12 });
+  geometry.center();
+  return geometry;
+}
 
 const EYE = "#c9bcff";
 const ACCENT = "#6d5bd0";
@@ -39,15 +58,32 @@ function usePointerTarget(reduceMotion: boolean) {
 }
 
 function Robot({ busy, open, waving = false, reduceMotion }: RobotState) {
+  const root = useRef<Group>(null);
   const head = useRef<Group>(null);
   const leftEye = useRef<Mesh>(null);
   const rightEye = useRef<Mesh>(null);
   const bulb = useRef<Mesh>(null);
   const nextBlink = useRef(2.5);
   const pointer = usePointerTarget(reduceMotion);
+  // Rounded boxes built once (three.js addon, no extra helper library).
+  const shapes = useMemo(
+    () => ({
+      head: new RoundedBoxGeometry(1.5, 1.18, 1.1, 6, 0.34),
+      visor: roundedPanel(1.16, 0.7, 0.06, 0.2),
+      body: new RoundedBoxGeometry(0.95, 0.5, 0.75, 6, 0.22),
+    }),
+    [],
+  );
+  useEffect(() => () => Object.values(shapes).forEach((shape) => shape.dispose()), [shapes]);
 
   useFrame(({ clock }, delta) => {
     const time = clock.elapsedTime;
+
+    // Gentle idle float.
+    if (root.current && !reduceMotion) {
+      root.current.position.y = Math.sin(time * 1.6) * 0.07;
+      root.current.rotation.z = Math.sin(time * 0.9) * 0.03;
+    }
 
     // Turn the head toward the pointer.
     if (head.current) {
@@ -81,17 +117,17 @@ function Robot({ busy, open, waving = false, reduceMotion }: RobotState) {
   });
 
   return (
-    <Float enabled={!reduceMotion} speed={2.2} rotationIntensity={0.15} floatIntensity={0.6} floatingRange={[-0.08, 0.08]}>
+    <group ref={root}>
       <group ref={head} position={[0, 0.25, 0]}>
         {/* Head */}
-        <RoundedBox args={[1.5, 1.18, 1.1]} radius={0.34} smoothness={6}>
+        <mesh geometry={shapes.head}>
           <meshStandardMaterial color="#ece8ff" roughness={0.35} metalness={0.1} />
-        </RoundedBox>
+        </mesh>
 
         {/* Visor */}
-        <RoundedBox args={[1.2, 0.74, 0.1]} radius={0.2} smoothness={6} position={[0, -0.02, 0.53]}>
+        <mesh geometry={shapes.visor} position={[0, -0.02, 0.53]}>
           <meshStandardMaterial color="#14121d" roughness={0.18} metalness={0.4} />
-        </RoundedBox>
+        </mesh>
 
         {/* Eyes */}
         <mesh ref={leftEye} position={[-0.27, 0, 0.6]}>
@@ -129,10 +165,10 @@ function Robot({ busy, open, waving = false, reduceMotion }: RobotState) {
       </mesh>
 
       {/* Body */}
-      <RoundedBox args={[0.95, 0.5, 0.75]} radius={0.22} smoothness={6} position={[0, -0.75, 0]}>
+      <mesh geometry={shapes.body} position={[0, -0.75, 0]}>
         <meshStandardMaterial color={ACCENT} roughness={0.45} metalness={0.15} />
-      </RoundedBox>
-    </Float>
+      </mesh>
+    </group>
   );
 }
 
@@ -142,7 +178,7 @@ export default function ChatRobot(props: RobotState) {
   return (
     <Canvas
       aria-hidden
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
       frameloop={props.reduceMotion ? "demand" : "always"}
       camera={{ position: [0, 0, 4.6], fov: 35 }}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}

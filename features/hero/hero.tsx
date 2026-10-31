@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "@/components/interactive/Magnetic";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useSectionNav } from "@/hooks/use-section-nav";
+import { cn } from "@/lib/utils";
 
 import { CodeWindow } from "./code-window";
 import { HeroBackdrop } from "./hero-backdrop";
@@ -59,7 +60,8 @@ function RotatingRole() {
   );
 }
 
-// Fades a block up into place on first paint, staggered by `delay`.
+// Fades a block up into place on first paint, staggered by `delay`. Uses the
+// CSS `.hero-enter` animation, so it doesn't wait for JavaScript to load.
 function Enter({
   children,
   delay = 0,
@@ -69,16 +71,10 @@ function Enter({
   delay?: number;
   className?: string;
 }) {
-  const reduceMotion = usePrefersReducedMotion();
   return (
-    <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease, delay }}
-      className={className}
-    >
+    <div className={cn("hero-enter", className)} style={{ "--enter-delay": `${delay}s` } as React.CSSProperties}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -115,7 +111,6 @@ function SweepLine({
 }
 
 export function Hero() {
-  const reduceMotion = usePrefersReducedMotion();
   const goTo = useSectionNav();
 
   return (
@@ -135,22 +130,21 @@ export function Hero() {
                   and the head rises above its top edge for depth. */}
               <div className="relative flex h-[min(54svh,460px)] w-[min(88vw,400px)] items-end justify-center sm:h-[470px] sm:w-[400px] lg:h-[min(76svh,46vw,660px)] lg:w-[min(38vw,520px)] 3xl:h-[min(78svh,800px)] 3xl:w-[min(40vw,700px)]">
                 <CodeWindow className="absolute bottom-0 left-1/2 h-[76%] w-[96%] -translate-x-1/2" />
-                <motion.div
-                  initial={reduceMotion ? false : { opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, ease, delay: 0.55 }}
-                  className="relative h-full"
+                <div
+                  className="hero-enter relative h-full"
+                  style={{ "--enter-y": "40px", "--enter-duration": "1s", "--enter-delay": "0.55s" } as React.CSSProperties}
                 >
                   <Image
-                    src="/images/muneeza-cutout.png"
+                    src="/images/muneeza-cutout.webp"
                     alt="Muneeza Fatima — Frontend Developer"
                     width={1086}
                     height={1448}
-                    priority
+                    loading="eager"
+                    fetchPriority="high"
                     sizes="(max-width: 1024px) 78vw, 470px"
                     className="h-full w-auto max-w-none object-contain object-bottom [filter:drop-shadow(0_18px_30px_rgba(0,0,0,0.35))]"
                   />
-                </motion.div>
+                </div>
               </div>
             </Enter>
 

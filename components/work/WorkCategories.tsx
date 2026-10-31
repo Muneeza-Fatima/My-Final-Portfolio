@@ -35,6 +35,8 @@ function ChapterCard({
         <div className="relative aspect-[5/4] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
+            loading="lazy"
+            decoding="async"
             src={category.image}
             alt=""
             className="h-full w-full object-cover object-center transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:scale-105"

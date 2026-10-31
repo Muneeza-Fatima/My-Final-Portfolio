@@ -63,7 +63,7 @@ export const projects: Project[] = [
     role: "Frontend & UI/UX Development",
     focus: "Editorial Layout • Typography • Print-ready",
     tech: ["HTML5", "CSS3", "SVG"],
-    image: "/projects/bh-ventures-magazine-cover.jpg",
+    image: "/projects/bh-ventures-magazine-cover.webp",
     liveUrl: "https://bh-ventures-magazine.vercel.app",
     badge: "Built for BH Ventures",
     rating: 4,

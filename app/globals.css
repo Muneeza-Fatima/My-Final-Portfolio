@@ -207,6 +207,29 @@ html.has-custom-cursor * {
   animation: caret-blink 1.05s step-end infinite;
 }
 
+/* Hero fade-up. Pure CSS so it plays on first paint, without waiting for
+   JavaScript — the hero (and its photo) shows up fast on slow phones. */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 20px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: hero-enter var(--enter-duration, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}
+
 /* Display type defaults; font-weight / tracking utilities still override. */
 @layer components {
   .font-display {

@@ -7,17 +7,29 @@ import { Fragment, useEffect, useRef, useState } from "react";
 
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
-// The 3D robot (three.js) loads after the page; the plain chat icon shows until then.
-const ChatRobot = dynamic(() => import("./ChatRobot"), {
-  ssr: false,
-  loading: () => (
+// Plain chat icon: shown instantly, until the 3D robot is ready (or instead of
+// it on low-end devices and data saver).
+function RobotPlaceholder() {
+  return (
     <span className="flex h-full w-full items-center justify-center">
-      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#6d5bd0]">
+      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#6d5bd0] sm:h-14 sm:w-14">
         <MessageCircle size={22} />
       </span>
     </span>
-  ),
-});
+  );
+}
+
+// The 3D robot (three.js) is a separate chunk, fetched only once the browser is idle.
+const ChatRobot = dynamic(() => import("./ChatRobot"), { ssr: false, loading: RobotPlaceholder });
+
+// Skip the 3D robot where it would cost more than it adds.
+function canShowRobot() {
+  const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
+  if (nav.connection?.saveData) return false;
+  if (nav.deviceMemory !== undefined && nav.deviceMemory <= 2) return false;
+  if (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency <= 2) return false;
+  return true;
+}
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -85,6 +97,20 @@ export default function ChatWidget() {
   // Greeting bubble shows once per visit; the pulse ring stops after the first open.
   const [greeting, setGreeting] = useState(false);
   const [opened, setOpened] = useState(false);
+  const [robotReady, setRobotReady] = useState(false);
+
+  // Load the 3D robot after the page has settled, so it never competes with
+  // the hero image or page scripts.
+  useEffect(() => {
+    if (!canShowRobot()) return;
+    const ready = () => setRobotReady(true);
+    if (typeof window.requestIdleCallback === "function") {
+      const id = window.requestIdleCallback(ready, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = window.setTimeout(ready, 1500);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const toggleChat = (next: boolean) => {
     setOpen(next);
@@ -384,7 +410,11 @@ export default function ChatWidget() {
             />
           )}
           <span className="relative h-full w-full">
-            <ChatRobot busy={busy} open={open} waving={greeting && !open} reduceMotion={reduceMotion} />
+            {robotReady ? (
+              <ChatRobot busy={busy} open={open} waving={greeting && !open} reduceMotion={reduceMotion} />
+            ) : (
+              <RobotPlaceholder />
+            )}
           </span>
           {open && (
             <span

@@ -17,8 +17,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 // Proof points — kept as facts, never counts. Each has a related backdrop.
 const points = [
-  { icon: GraduationCap, label: "Certified internship", image: "/projects/Internship.jpeg" },
-  { icon: BadgeCheck, label: "Client-recognised work", image: "/projects/client-work.jpeg" },
+  { icon: GraduationCap, label: "Certified internship", image: "/projects/internship.webp" },
+  { icon: BadgeCheck, label: "Client-recognised work", image: "/projects/client-work.webp" },
   { icon: Globe2, label: "International clients", image: "/images/what-i-bring-frontend.jpg" },
   { icon: Laptop, label: "Remote, across time zones", image: null },
 ];

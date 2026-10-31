@@ -3,9 +3,12 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
+// Rendered with the page (not lazy) so the chat button is there on first paint;
+// its heavy 3D robot loads separately once the browser is idle.
+import ChatWidget from "./ChatWidget";
+
 const CustomCursor = dynamic(() => import("./CustomCursor"), { ssr: false });
 const Preloader = dynamic(() => import("./Preloader"), { ssr: false });
-const ChatWidget = dynamic(() => import("./ChatWidget"), { ssr: false });
 
 // Client-only global effects: preloader, chat assistant and cursor. The cursor only mounts for fine pointers
 // (mouse/trackpad) and never for reduced motion.

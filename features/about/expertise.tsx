@@ -106,6 +106,8 @@ function DesktopPanels() {
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src={item.image}
                     alt=""
                     aria-hidden
@@ -270,6 +272,8 @@ function CardStack() {
                   <>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={item.image}
                       alt=""
                       aria-hidden

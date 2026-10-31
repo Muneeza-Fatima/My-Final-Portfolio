@@ -50,7 +50,7 @@ export const certificates: Certificate[] = [
     issuerUrl: "https://digitalbrains.tech",
     recipient: "Muneeza Fatima",
     date: "4 August 2026",
-    image: "/certificates/digital-brains-internship.png",
+    image: "/certificates/digital-brains-internship.webp",
     pdf: "/certificates/digital-brains-internship.pdf",
     summary:
       "Eight-week internship in the Web Development department, 8 June – 31 July 2026.",
@@ -169,7 +169,7 @@ export const workCategories: WorkCategory[] = [
     description:
       "Independent builds, each one live and open source.",
     href: "/work/demo-projects",
-    image: "/projects/demo-projects.jpeg",
+    image: "/projects/demo-projects.webp",
     proof: "Live · Open source",
   },
   {
@@ -180,7 +180,7 @@ export const workCategories: WorkCategory[] = [
     description:
       "Remote work with BH Ventures FZE LLC, UAE, recognised by the client.",
     href: "/work/client-work",
-    image: "/projects/client-work.jpeg",
+    image: "/projects/client-work.webp",
     proof: "Appreciated · BH Ventures",
   },
   {
@@ -191,7 +191,7 @@ export const workCategories: WorkCategory[] = [
     description:
       "Eight weeks with the Digital Brains web team, shipping to real deadlines.",
     href: "/work/internship",
-    image: "/projects/Internship.jpeg",
+    image: "/projects/internship.webp",
     proof: "Certified · DB-INT-2026-001",
   },
 ];
