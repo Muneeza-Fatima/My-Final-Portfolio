@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { MessageCircle } from "lucide-react";
 import { useEffect, useMemo, useRef } from "react";
 import type { Group, Mesh, MeshBasicMaterial } from "three";
@@ -172,6 +172,34 @@ function Robot({ busy, open, waving = false, reduceMotion }: RobotState) {
   );
 }
 
+// Drives rendering instead of a constant 60 fps loop: ~30 fps (10 with reduced
+// motion), paused while the page is scrolling or the tab is hidden, so the
+// robot never takes frame time away from smooth scrolling.
+function Ticker({ fps }: { fps: number }) {
+  const invalidate = useThree((state) => state.invalidate);
+  useEffect(() => {
+    let frame = 0;
+    let last = 0;
+    let scrollingUntil = 0;
+    const onScroll = () => {
+      scrollingUntil = performance.now() + 180;
+    };
+    const loop = (time: number) => {
+      frame = requestAnimationFrame(loop);
+      if (document.hidden || time < scrollingUntil || time - last < 1000 / fps) return;
+      last = time;
+      invalidate();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    frame = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [fps, invalidate]);
+  return null;
+}
+
 // Small 3D robot used as the chat launcher. Renders the plain chat icon when
 // WebGL isn't available.
 export default function ChatRobot(props: RobotState) {
@@ -179,7 +207,7 @@ export default function ChatRobot(props: RobotState) {
     <Canvas
       aria-hidden
       dpr={[1, 1.75]}
-      frameloop={props.reduceMotion ? "demand" : "always"}
+      frameloop="demand"
       camera={{ position: [0, 0, 4.6], fov: 35 }}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       style={{ pointerEvents: "none" }}
@@ -188,6 +216,7 @@ export default function ChatRobot(props: RobotState) {
       <ambientLight intensity={0.9} />
       <directionalLight position={[2.5, 3, 4]} intensity={1.6} />
       <pointLight position={[-3, -1, 2]} color="#b69cff" intensity={6} distance={10} />
+      <Ticker fps={props.reduceMotion ? 10 : 30} />
       <Robot {...props} />
     </Canvas>
   );

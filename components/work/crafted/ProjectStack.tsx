@@ -90,7 +90,7 @@ function CornerGlow() {
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#6d5bd0]/20 blur-[90px]"
+      className="pointer-events-none absolute -right-40 -top-40 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(closest-side,rgba(109,91,208,0.24),transparent)]"
     />
   );
 }
@@ -127,7 +127,7 @@ function StackCard({
       <motion.article
         style={{ scale, opacity: fade, top: `calc(var(--stack-step) * ${index})` }}
         onPointerMove={trackShine}
-        className={cn(cardClass, "relative origin-top")}
+        className={cn(cardClass, "relative origin-top [will-change:transform,opacity]")}
       >
         <CornerGlow />
         <div className="relative">
@@ -136,7 +136,7 @@ function StackCard({
         <motion.span
           aria-hidden
           style={{ opacity: dim }}
-          className="pointer-events-none absolute inset-0 rounded-[inherit] bg-black"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] bg-black will-change-[opacity]"
         />
       </motion.article>
     </div>

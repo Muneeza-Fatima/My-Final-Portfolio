@@ -45,6 +45,7 @@ export function CertificateSheet({ certificate, onOpen, tilt = 0, className }: C
               src={certificate.image}
               alt={`${certificate.title} — ${certificate.issuer}`}
               loading="lazy"
+              decoding="async"
               className="aspect-[1.414/1] w-full object-cover transition duration-700 group-hover:scale-[1.02]"
             />
           </div>

@@ -2,7 +2,11 @@
 // deep base, two slow-drifting purple/indigo light fields, a fine grid that
 // fades out toward the edges, a soft glow behind the portrait and a hairline
 // highlight along the top. Purely decorative.
-export function HeroBackdrop() {
+// `paused` stops the drifting light fields while the hero is off screen.
+export function HeroBackdrop({ paused = false }: { paused?: boolean }) {
+  // The light fields are soft radial gradients on their own GPU layer (no blur
+  // filter), so animating them doesn't repaint anything while the page scrolls.
+  const playState = { animationPlayState: paused ? "paused" : "running" } as const;
   return (
     <div
       aria-hidden
@@ -12,8 +16,14 @@ export function HeroBackdrop() {
       <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_0%,#15121f_0%,#0e0f12_55%)]" />
 
       {/* Slow-moving light fields */}
-      <div className="absolute -left-[15%] top-[10%] h-[70vmax] w-[70vmax] rounded-full bg-[radial-gradient(closest-side,rgba(139,107,255,0.22),transparent)] blur-3xl opacity-40 lg:opacity-50 animate-[hero-drift_22s_ease-in-out_infinite] motion-reduce:animate-none" />
-      <div className="absolute -right-[10%] -top-[20%] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.18),transparent)] blur-3xl opacity-40 lg:opacity-50 animate-[hero-drift_28s_ease-in-out_infinite_reverse] motion-reduce:animate-none" />
+      <div
+        style={playState}
+        className="absolute -left-[15%] top-[10%] h-[70vmax] w-[70vmax] rounded-full bg-[radial-gradient(closest-side,rgba(139,107,255,0.22),transparent)] opacity-40 will-change-transform lg:opacity-50 animate-[hero-drift_22s_ease-in-out_infinite] motion-reduce:animate-none"
+      />
+      <div
+        style={playState}
+        className="absolute -right-[10%] -top-[20%] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(closest-side,rgba(99,102,241,0.18),transparent)] opacity-40 will-change-transform lg:opacity-50 animate-[hero-drift_28s_ease-in-out_infinite_reverse] motion-reduce:animate-none"
+      />
 
       {/* Fine grid, masked so it only shows in the middle of the hero */}
       <div

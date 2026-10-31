@@ -91,7 +91,7 @@ export default function DemoProjectsPage() {
       <section className="relative mt-16 overflow-hidden bg-noir py-20 sm:mt-20 sm:py-24">
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 top-0 h-[480px] w-[480px] rounded-full bg-[#6d5bd0]/20 blur-[150px]"
+          className="pointer-events-none absolute -right-64 -top-40 h-[52rem] w-[52rem] rounded-full bg-[radial-gradient(closest-side,rgba(109,91,208,0.22),transparent)]"
         />
         <div className={cn(container, "relative")}>
           <SectionHeading

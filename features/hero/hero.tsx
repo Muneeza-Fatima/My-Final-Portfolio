@@ -112,11 +112,14 @@ function SweepLine({
 
 export function Hero() {
   const goTo = useSectionNav();
+  // Pause the backdrop animation once the hero has scrolled out of view.
+  const sectionRef = useRef<HTMLElement>(null);
+  const heroVisible = useInView(sectionRef, { margin: "100px 0px" });
 
   return (
-    <section id="home" className="relative bg-noir">
+    <section ref={sectionRef} id="home" className="relative bg-noir">
       <div className="relative overflow-hidden bg-noir">
-        <HeroBackdrop />
+        <HeroBackdrop paused={!heroVisible} />
 
         <div className="relative z-10 flex min-h-[100svh] flex-col">
           {/* Content starts well below the fixed navbar, so nothing sits behind it */}

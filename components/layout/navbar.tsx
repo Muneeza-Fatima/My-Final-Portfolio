@@ -129,7 +129,7 @@ export function Navbar() {
               <Link
                 href="/#contact"
                 onClick={handleNav("contact")}
-                className="btn-shine inline-flex items-center rounded-full bg-[#a78bfa]/20 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-md transition-colors hover:bg-[#a78bfa]/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-noir"
+                className="btn-shine inline-flex items-center rounded-full bg-[#a78bfa]/20 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#a78bfa]/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-soft focus-visible:ring-offset-2 focus-visible:ring-offset-noir"
               >
                 Let&apos;s talk
               </Link>
