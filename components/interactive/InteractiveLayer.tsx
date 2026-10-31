@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 
 const CustomCursor = dynamic(() => import("./CustomCursor"), { ssr: false });
 const Preloader = dynamic(() => import("./Preloader"), { ssr: false });
+const ChatWidget = dynamic(() => import("./ChatWidget"), { ssr: false });
 
-// Client-only global effects. The cursor only mounts for fine pointers
+// Client-only global effects: preloader, chat assistant and cursor. The cursor only mounts for fine pointers
 // (mouse/trackpad) and never for reduced motion.
 export function InteractiveLayer() {
   const [fineCursor, setFineCursor] = useState(false);
@@ -22,6 +23,7 @@ export function InteractiveLayer() {
   return (
     <>
       <Preloader />
+      <ChatWidget />
       {fineCursor && <CustomCursor />}
     </>
   );

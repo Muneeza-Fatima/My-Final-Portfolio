@@ -144,8 +144,8 @@ export function Hero() {
                   <Image
                     src="/images/muneeza-cutout.png"
                     alt="Muneeza Fatima — Frontend Developer"
-                    width={1200}
-                    height={1400}
+                    width={1086}
+                    height={1448}
                     priority
                     sizes="(max-width: 1024px) 78vw, 470px"
                     className="h-full w-auto max-w-none object-contain object-bottom [filter:drop-shadow(0_18px_30px_rgba(0,0,0,0.35))]"

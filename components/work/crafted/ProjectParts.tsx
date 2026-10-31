@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 
@@ -72,6 +72,30 @@ export function BrowserShot({
           </span>
         )}
       </div>
+    </div>
+  );
+}
+
+// Client rating as gold stars, e.g. "★★★★★ 5.0 client rating".
+export function Rating({ value, className }: { value: number; className?: string }) {
+  return (
+    <div
+      className={cn("inline-flex items-center gap-2", className)}
+      aria-label={`Rated ${value} out of 5 by the client`}
+    >
+      <span aria-hidden className="flex gap-0.5">
+        {Array.from({ length: 5 }, (_, index) => (
+          <Star
+            key={index}
+            size={14}
+            strokeWidth={1.5}
+            className={index < Math.round(value) ? "fill-[#f5c451] text-[#f5c451]" : "text-white/25"}
+          />
+        ))}
+      </span>
+      <span aria-hidden className="text-xs font-medium text-white/70">
+        {value.toFixed(1)} <span className="text-white/45">client rating</span>
+      </span>
     </div>
   );
 }

@@ -9,13 +9,13 @@ import {
 } from "framer-motion";
 import { useRef, useState } from "react";
 
-import { projects, type Project } from "@/data/projects";
+import { featuredProjects, type Project } from "@/data/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
-import { BrowserShot, ProjectLinks, trackShine } from "./ProjectParts";
+import { BrowserShot, ProjectLinks, Rating, trackShine } from "./ProjectParts";
 
-const total = projects.length;
+const total = featuredProjects.length;
 const pad = (value: number) => String(value).padStart(2, "0");
 
 // One wide project card: screenshot on the left, details on the right
@@ -37,7 +37,7 @@ function CardBody({ project, index }: { project: Project; index: number }) {
       <div className="flex flex-col px-2 pb-2 sm:px-3 lg:px-0 lg:pr-4">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45">
           <span className="font-mono tracking-normal text-[#b69cff]">
-            {project.number}
+            {pad(index + 1)}
             <span className="text-white/30"> / {pad(total)}</span>
           </span>
           <span>{project.category}</span>
@@ -51,6 +51,7 @@ function CardBody({ project, index }: { project: Project; index: number }) {
         <h3 className="mt-2 font-display text-[clamp(1.4rem,2.6vw,2.4rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:mt-4">
           {project.title}
         </h3>
+        {project.rating && <Rating value={project.rating} className="mt-2 sm:mt-3" />}
         <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/60 sm:mt-3 sm:line-clamp-none sm:leading-7">
           {project.description}
         </p>
@@ -160,7 +161,7 @@ export function ProjectStack() {
   if (reduceMotion) {
     return (
       <div className="flex flex-col gap-6">
-        {projects.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <article key={project.title} className={cardClass} onPointerMove={trackShine}>
             <CornerGlow />
             <div className="relative">
@@ -174,7 +175,7 @@ export function ProjectStack() {
 
   return (
     <div ref={ref} className="relative">
-      {projects.map((project, index) => (
+      {featuredProjects.map((project, index) => (
         <StackCard key={project.title} project={project} index={index} progress={scrollYProgress} />
       ))}
 
@@ -186,7 +187,7 @@ export function ProjectStack() {
           inView ? "opacity-100" : "opacity-0",
         )}
       >
-        {projects.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <li
             key={project.title}
             className={cn(

@@ -10,15 +10,35 @@ export type Project = {
   tech: string[];
   image: string;
   liveUrl: string;
-  // Only the game and the portfolio versions link their repo.
+  // Only the open-source builds link their repo.
   githubUrl?: string;
   badge?: string;
+  // Client rating out of 5, shown as stars.
+  rating?: number;
+  // Featured projects get the full-screen sticky stack; the rest sit in the
+  // compact grid below it.
   featured?: boolean;
 };
 
 export const projects: Project[] = [
   {
     number: "01",
+    title: "BH Ventures Website",
+    category: "Corporate Website",
+    type: "Client work",
+    description:
+      "The corporate website for BH Ventures FZE LLC, a Dubai free-zone venture platform — a cinematic video hero, ventures and services, multi-language support and an AI assistant.",
+    role: "Frontend & UI/UX Development",
+    focus: "Corporate Branding • Motion • Multi-language",
+    tech: ["Next.js", "React", "Tailwind CSS"],
+    image: "/projects/bh-ventures-website.webp",
+    liveUrl: "https://bh-ventures-demo.vercel.app",
+    badge: "Client work",
+    rating: 5,
+    featured: true,
+  },
+  {
+    number: "02",
     title: "Badar ul Haq Portfolio",
     category: "Client Portfolio",
     type: "Client work",
@@ -30,10 +50,11 @@ export const projects: Project[] = [
     image: "/projects/badarulhaq-portfolio.webp",
     liveUrl: "https://badarulhaq-portfolio.vercel.app",
     badge: "Client work",
+    rating: 4,
     featured: true,
   },
   {
-    number: "02",
+    number: "03",
     title: "BH Ventures Magazine",
     category: "Digital Magazine",
     type: "Client work",
@@ -45,10 +66,26 @@ export const projects: Project[] = [
     image: "/projects/bh-ventures-magazine-cover.jpg",
     liveUrl: "https://bh-ventures-magazine.vercel.app",
     badge: "Built for BH Ventures",
+    rating: 4,
     featured: true,
   },
   {
-    number: "03",
+    number: "04",
+    title: "3D Apartment Tour",
+    category: "3D Property Experience",
+    type: "3D / WebGL",
+    description:
+      "A scroll-driven 3D walkthrough of a luxury apartment in Downtown Dubai — from the tower's entrance to its skyline balcony, with floor plan, amenities and location.",
+    role: "Frontend & 3D Development",
+    focus: "WebGL • Scroll Storytelling • Motion",
+    tech: ["Next.js", "Three.js", "GSAP", "Lenis", "Tailwind CSS"],
+    image: "/projects/apartment-tour.webp",
+    liveUrl: "https://3-d-apartment-tour.vercel.app",
+    badge: "Concept build",
+    featured: true,
+  },
+  {
+    number: "05",
     title: "Velvet & Whisk",
     category: "E-commerce Experience",
     type: "Website",
@@ -59,9 +96,10 @@ export const projects: Project[] = [
     tech: ["HTML5", "CSS3", "JavaScript (ES6)"],
     image: "/projects/velvet-whisk-hero.webp",
     liveUrl: "https://muneeza-fatima.github.io/Velvet-and-Whisk/",
+    githubUrl: "https://github.com/Muneeza-Fatima/Velvet-and-Whisk",
   },
   {
-    number: "04",
+    number: "06",
     title: "Aura Clinic",
     category: "Healthcare Website",
     type: "Website",
@@ -72,9 +110,10 @@ export const projects: Project[] = [
     tech: ["HTML5", "CSS3", "JavaScript (ES6)"],
     image: "/projects/aura-clinic-hero.webp",
     liveUrl: "https://muneeza-fatima.github.io/Aura-Clinic/",
+    githubUrl: "https://github.com/Muneeza-Fatima/Aura-Clinic",
   },
   {
-    number: "05",
+    number: "07",
     title: "Restaurant Order System",
     category: "Food Ordering Platform",
     type: "Website",
@@ -85,9 +124,10 @@ export const projects: Project[] = [
     tech: ["HTML5", "CSS3", "JavaScript (ES6)"],
     image: "/projects/restaurant-order-system-hero.webp",
     liveUrl: "https://muneeza-fatima.github.io/Restraunt-order-system/",
+    githubUrl: "https://github.com/Muneeza-Fatima/Restraunt-order-system",
   },
   {
-    number: "06",
+    number: "08",
     title: "Tic-Tac-Toe Game",
     category: "Browser Game",
     type: "Game",
@@ -101,6 +141,9 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Muneeza-Fatima/Tic-Tac-Toe-Game-Project",
   },
 ];
+
+export const featuredProjects = projects.filter((project) => project.featured);
+export const moreProjects = projects.filter((project) => !project.featured);
 
 export type PortfolioVersion = {
   version: string;

@@ -5,9 +5,11 @@ import { pageMetadata } from "@/config/seo";
 import { CaseHeader } from "@/components/work/CaseHeader";
 import { BackBar } from "@/components/work/BackButton";
 import WorkCTA from "@/components/work/WorkCTA";
+import { MoreProjects } from "@/components/work/crafted/MoreProjects";
 import { PortfolioEvolution } from "@/components/work/crafted/PortfolioEvolution";
 import { ProjectStack } from "@/components/work/crafted/ProjectStack";
 import { Footer } from "@/features/footer";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = pageMetadata({
   title: "Crafted Work",
@@ -21,21 +23,39 @@ function SectionHeading({
   title,
   accent,
   intro,
+  dark = false,
 }: {
   eyebrow: string;
   title: string;
   accent: string;
   intro: string;
+  // Light text for sections on the dark (noir) background.
+  dark?: boolean;
 }) {
   return (
     <div className="mb-10 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-12">
       <div>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-muted">{eyebrow}</p>
-        <h2 className="mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]">
-          {title} <span className="heading-accent text-[#6d5bd0]">{accent}</span>
+        <p
+          className={cn(
+            "text-[10px] font-semibold uppercase tracking-[0.35em]",
+            dark ? "text-[#b69cff]" : "text-muted",
+          )}
+        >
+          {eyebrow}
+        </p>
+        <h2
+          className={cn(
+            "mt-3 font-display text-[clamp(2.2rem,4.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.03em]",
+            dark && "text-white",
+          )}
+        >
+          {title}{" "}
+          <span className={cn("heading-accent", dark ? "text-[#b69cff]" : "text-[#6d5bd0]")}>{accent}</span>
         </h2>
       </div>
-      <p className="max-w-md text-sm leading-7 text-muted sm:text-[15px]">{intro}</p>
+      <p className={cn("max-w-md text-sm leading-7 sm:text-[15px]", dark ? "text-white/60" : "text-muted")}>
+        {intro}
+      </p>
     </div>
   );
 }
@@ -62,9 +82,26 @@ export default function DemoProjectsPage() {
             eyebrow="Selected work"
             title="Real projects,"
             accent="real launches."
-            intro="Client builds first, then independent projects — scroll through each one."
+            intro="Client builds and standout projects — scroll through each one."
           />
           <ProjectStack />
+        </div>
+      </section>
+
+      <section className="relative mt-16 overflow-hidden bg-noir py-20 sm:mt-20 sm:py-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-40 top-0 h-[480px] w-[480px] rounded-full bg-[#6d5bd0]/20 blur-[150px]"
+        />
+        <div className={cn(container, "relative")}>
+          <SectionHeading
+            dark
+            eyebrow="More builds"
+            title="Smaller projects,"
+            accent="big lessons."
+            intro="Independent websites and a game — each one live to explore."
+          />
+          <MoreProjects />
         </div>
       </section>
 
