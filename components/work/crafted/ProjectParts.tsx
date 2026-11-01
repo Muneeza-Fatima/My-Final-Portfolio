@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 
@@ -100,22 +101,32 @@ export function Rating({ value, className }: { value: number; className?: string
   );
 }
 
-// Glowing Live button; a GitHub button only when the project shares its repo.
+// Glowing Live button, an optional "View case study" button, and a GitHub
+// button only when the project shares its repo.
 export function ProjectLinks({
   title,
   liveUrl,
   githubUrl,
+  caseStudyHref,
   className,
   size = "md",
+  tone = "dark",
 }: {
   title: string;
   liveUrl: string;
   githubUrl?: string;
+  caseStudyHref?: string;
   className?: string;
   // "sm": compact Live button and an icon-only GitHub button.
   size?: "md" | "sm";
+  // Surface the buttons sit on: dark cards (default) or the light page.
+  tone?: "dark" | "light";
 }) {
   const small = size === "sm";
+  const outline =
+    tone === "dark"
+      ? "border-white/12 text-white/85 hover:border-[#b69cff]/50 hover:text-white hover:shadow-[0_0_22px_-6px_rgba(139,107,255,0.6)]"
+      : "border-line text-ink/80 hover:border-[#6d5bd0]/50 hover:text-ink hover:shadow-[0_10px_24px_-14px_rgba(109,91,208,0.7)]";
   return (
     <div className={cn("flex flex-wrap items-center gap-3", small && "gap-2", className)}>
       <a
@@ -139,6 +150,23 @@ export function ProjectLinks({
           className="relative transition-transform duration-300 group-hover/live:-translate-y-0.5 group-hover/live:translate-x-0.5"
         />
       </a>
+      {caseStudyHref && (
+        <Link
+          href={caseStudyHref}
+          aria-label={`Read the ${title} case study`}
+          className={cn(
+            "group/case inline-flex items-center gap-2 rounded-full border font-medium transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0",
+            outline,
+            small ? "px-4 py-2 text-xs" : "px-5 py-2.5 text-sm",
+          )}
+        >
+          View case study
+          <ArrowRight
+            size={small ? 13 : 15}
+            className="transition-transform duration-300 group-hover/case:translate-x-0.5"
+          />
+        </Link>
+      )}
       {githubUrl && (
         <a
           href={githubUrl}
@@ -147,7 +175,8 @@ export function ProjectLinks({
           aria-label={`${title} source code on GitHub`}
           title="View source on GitHub"
           className={cn(
-            "inline-flex items-center justify-center gap-2 rounded-full border border-white/12 font-medium text-white/85 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b69cff]/50 hover:text-white hover:shadow-[0_0_22px_-6px_rgba(139,107,255,0.6)] active:translate-y-0",
+            "inline-flex items-center justify-center gap-2 rounded-full border font-medium transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0",
+            outline,
             small ? "h-[34px] w-[34px]" : "px-5 py-2.5 text-sm",
           )}
         >

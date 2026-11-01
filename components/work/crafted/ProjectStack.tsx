@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import { useRef, useState } from "react";
 
-import { featuredProjects, type Project } from "@/data/projects";
+import { caseStudyHref, featuredProjects, type Project } from "@/data/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
@@ -73,6 +73,7 @@ function CardBody({ project, index }: { project: Project; index: number }) {
           title={project.title}
           liveUrl={project.liveUrl}
           githubUrl={project.githubUrl}
+          caseStudyHref={caseStudyHref(project)}
         />
       </div>
       <span className="sr-only">

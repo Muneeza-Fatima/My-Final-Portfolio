@@ -2,10 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 
-import { moreProjects } from "@/data/projects";
+import { caseStudyHref, moreProjects } from "@/data/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +14,8 @@ const ALL = "All";
 const filters = [ALL, ...new Set(moreProjects.map((project) => project.type))];
 
 // Minimal grid for the smaller builds, below the featured sticky stack:
-// a screenshot, the title and category, then Live demo and Repo buttons.
+// a screenshot, the title and category, then Live demo, Case study and a
+// GitHub icon button.
 export function MoreProjects() {
   const reduceMotion = usePrefersReducedMotion();
   const [filter, setFilter] = useState(ALL);
@@ -48,7 +50,7 @@ export function MoreProjects() {
         })}
       </div>
 
-      <motion.ul layout={!reduceMotion} className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <motion.ul layout={!reduceMotion} className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {visible.map((project) => (
             <motion.li
@@ -97,16 +99,23 @@ export function MoreProjects() {
                     className="transition-transform duration-300 group-hover/live:-translate-y-0.5 group-hover/live:translate-x-0.5"
                   />
                 </a>
+                <Link
+                  href={caseStudyHref(project)}
+                  aria-label={`Read the ${project.title} case study`}
+                  className="inline-flex items-center rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-medium text-white/85 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b69cff]/50 hover:text-white"
+                >
+                  Case study
+                </Link>
                 {project.githubUrl && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${project.title} source code on GitHub`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-medium text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b69cff]/50 hover:text-white"
+                    title="View source on GitHub"
+                    className="ml-auto flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-white/15 text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b69cff]/50 hover:text-white"
                   >
-                    <FaGithub size={13} />
-                    Repo
+                    <FaGithub size={14} />
                   </a>
                 )}
               </div>

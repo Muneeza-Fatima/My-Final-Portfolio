@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { faqs } from "@/data/faqs";
 import { profile } from "@/data/profile";
-import { portfolioVersions, projects } from "@/data/projects";
+import { caseStudyHref, portfolioVersions, projects } from "@/data/projects";
 import { services } from "@/data/services";
 import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { certificates, clientWork, currentRole, internship } from "@/data/work";
@@ -19,6 +19,7 @@ function facts() {
         `  Role: ${p.role}. Tech: ${p.tech.join(", ")}.`,
         p.rating ? `  Client rating: ${p.rating}/5.` : null,
         `  Live: ${p.liveUrl}${p.githubUrl ? ` | Code: ${p.githubUrl}` : ""}`,
+        `  Case study page: ${caseStudyHref(p)}. In her own words (retell in the third person): Problem: ${p.caseStudy.problem} Solution: ${p.caseStudy.solution} Result: ${p.caseStudy.result}`,
       ]
         .filter(Boolean)
         .join("\n"),

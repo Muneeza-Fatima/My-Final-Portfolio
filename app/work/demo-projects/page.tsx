@@ -99,7 +99,7 @@ export default function DemoProjectsPage() {
             eyebrow="More builds"
             title="Smaller projects,"
             accent="big lessons."
-            intro="Independent websites and a game — each one live to explore."
+            intro="Independent websites and a game, each with a live demo and a case study."
           />
           <MoreProjects />
         </div>

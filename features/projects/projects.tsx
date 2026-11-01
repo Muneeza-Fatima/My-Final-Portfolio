@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { RevealText } from "@/components/interactive/RevealText";
-import { projects } from "@/data/projects";
+import { caseStudyHref, projects } from "@/data/projects";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -47,7 +47,7 @@ export function Projects() {
           />
           <p className="text-sm leading-7 text-muted sm:text-[15px]">
             Frontend projects focused on responsive interfaces, thoughtful UX and
-            modern development practice — each one live and open source.
+            modern development practice — each with a live demo and a full case study.
           </p>
         </div>
 
@@ -58,11 +58,9 @@ export function Projects() {
         >
           {projects.map((project, index) => (
             <li key={project.title} className="relative border-b border-line">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="View"
+              <Link
+                href={caseStudyHref(project)}
+                data-cursor="Read"
                 onPointerEnter={() => setHovered(index)}
                 onFocus={() => setHovered(index)}
                 onBlur={() => setHovered(null)}
@@ -99,7 +97,7 @@ export function Projects() {
                 <span className="relative hidden h-12 w-12 items-center justify-center rounded-full border border-line text-ink transition-all duration-500 group-hover:rotate-45 group-hover:border-ink group-hover:bg-ink group-hover:text-canvas lg:flex">
                   <ArrowUpRight size={16} />
                 </span>
-              </a>
+              </Link>
             </li>
           ))}
 

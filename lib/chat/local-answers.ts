@@ -1,6 +1,6 @@
 import { faqs } from "@/data/faqs";
 import { profile } from "@/data/profile";
-import { featuredProjects, moreProjects, projects, type Project } from "@/data/projects";
+import { caseStudyHref, featuredProjects, moreProjects, projects, type Project } from "@/data/projects";
 import { services } from "@/data/services";
 import { contactEmail, contactPhone, socials } from "@/data/socials";
 import { clientWork, currentRole, internship } from "@/data/work";
@@ -41,7 +41,7 @@ function describeProject(project: Project) {
   ]
     .filter(Boolean)
     .join(" ");
-  const links = `You can try it live at ${project.liveUrl}${project.githubUrl ? `, and the code is on GitHub at ${project.githubUrl}` : ""}.`;
+  const links = `You can try it live at ${project.liveUrl}${project.githubUrl ? `, and the code is on GitHub at ${project.githubUrl}` : ""}. The full case study, with the problem and how she solved it, is at ${caseStudyHref(project)}`;
   // Descriptions start with "A ..." / "The ...", so they read as "It's a ...".
   // Their dash introduces the features ("website — a cinematic hero, ..."),
   // which reads best in chat as "website with a cinematic hero, ...".
@@ -110,11 +110,11 @@ const topics: Topic[] = [
       const rated = featuredProjects.filter((p) => p.rating);
       const five = rated.filter((p) => p.rating === 5).map((p) => `the ${p.title}`);
       const four = rated.filter((p) => p.rating === 4).map((p) => `the ${p.title}`);
-      const others = featuredProjects.filter((p) => !p.rating).map((p) => `a ${p.title}`);
+      const others = featuredProjects.filter((p) => !p.rating).map((p) => `the ${p.title}`);
       const sentences = [
         five.length ? `Her standout work right now is ${joinNatural(five)}, which the client rated 5 out of 5.` : null,
         four.length ? `${joinNatural(four).replace(/^the/, "The")} ${four.length > 1 ? "were both" : "was"} rated 4 out of 5.` : null,
-        others.length ? `She also built ${joinNatural(others)} as a concept project, and it's really fun to scroll through.` : null,
+        others.length ? `She's also proud of ${joinNatural(others)}, which you can explore live as well.` : null,
       ].filter(Boolean);
       return `${sentences.join(" ")}\n\nYou can see all of them with live demos at /work/demo-projects.`;
     },
