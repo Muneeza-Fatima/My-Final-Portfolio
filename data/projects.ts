@@ -32,7 +32,7 @@ export const projects: Project[] = [
     focus: "Corporate Branding • Motion • Multi-language",
     tech: ["Next.js", "React", "Tailwind CSS"],
     image: "/projects/bh-ventures-website.webp",
-    liveUrl: "https://bh-ventures-demo.vercel.app",
+    liveUrl: "https://bh-ventures-demo-muneeza1.vercel.app",
     badge: "Client work",
     rating: 5,
     featured: true,
